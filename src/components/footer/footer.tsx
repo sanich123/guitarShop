@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer__container container">
-        <a className="footer__logo logo" href="main.html">
+        <a className="footer__logo logo" href="/">
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип"/>
         </a>
         <div className="socials footer__socials">

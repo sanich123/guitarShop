@@ -11,7 +11,7 @@ interface ProductProps {
 }
 
 export default function Product({guitar}: ProductProps) {
-  const {previewImg, name, stringCount, type, vendorCode, description, price} = guitar;
+  const {previewImg, name, stringCount, type, vendorCode, description, price, rating} = guitar;
   return (
     <>
       <Svg />
@@ -27,7 +27,7 @@ export default function Product({guitar}: ProductProps) {
                 <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
                 <div className="rate product-container__rating" aria-hidden="true">
                   <span className="visually-hidden">Рейтинг:</span>
-                  {[...Array(5).keys()].map((number) => <Rating key={number} width={14} height={14} />)}
+                  <Rating width={14} height={14} rating={rating} />
                   <span className="rate__count"></span>
                   <span className="rate__message"></span>
                 </div>

@@ -1,3 +1,5 @@
+import Rating from '../rating/rating';
+
 interface CardProps {
   previewImg: string,
   name: string,
@@ -13,21 +15,7 @@ export default function Card({previewImg, name, rating, price}: CardProps) {
       <div className="product-card__info">
         <div className="rate product-card__rate" aria-hidden="true">
           <span className="visually-hidden">Рейтинг:</span>
-          <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"/>
-          </svg>
-          <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"/>
-          </svg>
-          <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"/>
-          </svg>
-          <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-full-star"/>
-          </svg>
-          <svg width="12" height="11" aria-hidden="true">
-            <use xlinkHref="#icon-star"/>
-          </svg>
+          <Rating width={12} height={11} rating={rating} />
           <span className="rate__count">{rating}</span>
           <span className="rate__message"></span>
         </div>

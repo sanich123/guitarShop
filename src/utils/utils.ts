@@ -9,3 +9,5 @@ export const typeChanger = (type: string) => {
     return 'Электрическая';
   }
 };
+
+export const numbersMaker = [...Array(5).keys()].map((number) => ++number);
