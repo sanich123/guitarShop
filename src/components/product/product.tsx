@@ -1,9 +1,17 @@
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import Svg from '../svg/svg';
+import Rating from '../rating/rating';
+import Breadcrumbs from '../breadcrumbs/breadcrumbs';
+import { Guitar } from '../../types/types';
+import {typeChanger} from '../../utils/utils';
 
-export default function Product() {
+interface ProductProps {
+  guitar: Guitar,
+}
 
+export default function Product({guitar}: ProductProps) {
+  const {previewImg, name, stringCount, type, vendorCode, description, price} = guitar;
   return (
     <>
       <Svg />
@@ -12,34 +20,14 @@ export default function Product() {
         <main className="page-content">
           <div className="container">
             <h1 className="page-content__title title title--bigger">Товар</h1>
-            <ul className="breadcrumbs page-content__breadcrumbs">
-              <li className="breadcrumbs__item"><a className="link" href="./main.html">Главная</a>
-              </li>
-              <li className="breadcrumbs__item"><a className="link" href="./main.html">Каталог</a>
-              </li>
-              <li className="breadcrumbs__item"><a className="link" href="/">Товар</a>
-              </li>
-            </ul>
+            <Breadcrumbs />
             <div className="product-container">
-              <img className="product-container__img" src="img/content/guitar-2.jpg" width="90" height="235" alt="" />
+              <img className="product-container__img" src={previewImg} width="90" height="235" alt="" />
               <div className="product-container__info-wrapper">
-                <h2 className="product-container__title title title--big title--uppercase">СURT Z30 Plus</h2>
-                <div className="rate product-container__rating" aria-hidden="true"><span className="visually-hidden">Рейтинг:</span>
-                  <svg width="14" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="14" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="14" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="14" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-full-star"></use>
-                  </svg>
-                  <svg width="14" height="14" aria-hidden="true">
-                    <use xlinkHref="#icon-star"></use>
-                  </svg>
+                <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
+                <div className="rate product-container__rating" aria-hidden="true">
+                  <span className="visually-hidden">Рейтинг:</span>
+                  {[...Array(5).keys()].map((number) => <Rating key={number} width={14} height={14} />)}
                   <span className="rate__count"></span>
                   <span className="rate__message"></span>
                 </div>
@@ -50,24 +38,24 @@ export default function Product() {
                     <table className="tabs__table">
                       <tr className="tabs__table-row">
                         <td className="tabs__title">Артикул:</td>
-                        <td className="tabs__value">SO754565</td>
+                        <td className="tabs__value">{vendorCode}</td>
                       </tr>
                       <tr className="tabs__table-row">
                         <td className="tabs__title">Тип:</td>
-                        <td className="tabs__value">Электрогитара</td>
+                        <td className="tabs__value">{typeChanger(type)}</td>
                       </tr>
                       <tr className="tabs__table-row">
                         <td className="tabs__title">Количество струн:</td>
-                        <td className="tabs__value">6 струнная</td>
+                        <td className="tabs__value">{stringCount} струнная</td>
                       </tr>
                     </table>
-                    <p className="tabs__product-description hidden">Гитара подходит как для старта обучения, так и для домашних занятий или использования в полевых условиях, например, в походах или для проведения уличных выступлений. Доступная стоимость, качество и надежная конструкция, а также приятный внешний вид, который сделает вас звездой вечеринки.</p>
+                    <p className="tabs__product-description hidden">{description}</p>
                   </div>
                 </div>
               </div>
               <div className="product-container__price-wrapper">
                 <p className="product-container__price-info product-container__price-info--title">Цена:</p>
-                <p className="product-container__price-info product-container__price-info--value">52 000 ₽</p>
+                <p className="product-container__price-info product-container__price-info--value">{price}</p>
                 <a className="button button--red button--big product-container__button" href="/">Добавить в корзину</a>
               </div>
             </div>
