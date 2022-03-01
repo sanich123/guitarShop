@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import { mockGuitars } from '../../mocks/mocks';
+import { appRoutes } from '../../utils/const';
 import Card from '../card/card';
 import Footer from '../footer/footer';
 import Header from '../header/header';
@@ -18,7 +20,7 @@ export default function Main() {
                 <a className="link" href="./main.html">Главная</a>
               </li>
               <li className="breadcrumbs__item">
-                <a className="link" href="/">Каталог</a>
+                <Link className="link" to={appRoutes.main}>Каталог</Link>
               </li>
             </ul>
             <div className="catalog">
@@ -85,11 +87,12 @@ export default function Main() {
               </div>
               <div className="cards catalog__cards">
                 {mockGuitars.map(({id, previewImg, name, rating, price}) =>
-                  (<Card key={id} previewImg={previewImg} name={name} rating={rating} price={price} />))}
+                  (<Card key={id} previewImg={previewImg} name={name} rating={rating} price={price} id={id} />))}
               </div>
               <div className="pagination page-content__pagination">
                 <ul className="pagination__list">
-                  <li className="pagination__page pagination__page--active"><a className="link pagination__page-link" href="1">1</a>
+                  <li className="pagination__page pagination__page--active">
+                    <a className="link pagination__page-link" href="1">1</a>
                   </li>
                   <li className="pagination__page"><a className="link pagination__page-link" href="2">2</a>
                   </li>

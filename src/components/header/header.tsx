@@ -1,14 +1,17 @@
+import { Link } from 'react-router-dom';
+import { appRoutes } from '../../utils/const';
+
 export default function Header() {
   return (
     <header className="header" id="header">
       <div className="container header__wrapper">
-        <a className="header__logo logo" href="/">
+        <Link className="header__logo logo" to={appRoutes.main}>
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" />
-        </a>
+        </Link>
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li>
-              <a className="link main-nav__link" href="/">Каталог</a>
+              <Link className="link main-nav__link" to={appRoutes.main}>Каталог</Link>
             </li>
             <li>
               <a className="link main-nav__link" href="/">Где купить?</a>
@@ -22,7 +25,7 @@ export default function Header() {
           <form className="form-search__form">
             <button className="form-search__submit" type="submit">
               <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
-                <use xlinkHref="#icon-search"></use>
+                <use xlinkHref="#icon-search"/>
               </svg>
               <span className="visually-hidden">Начать поиск</span>
             </button>
@@ -40,8 +43,10 @@ export default function Header() {
         </div>
         <a className="header__cart-link" href="/" aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
-            <use xlinkHref="#icon-basket"></use>
-          </svg><span className="visually-hidden">Перейти в корзину</span><span className="header__cart-count">2</span>
+            <use xlinkHref="#icon-basket"/>
+          </svg>
+          <span className="visually-hidden">Перейти в корзину</span>
+          <span className="header__cart-count">2</span>
         </a>
       </div>
     </header>

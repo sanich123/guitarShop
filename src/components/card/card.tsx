@@ -1,13 +1,15 @@
+import { Link } from 'react-router-dom';
 import Rating from '../rating/rating';
 
 interface CardProps {
   previewImg: string,
   name: string,
   rating: number,
-  price: number
+  price: number,
+  id: number
 }
 
-export default function Card({previewImg, name, rating, price}: CardProps) {
+export default function Card({previewImg, name, rating, price, id}: CardProps) {
 
   return (
     <div className="product-card">
@@ -25,7 +27,7 @@ export default function Card({previewImg, name, rating, price}: CardProps) {
         </p>
       </div>
       <div className="product-card__buttons">
-        <a className="button button--mini" href="/">Подробнее</a>
+        <Link className="button button--mini" to={`product/${id}`}>Подробнее</Link>
         <a className="button button--red button--mini button--add-to-cart" href="/">Купить</a>
       </div>
     </div>

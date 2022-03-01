@@ -1,34 +1,17 @@
+import {Link} from 'react-router-dom';
+import { appRoutes } from '../../utils/const';
+import NavLinks from './nav-links/nav-links';
+import Social from './social-links/social';
+
 export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer__container container">
-        <a className="footer__logo logo" href="/">
+        <Link className="footer__logo logo" to={appRoutes.main}>
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип"/>
-        </a>
+        </Link>
         <div className="socials footer__socials">
-          <ul className="socials__list">
-            <li className="socials-item">
-              <a className="socials__link" href="https://www.facebook.com/" aria-label="facebook">
-                <svg className="socials__icon" width="24" height="24" aria-hidden="true">
-                  <use xlinkHref="#icon-facebook"/>
-                </svg>
-              </a>
-            </li>
-            <li className="socials-item">
-              <a className="socials__link" href="https://www.instagram.com/" aria-label="instagram">
-                <svg className="socials__icon" width="24" height="24" aria-hidden="true">
-                  <use xlinkHref="#icon-instagram"/>
-                </svg>
-              </a>
-            </li>
-            <li className="socials-item">
-              <a className="socials__link" href="https://www.twitter.com/" aria-label="twitter">
-                <svg className="socials__icon" width="24" height="24" aria-hidden="true">
-                  <use xlinkHref="#icon-twitter"/>
-                </svg>
-              </a>
-            </li>
-          </ul>
+          <Social />
         </div>
         <section className="footer__nav-section footer__nav-section--info">
           <h2 className="footer__nav-title">О нас</h2>
@@ -36,23 +19,7 @@ export default function Footer() {
         </section>
         <section className="footer__nav-section footer__nav-section--links">
           <h2 className="footer__nav-title">Информация</h2>
-          <ul className="footer__nav-list">
-            <li className="footer__nav-list-item">
-              <a className="link" href="#top">Где купить?</a>
-            </li>
-            <li className="footer__nav-list-item">
-              <a className="link" href="#top">Блог</a>
-            </li>
-            <li className="footer__nav-list-item">
-              <a className="link" href="#top">Вопрос - ответ</a>
-            </li>
-            <li className="footer__nav-list-item">
-              <a className="link" href="#top">Возврат</a>
-            </li>
-            <li className="footer__nav-list-item">
-              <a className="link" href="#top">Сервис-центры</a>
-            </li>
-          </ul>
+          <NavLinks/>
         </section>
         <section className="footer__nav-section footer__nav-section--contacts">
           <h2 className="footer__nav-title">Контакты</h2>
