@@ -27,7 +27,7 @@ export default function Card({previewImg, name, rating, price, id}: CardProps) {
         </p>
       </div>
       <div className="product-card__buttons">
-        <Link className="button button--mini" to={`product/${id}`}>Подробнее</Link>
+        <Link className="button button--mini" to={`/${id}`}>Подробнее</Link>
         <a className="button button--red button--mini button--add-to-cart" href="/">Купить</a>
       </div>
     </div>

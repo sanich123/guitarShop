@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { mockGuitars } from '../../mocks/mocks';
 import { appRoutes } from '../../utils/const';
 import Card from '../card/card';
+import PriceFilters from '../filters/price-filters/price-filters';
+import TypeFilters from '../filters/type-filters/type-filters';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import Svg from '../svg/svg';
@@ -17,7 +19,7 @@ export default function Main() {
             <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
             <ul className="breadcrumbs page-content__breadcrumbs">
               <li className="breadcrumbs__item">
-                <a className="link" href="./main.html">Главная</a>
+                <Link className="link" to={appRoutes.main}>Главная</Link>
               </li>
               <li className="breadcrumbs__item">
                 <Link className="link" to={appRoutes.main}>Каталог</Link>
@@ -26,34 +28,8 @@ export default function Main() {
             <div className="catalog">
               <form className="catalog-filter">
                 <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
-                <fieldset className="catalog-filter__block">
-                  <legend className="catalog-filter__block-title">Цена, ₽</legend>
-                  <div className="catalog-filter__price-range">
-                    <div className="form-input">
-                      <label className="visually-hidden">Минимальная цена</label>
-                      <input type="number" placeholder="1 000" id="priceMin" name="от"/>
-                    </div>
-                    <div className="form-input">
-                      <label className="visually-hidden">Максимальная цена</label>
-                      <input type="number" placeholder="30 000" id="priceMax" name="до"/>
-                    </div>
-                  </div>
-                </fieldset>
-                <fieldset className="catalog-filter__block">
-                  <legend className="catalog-filter__block-title">Тип гитар</legend>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="acoustic" name="acoustic"/>
-                    <label htmlFor="acoustic">Акустические гитары</label>
-                  </div>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="electric" name="electric"/>
-                    <label htmlFor="electric">Электрогитары</label>
-                  </div>
-                  <div className="form-checkbox catalog-filter__block-item">
-                    <input className="visually-hidden" type="checkbox" id="ukulele" name="ukulele"/>
-                    <label htmlFor="ukulele">Укулеле</label>
-                  </div>
-                </fieldset>
+                <PriceFilters guitars={mockGuitars} />
+                <TypeFilters guitars={mockGuitars} />
                 <fieldset className="catalog-filter__block">
                   <legend className="catalog-filter__block-title">Количество струн</legend>
                   <div className="form-checkbox catalog-filter__block-item">
@@ -94,9 +70,11 @@ export default function Main() {
                   <li className="pagination__page pagination__page--active">
                     <a className="link pagination__page-link" href="1">1</a>
                   </li>
-                  <li className="pagination__page"><a className="link pagination__page-link" href="2">2</a>
+                  <li className="pagination__page">
+                    <a className="link pagination__page-link" href="2">2</a>
                   </li>
-                  <li className="pagination__page"><a className="link pagination__page-link" href="3">3</a>
+                  <li className="pagination__page">
+                    <a className="link pagination__page-link" href="3">3</a>
                   </li>
                   <li className="pagination__page pagination__page--next" id="next">
                     <a className="link pagination__page-link" href="2">Далее</a>
