@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { tabs } from '../../../utils/const';
 import { typeChanger } from '../../../utils/utils';
 
 interface PropertiesProps {
@@ -8,12 +10,26 @@ interface PropertiesProps {
 }
 
 export default function Properties({vendorCode, stringCount, description, type}: PropertiesProps) {
+  const [activeTab, setActiveTab] = useState(tabs.char);
+  const isChar = activeTab === tabs.char ? 'button--black-border' : '';
+  const isDesc = activeTab === tabs.desc ? 'button--black-border' : '';
 
   return (
     <div className="tabs">
-      <a className="button button--medium tabs__button" href="#characteristics">Характеристики</a>
-      <a className="button button--black-border button--medium tabs__button" href="#description">Описание</a>
+      <a
+        className={`button ${isDesc} button--medium tabs__button`}
+        href="#description"
+        onClick={() => setActiveTab(tabs.char)}
+      >Характеристики
+      </a>
+      <a
+        className={`button ${isChar} button--medium tabs__button`}
+        href="#description"
+        onClick={() => setActiveTab('description')}
+      >Описание
+      </a>
       <div className="tabs__content" id="characteristics">
+        {activeTab === tabs.char &&
         <table className="tabs__table">
           <tbody>
             <tr className="tabs__table-row">
@@ -29,9 +45,11 @@ export default function Properties({vendorCode, stringCount, description, type}:
               <td className="tabs__value">{stringCount} струнная</td>
             </tr>
           </tbody>
-        </table>
-        <p className="tabs__product-description hidden">{description}</p>
+        </table>}
+        {activeTab === tabs.desc && <p className="tabs__product-description">{description}</p>}
       </div>
     </div>
   );
 }
+
+
