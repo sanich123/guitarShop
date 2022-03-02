@@ -1,6 +1,12 @@
+import { Guitar } from '../../../types/types';
 import { stringsTypes } from '../../../utils/const';
 
-export default function StringFilters() {
+interface StringFiltersProps {
+  guitars: Guitar[]
+}
+
+export default function StringFilters({guitars}: StringFiltersProps) {
+  const existingStrings = [...new Set(guitars.map(({stringCount}) => stringCount))];
 
   return (
     <fieldset className="catalog-filter__block">
@@ -12,6 +18,7 @@ export default function StringFilters() {
             type="checkbox"
             id={`${number}-strings`}
             name={`${number}-strings`}
+            disabled={!existingStrings.includes(number)}
           />
           <label htmlFor={`${number}-strings`}>{number}</label>
         </div>

@@ -7,6 +7,9 @@ import StringFilters from '../filters/strings-filters/string-filters';
 import TypeFilters from '../filters/type-filters/type-filters';
 import Footer from '../footer/footer';
 import Header from '../header/header';
+import MainPagination from '../main-pagination/main-pagination';
+import SortOrder from '../sort/sort-order/sort-order';
+import SortType from '../sort/sort-type/sort-type';
 import Svg from '../svg/svg';
 
 export default function Main() {
@@ -31,38 +34,19 @@ export default function Main() {
                 <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
                 <PriceFilters guitars={mockGuitars} />
                 <TypeFilters guitars={mockGuitars} />
-                <StringFilters />
+                <StringFilters guitars={mockGuitars} />
               </form>
               <div className="catalog-sort">
                 <h2 className="catalog-sort__title">Сортировать:</h2>
-                <div className="catalog-sort__type">
-                  <button className="catalog-sort__type-button catalog-sort__type-button--active" aria-label="по цене" tabIndex={-1}>по цене</button>
-                  <button className="catalog-sort__type-button" aria-label="по популярности">по популярности</button>
-                </div>
-                <div className="catalog-sort__order">
-                  <button className="catalog-sort__order-button catalog-sort__order-button--up catalog-sort__order-button--active" aria-label="По возрастанию" tabIndex={-1}></button>
-                  <button className="catalog-sort__order-button catalog-sort__order-button--down" aria-label="По убыванию"></button>
-                </div>
+                <SortType/>
+                <SortOrder/>
               </div>
               <div className="cards catalog__cards">
                 {mockGuitars.map(({id, previewImg, name, rating, price}) =>
                   (<Card key={id} previewImg={previewImg} name={name} rating={rating} price={price} id={id} />))}
               </div>
               <div className="pagination page-content__pagination">
-                <ul className="pagination__list">
-                  <li className="pagination__page pagination__page--active">
-                    <a className="link pagination__page-link" href="1">1</a>
-                  </li>
-                  <li className="pagination__page">
-                    <a className="link pagination__page-link" href="2">2</a>
-                  </li>
-                  <li className="pagination__page">
-                    <a className="link pagination__page-link" href="3">3</a>
-                  </li>
-                  <li className="pagination__page pagination__page--next" id="next">
-                    <a className="link pagination__page-link" href="2">Далее</a>
-                  </li>
-                </ul>
+                <MainPagination/>
               </div>
             </div>
           </div>
