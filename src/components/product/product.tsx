@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom';
 import Properties from './properties/properties';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
+import { appRoutes } from '../../utils/const';
 
 interface ProductProps {
   guitars: Guitar[],
@@ -27,7 +28,7 @@ export default function Product({guitars}: ProductProps) {
         <main className="page-content">
           <div className="container">
             <h1 className="page-content__title title title--bigger">Товар</h1>
-            <Breadcrumbs />
+            <Breadcrumbs place={appRoutes.product}/>
             <div className="product-container">
               <img className="product-container__img" src={previewImg} width="90" height="235" alt="" />
               <div className="product-container__info-wrapper">

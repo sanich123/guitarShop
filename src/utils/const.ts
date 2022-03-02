@@ -1,6 +1,7 @@
 export const appRoutes = {
-  main: '/',
+  main: '/main',
   product: '/:id',
+  cart: '/cart',
 };
 
 export const media = ['facebook', 'twitter', 'instagram'];

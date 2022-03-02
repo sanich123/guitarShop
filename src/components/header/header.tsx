@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { appRoutes } from '../../utils/const';
+import NavList from './nav-list/nav-list';
 
 export default function Header() {
   return (
@@ -9,17 +10,7 @@ export default function Header() {
           <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" />
         </Link>
         <nav className="main-nav">
-          <ul className="main-nav__list">
-            <li>
-              <Link className="link main-nav__link" to={appRoutes.main}>Каталог</Link>
-            </li>
-            <li>
-              <a className="link main-nav__link" href="/">Где купить?</a>
-            </li>
-            <li>
-              <a className="link main-nav__link" href="/">О компании</a>
-            </li>
-          </ul>
+          <NavList/>
         </nav>
         <div className="form-search">
           <form className="form-search__form">
@@ -29,7 +20,7 @@ export default function Header() {
               </svg>
               <span className="visually-hidden">Начать поиск</span>
             </button>
-            <input className="form-search__input" id="search" type="text" autoComplete="off" placeholder="что вы ищите?" />
+            <input className="form-search__input" id="search" type="text" autoComplete="off" placeholder="что вы ищете?" />
             <label className="visually-hidden" htmlFor="search">Поиск</label>
           </form>
           <ul className="form-search__select-list hidden">
@@ -41,13 +32,13 @@ export default function Header() {
             <li className="form-search__select-item" tabIndex={0}>Четстер UX5</li>
           </ul>
         </div>
-        <a className="header__cart-link" href="/" aria-label="Корзина">
+        <Link className="header__cart-link" to={appRoutes.cart} aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"/>
           </svg>
           <span className="visually-hidden">Перейти в корзину</span>
           <span className="header__cart-count">2</span>
-        </a>
+        </Link>
       </div>
     </header>
   );
