@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { typeChanger } from '../../../utils/utils';
 
 interface CartItemProps {
@@ -7,11 +7,22 @@ interface CartItemProps {
   price: number,
   stringCount: number,
   type: string,
-  vendorCode: string
+  vendorCode: string,
+  setQuantity: (arg: number) => void,
+  id: number,
+  setId: (arg: string) => void
 }
 
-export default function CartItem({previewImg, name, price, stringCount, type, vendorCode}: CartItemProps) {
+export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, setQuantity, id, setId}: CartItemProps) {
   const [amount, setAmount] = useState(1);
+  const totalPrice = price * (amount || 1);
+
+  useEffect(() => {
+    setQuantity(amount);
+    setId(id.toString());
+  }, [amount, id, setId, setQuantity]);
+
+
   return (
     <div className="cart-item">
       <button className="cart-item__close-button button-cross" type="button" aria-label="Удалить">
@@ -57,7 +68,11 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           </svg>
         </button>
       </div>
-      <div className="cart-item__price-total">{price * (amount || 1)}</div>
+      <div
+        className="cart-item__price-total"
+      >
+        {totalPrice}
+      </div>
     </div>
   );
 }

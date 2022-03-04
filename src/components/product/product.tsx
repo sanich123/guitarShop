@@ -10,6 +10,9 @@ import Properties from './properties/properties';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
 import { appRoutes } from '../../utils/const';
+import AddReview from './reviews/add-review/add-review';
+import { useState } from 'react';
+import AddToCart from './addToCart/add-to-cart';
 
 interface ProductProps {
   guitars: Guitar[],
@@ -19,6 +22,8 @@ export default function Product({guitars}: ProductProps) {
   const uniq: {id: string} = useParams();
   const selected = guitars.filter(({id}) => id.toString() === uniq.id);
   const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = selected;
+  const [activeReview, setIsActive] = useState(false);
+  const [activeAddCart, setAddToCart] = useState(false);
 
   return (
     <>
@@ -46,16 +51,29 @@ export default function Product({guitars}: ProductProps) {
                   description={description}
                 />
               </div>
-              <Price price={price} />
+              <Price price={price} setAddToCart={setAddToCart} />
+              {activeAddCart &&
+              <AddToCart
+                setAddToCart={setAddToCart}
+                name={name}
+                stringCount={stringCount}
+                vendorCode={vendorCode}
+                price={price}
+                previewImg={previewImg}
+              />}
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
-              <a className="button button--red-border button--big reviews__submit-button" href="/">Оставить отзыв</a>
+              <button
+                onClick={() => setIsActive(true)}
+                className="button button--red-border button--big reviews__submit-button"
+              >Оставить отзыв
+              </button>
+              {activeReview && <AddReview setIsActive={setIsActive} name={name} />}
               <Reviews comments={comments}/>
               <a style={{zIndex: 900}} className="button button--red-border button--big reviews__up-button button--up" href="#header">Наверх</a>
             </section>
           </div>
-
         </main>
         <Footer />
       </div>
