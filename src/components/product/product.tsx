@@ -22,8 +22,8 @@ export default function Product({guitars}: ProductProps) {
   const uniq: {id: string} = useParams();
   const selected = guitars.filter(({id}) => id.toString() === uniq.id);
   const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = selected;
-  const [activeReview, setIsActive] = useState(false);
-  const [activeAddCart, setAddToCart] = useState(false);
+  const [showReview, setReview] = useState(false);
+  const [showAddCart, setAddToCart] = useState(false);
 
   return (
     <>
@@ -52,7 +52,7 @@ export default function Product({guitars}: ProductProps) {
                 />
               </div>
               <Price price={price} setAddToCart={setAddToCart} />
-              {activeAddCart &&
+              {showAddCart &&
               <AddToCart
                 setAddToCart={setAddToCart}
                 name={name}
@@ -65,11 +65,11 @@ export default function Product({guitars}: ProductProps) {
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
               <button
-                onClick={() => setIsActive(true)}
+                onClick={() => setReview(true)}
                 className="button button--red-border button--big reviews__submit-button"
               >Оставить отзыв
               </button>
-              {activeReview && <AddReview setIsActive={setIsActive} name={name} />}
+              {showReview && <AddReview setReview={setReview} name={name} />}
               <Reviews comments={comments}/>
               <a style={{zIndex: 900}} className="button button--red-border button--big reviews__up-button button--up" href="#header">Наверх</a>
             </section>

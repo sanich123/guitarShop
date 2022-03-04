@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+
 interface AddToCartProps {
   setAddToCart: (arg: boolean) => void,
   name: string,
@@ -8,6 +10,16 @@ interface AddToCartProps {
 }
 
 export default function AddToCart({setAddToCart, name, vendorCode, stringCount, price, previewImg}: AddToCartProps) {
+  useEffect(() => {
+    const onEsc = (evt: KeyboardEvent) => {
+      if (evt.key === 'Escape') {
+        evt.preventDefault();
+        setAddToCart(false);
+      }
+    };
+    document.addEventListener('keydown', onEsc);
+    return () => document.removeEventListener('keydown', onEsc);
+  });
 
   return (
     <div style={{position: 'relative', width: 550, height: 440, marginBottom: 50}}>
@@ -32,7 +44,7 @@ export default function AddToCart({setAddToCart, name, vendorCode, stringCount, 
               <button className="button button--red button--big modal__button modal__button--add">Добавить в корзину</button>
             </div>
             <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть">
-              <span className="button-cross__icon"></span>
+              <span className="button-cross__icon"/>
               <span className="modal__close-btn-interactive-area" onClick={() => setAddToCart(false)}></span>
             </button>
           </div>
