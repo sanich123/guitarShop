@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
 import { Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';

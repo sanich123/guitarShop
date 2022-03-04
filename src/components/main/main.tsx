@@ -1,6 +1,5 @@
-import { Link } from 'react-router-dom';
 import { mockGuitars } from '../../mocks/mocks';
-import { appRoutes } from '../../utils/const';
+import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Card from '../card/card';
 import PriceFilters from '../filters/price-filters/price-filters';
 import StringFilters from '../filters/strings-filters/string-filters';
@@ -13,6 +12,7 @@ import SortType from '../sort/sort-type/sort-type';
 import Svg from '../svg/svg';
 
 export default function Main() {
+
   return(
     <>
       <Svg />
@@ -21,14 +21,7 @@ export default function Main() {
         <main className="page-content">
           <div className="container">
             <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
-            <ul className="breadcrumbs page-content__breadcrumbs">
-              <li className="breadcrumbs__item">
-                <Link className="link" to={appRoutes.main}>Главная</Link>
-              </li>
-              <li className="breadcrumbs__item">
-                <Link className="link" to={appRoutes.main}>Каталог</Link>
-              </li>
-            </ul>
+            <Breadcrumbs/>
             <div className="catalog">
               <form className="catalog-filter">
                 <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
@@ -42,8 +35,8 @@ export default function Main() {
                 <SortOrder/>
               </div>
               <div className="cards catalog__cards">
-                {mockGuitars.map(({id, previewImg, name, rating, price}) =>
-                  (<Card key={id} previewImg={previewImg} name={name} rating={rating} price={price} id={id} />))}
+                {mockGuitars.map(({id, ...rest}) =>
+                  (<Card key={id} id={id} {...rest} />))}
               </div>
               <div className="pagination page-content__pagination">
                 <MainPagination/>
