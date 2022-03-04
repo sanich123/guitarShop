@@ -1,5 +1,5 @@
 export const appRoutes = {
-  main: '/main',
+  main: '/',
   product: '/:id',
   cart: '/cart',
 };

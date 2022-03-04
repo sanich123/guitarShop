@@ -632,7 +632,6 @@ button,
 }
 
 .no-transition {
-  /* stylelint-disable-next-line */
   -webkit-transition: none !important;
           transition: none !important;
 }
