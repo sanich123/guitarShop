@@ -10,7 +10,7 @@ export default function App() {
     <BrowserRouter>
       <Switch>
         <Route path={appRoutes.main} exact>
-          <Main/>
+          <Main mockGuitars={mockGuitars} />
         </Route>
         <Route path={appRoutes.cart} exact>
           <Cart guitars={mockGuitars.slice(0,3)}/>

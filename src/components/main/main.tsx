@@ -1,4 +1,6 @@
-import { mockGuitars } from '../../mocks/mocks';
+/* eslint-disable no-console */
+import { useState } from 'react';
+import { Guitar } from '../../types/types';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Card from '../card/card';
 import PriceFilters from '../filters/price-filters/price-filters';
@@ -11,7 +13,13 @@ import SortOrder from '../sort/sort-order/sort-order';
 import SortType from '../sort/sort-type/sort-type';
 import Svg from '../svg/svg';
 
-export default function Main() {
+export default function Main({mockGuitars}: {mockGuitars: Guitar[]}) {
+  const [pageNumber, setPageNumber] = useState(1);
+  const cardsOnPage = 4;
+  const endSlicing = pageNumber * cardsOnPage;
+  const beginSlicing = endSlicing - cardsOnPage;
+  const count = Math.ceil(mockGuitars.length / cardsOnPage);
+  const slicedGuitars = mockGuitars.slice(beginSlicing, endSlicing);
 
   return(
     <>
@@ -35,11 +43,15 @@ export default function Main() {
                 <SortOrder/>
               </div>
               <div className="cards catalog__cards">
-                {mockGuitars.map(({id, ...rest}) =>
+                {slicedGuitars.map(({id, ...rest}) =>
                   (<Card key={id} id={id} {...rest} />))}
               </div>
               <div className="pagination page-content__pagination">
-                <MainPagination/>
+                <MainPagination
+                  setPageNumber={setPageNumber}
+                  pageNumber={pageNumber}
+                  count={count}
+                />
               </div>
             </div>
           </div>
