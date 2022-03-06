@@ -16,12 +16,13 @@ import Page404 from '../page404/page404';
 
 export default function Main() {
   const [filterString, setFilterString] = useState('');
+  const [filterType, setFilterType] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
   const cardsOnPage = 5;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
 
-  const {data, isLoading, isError} = useFilterStringsQuery(filterString);
+  const {data, isLoading, isError} = useFilterStringsQuery(`${filterType}&${filterString}`);
   const guitars = data;
 
   if (isLoading) {
@@ -31,7 +32,6 @@ export default function Main() {
   if (isError) {
     return <Page404/>;
   }
-  // const existingStrings = [...new Set(data.map(({stringCount}: {stringCount: string}) => stringCount))];
 
   const count = Math.ceil(guitars.length / cardsOnPage);
   const slicedGuitars = guitars.slice(beginSlicing, endSlicing);
@@ -49,7 +49,7 @@ export default function Main() {
               <form className="catalog-filter">
                 <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
                 <PriceFilters guitars={guitars} />
-                <TypeFilters guitars={guitars} />
+                <TypeFilters setFilterType={setFilterType} />
                 <StringFilters setFilterString={setFilterString} />
               </form>
               <div className="catalog-sort">

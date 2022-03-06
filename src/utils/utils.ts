@@ -20,3 +20,5 @@ export const dateChanger =
       month: 'long',
     },
   )}`;
+
+export const stringMaker = (array: (number | false)[] | (string | false)[], type: string) => array.length === 0 ? '' : array.toString().split(',').map((str, i, arr) => i === arr.length - 1 ? `${type}=${str}` : `${type}=${str}&`).join('');

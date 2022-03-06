@@ -11,7 +11,7 @@ export const guitarsApi = createApi({
       query: (id = '') => `guitars?id=${id}`,
     }),
     filterStrings: builder.query({
-      query: (stringCount = '') => `guitars?${stringCount}`,
+      query: (filter = '') => `guitars?${filter}`,
     }),
   }),
 });
