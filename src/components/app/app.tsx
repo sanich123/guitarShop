@@ -5,12 +5,14 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import { appRoutes } from '../../utils/const';
 import Cart from '../cart/cart';
 
+
 export default function App() {
+
   return (
     <BrowserRouter>
       <Switch>
         <Route path={appRoutes.main} exact>
-          <Main mockGuitars={mockGuitars} />
+          <Main/>
         </Route>
         <Route path={appRoutes.cart} exact>
           <Cart guitars={mockGuitars.slice(0,3)}/>

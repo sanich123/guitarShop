@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import Rating from '../rating/rating';
 
-interface CardProps {
+export interface CardProps {
   previewImg: string,
   name: string,
   rating: number,

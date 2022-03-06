@@ -4,6 +4,7 @@ import { appRoutes } from '../../utils/const';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Footer from '../footer/footer';
 import Header from '../header/header';
+import Loader from '../loader/loader';
 import Svg from '../svg/svg';
 import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
@@ -13,6 +14,10 @@ export default function Cart({guitars}: {guitars: Guitar[]}) {
   const discount = 3000;
   const [quantity, setQuantity] = useState(1);
   const [cardId, setId] = useState('');
+
+  if (guitars.length === 0) {
+    return <Loader/>;
+  }
 
   const adaptedGuitars = guitars.map((guitar) => ({...guitar, quantity: 1}));
 

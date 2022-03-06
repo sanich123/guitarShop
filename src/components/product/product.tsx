@@ -13,6 +13,7 @@ import { appRoutes } from '../../utils/const';
 import AddReview from './reviews/add-review/add-review';
 import { useState } from 'react';
 import AddToCart from './addToCart/add-to-cart';
+import Loader from '../loader/loader';
 
 interface ProductProps {
   guitars: Guitar[],
@@ -24,6 +25,10 @@ export default function Product({guitars}: ProductProps) {
   const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = selected;
   const [showReview, setReview] = useState(false);
   const [showAddCart, setAddToCart] = useState(false);
+
+  if (guitars.length === 0) {
+    return <Loader/>;
+  }
 
   return (
     <>
