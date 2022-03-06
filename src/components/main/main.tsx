@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
-import { useGetGuitarsQuery } from '../../redux/guitars-api';
+import { useFilterStringsQuery } from '../../redux/guitars-api';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Card, { CardProps } from '../card/card';
 import PriceFilters from '../filters/price-filters/price-filters';
@@ -13,27 +12,26 @@ import MainPagination from '../main-pagination/main-pagination';
 import SortOrder from '../sort/sort-order/sort-order';
 import SortType from '../sort/sort-type/sort-type';
 import Svg from '../svg/svg';
-import { toast } from 'react-toastify';
 import Page404 from '../page404/page404';
 
 export default function Main() {
-
+  const [filterString, setFilterString] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
-  const cardsOnPage = 3;
+  const cardsOnPage = 5;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
-  const {data, isLoading, error} = useGetGuitarsQuery('');
+
+  const {data, isLoading, isError} = useFilterStringsQuery(filterString);
   const guitars = data;
 
   if (isLoading) {
     return <Loader/>;
   }
 
-  if (error) {
-    toast.warn(`Произошла ошибка. Статус ошибки ${error}`);
+  if (isError) {
     return <Page404/>;
   }
-  console.log(error);
+  // const existingStrings = [...new Set(data.map(({stringCount}: {stringCount: string}) => stringCount))];
 
   const count = Math.ceil(guitars.length / cardsOnPage);
   const slicedGuitars = guitars.slice(beginSlicing, endSlicing);
@@ -52,7 +50,7 @@ export default function Main() {
                 <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
                 <PriceFilters guitars={guitars} />
                 <TypeFilters guitars={guitars} />
-                <StringFilters guitars={guitars} />
+                <StringFilters setFilterString={setFilterString} />
               </form>
               <div className="catalog-sort">
                 <h2 className="catalog-sort__title">Сортировать:</h2>

@@ -1,10 +1,8 @@
-/* eslint-disable no-console */
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import Svg from '../svg/svg';
 import Rating from '../rating/rating';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import { Guitar } from '../../types/types';
 import { useParams } from 'react-router-dom';
 import Properties from './properties/properties';
 import Price from './price/price';
@@ -14,21 +12,26 @@ import AddReview from './reviews/add-review/add-review';
 import { useState } from 'react';
 import AddToCart from './addToCart/add-to-cart';
 import Loader from '../loader/loader';
+import { useGetGuitarQuery } from '../../redux';
+import Page404 from '../page404/page404';
+import { toast } from 'react-toastify';
 
-interface ProductProps {
-  guitars: Guitar[],
-}
-
-export default function Product({guitars}: ProductProps) {
+export default function Product() {
   const uniq: {id: string} = useParams();
-  const selected = guitars.filter(({id}) => id.toString() === uniq.id);
-  const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = selected;
+  const {data, isLoading, isError} = useGetGuitarQuery(uniq.id);
   const [showReview, setReview] = useState(false);
   const [showAddCart, setAddToCart] = useState(false);
 
-  if (guitars.length === 0) {
+  if (isLoading) {
     return <Loader/>;
   }
+
+  if (isError) {
+    toast.warn('Произошла ошибка.');
+    return <Page404/>;
+  }
+
+  const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = data;
 
   return (
     <>

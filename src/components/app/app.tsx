@@ -11,15 +11,11 @@ export default function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={appRoutes.main} exact>
-          <Main/>
-        </Route>
+        <Route component={Main} path={appRoutes.main} exact/>
         <Route path={appRoutes.cart} exact>
           <Cart guitars={mockGuitars.slice(0,3)}/>
         </Route>
-        <Route path={appRoutes.product} exact>
-          <Product guitars={mockGuitars} />
-        </Route>
+        <Route component={Product} path={appRoutes.product} exact/>
       </Switch>
     </BrowserRouter>
   );
