@@ -18,14 +18,16 @@ import Page404 from '../page404/page404';
 export default function Main() {
   const [filterString, setFilterString] = useState('');
   const [filterType, setFilterType] = useState('');
-  const [filterPrice, setFilterPrice] = useState('');
-  console.log(filterPrice);
+  const [filterMinPrice, setFilterMinPrice] = useState('');
+  const [filterMaxPrice, setFilterMaxPrice] = useState('');
+
   const [pageNumber, setPageNumber] = useState(1);
   const cardsOnPage = 5;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
+  const finalRequest = [`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
 
-  const {data, isLoading, isError} = useFilterStringsQuery(`${filterType}&${filterString}`);
+  const {data, isLoading, isError} = useFilterStringsQuery(finalRequest);
   const guitars = data;
 
   if (isLoading) {
@@ -51,7 +53,9 @@ export default function Main() {
             <div className="catalog">
               <form className="catalog-filter">
                 <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
-                <PriceFilters guitars={guitars} setFilterPrice={setFilterPrice} />
+                <PriceFilters guitars={guitars} setFilterMinPrice={setFilterMinPrice}
+                  setFilterMaxPrice={setFilterMaxPrice}
+                />
                 <TypeFilters setFilterType={setFilterType} />
                 <StringFilters setFilterString={setFilterString} />
               </form>
