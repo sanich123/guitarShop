@@ -20,12 +20,13 @@ export default function Main() {
   const [filterType, setFilterType] = useState('');
   const [filterMinPrice, setFilterMinPrice] = useState('');
   const [filterMaxPrice, setFilterMaxPrice] = useState('');
-
   const [pageNumber, setPageNumber] = useState(1);
-  const cardsOnPage = 5;
+
+  const cardsOnPage = 9;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
-  const finalRequest = [`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
+
+  const finalRequest = [`_page=${pageNumber}&_limit=${cardsOnPage}&_start=${beginSlicing}&_end=${endSlicing}`,`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
 
   const {data, isLoading, isError} = useFilterStringsQuery(finalRequest);
   const guitars = data;
@@ -38,8 +39,7 @@ export default function Main() {
     return <Page404/>;
   }
 
-  const count = Math.ceil(guitars.length / cardsOnPage);
-  const slicedGuitars = guitars.slice(beginSlicing, endSlicing);
+  const count = Math.ceil(9 / cardsOnPage);
 
   return(
     <>
@@ -53,7 +53,8 @@ export default function Main() {
             <div className="catalog">
               <form className="catalog-filter">
                 <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
-                <PriceFilters guitars={guitars} setFilterMinPrice={setFilterMinPrice}
+                <PriceFilters
+                  setFilterMinPrice={setFilterMinPrice}
                   setFilterMaxPrice={setFilterMaxPrice}
                 />
                 <TypeFilters setFilterType={setFilterType} />
@@ -65,7 +66,7 @@ export default function Main() {
                 <SortOrder/>
               </div>
               <div className="cards catalog__cards">
-                {slicedGuitars.map(({id, previewImg, name, rating, price}: CardProps) =>
+                {guitars.map(({id, previewImg, name, rating, price}: CardProps) =>
                   (<Card key={id} id={id} previewImg={previewImg} name={name} rating={rating} price={price} />))}
               </div>
               <div className="pagination page-content__pagination">
