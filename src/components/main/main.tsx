@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState } from 'react';
 import { useFilterStringsQuery } from '../../redux/guitars-api';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
@@ -17,6 +18,8 @@ import Page404 from '../page404/page404';
 export default function Main() {
   const [filterString, setFilterString] = useState('');
   const [filterType, setFilterType] = useState('');
+  const [filterPrice, setFilterPrice] = useState('');
+  console.log(filterPrice);
   const [pageNumber, setPageNumber] = useState(1);
   const cardsOnPage = 5;
   const endSlicing = pageNumber * cardsOnPage;
@@ -48,7 +51,7 @@ export default function Main() {
             <div className="catalog">
               <form className="catalog-filter">
                 <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
-                <PriceFilters guitars={guitars} />
+                <PriceFilters guitars={guitars} setFilterPrice={setFilterPrice} />
                 <TypeFilters setFilterType={setFilterType} />
                 <StringFilters setFilterString={setFilterString} />
               </form>
