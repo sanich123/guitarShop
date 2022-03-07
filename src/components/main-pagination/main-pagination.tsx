@@ -1,12 +1,21 @@
 import cn from 'classnames';
+import { useGetGuitarsQuery } from '../../redux/guitars-api';
+import Loader from '../loader/loader';
 
 interface MainPaginationProps {
   setPageNumber: (arg: number) => void,
   pageNumber: number,
-  count: number
+  cardsOnPage: number,
 }
 
-export default function MainPagination({setPageNumber, pageNumber, count}: MainPaginationProps) {
+export default function MainPagination({setPageNumber, pageNumber, cardsOnPage}: MainPaginationProps) {
+  const {data, isLoading} = useGetGuitarsQuery('');
+
+  if (isLoading) {
+    return <Loader/>;
+  }
+
+  const count = data.length / cardsOnPage;
   const isVisibleStart = cn('pagination__page', 'pagination__page--next', {'visually-hidden' : pageNumber === 1});
   const isVisibleEnd = cn('pagination__page', 'pagination__page--next', {'visually-hidden' : pageNumber === count});
 

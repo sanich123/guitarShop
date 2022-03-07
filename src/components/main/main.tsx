@@ -22,7 +22,7 @@ export default function Main() {
   const [filterMaxPrice, setFilterMaxPrice] = useState('');
   const [pageNumber, setPageNumber] = useState(1);
 
-  const cardsOnPage = 9;
+  const cardsOnPage = 3;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
 
@@ -38,8 +38,6 @@ export default function Main() {
   if (isError) {
     return <Page404/>;
   }
-
-  const count = Math.ceil(9 / cardsOnPage);
 
   return(
     <>
@@ -73,7 +71,7 @@ export default function Main() {
                 <MainPagination
                   setPageNumber={setPageNumber}
                   pageNumber={pageNumber}
-                  count={count}
+                  cardsOnPage={cardsOnPage}
                 />
               </div>
             </div>

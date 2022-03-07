@@ -14,8 +14,8 @@ export default function PriceFilters({setFilterMinPrice, setFilterMaxPrice}: Pri
   }
 
   const sortPrices = data.map(({price}: {price: number}) => price);
-  const minPrice = Math.min(...sortPrices).toString();
-  const maxPrice = Math.max(...sortPrices).toString();
+  const minPrice = Math.min(...sortPrices).toLocaleString('ru-Ru');
+  const maxPrice = Math.max(...sortPrices).toLocaleString('ru-Ru');
 
   return (
     <fieldset className="catalog-filter__block">
