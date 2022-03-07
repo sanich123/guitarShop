@@ -16,3 +16,5 @@ export const tabs = {
 
 export const marks = {'Отлично': 5, 'Хорошо': 4, 'Нормально': 3, 'Плохо': 2, 'Ужасно': 1};
 export const issues = ['Недостатки', 'Достоинства'];
+export const sortTypes = {'по цене': 'price', 'по популярности': 'rating'};
+export const sortDirections = {'По возрастанию': 'up', 'По убыванию': 'down'};
