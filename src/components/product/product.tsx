@@ -15,12 +15,14 @@ import Loader from '../loader/loader';
 import { useGetGuitarsQuery } from '../../redux';
 import Page404 from '../page404/page404';
 import { toast } from 'react-toastify';
+import SuccessCart from './succesCart/success-cart';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
   const {data, isLoading, isError} = useGetGuitarsQuery(`id=${uniq.id}`);
   const [showReview, setReview] = useState(false);
   const [showAddCart, setAddToCart] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
 
   if (isLoading) {
     return <Loader/>;
@@ -31,7 +33,7 @@ export default function Product() {
     return <Page404/>;
   }
 
-  const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = data;
+  const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments, id}] = data;
 
   return (
     <>
@@ -63,12 +65,16 @@ export default function Product() {
               {showAddCart &&
               <AddToCart
                 setAddToCart={setAddToCart}
+                setIsAdded={setIsAdded}
                 name={name}
                 stringCount={stringCount}
                 vendorCode={vendorCode}
                 price={price}
                 previewImg={previewImg}
+                id={id}
               />}
+              {isAdded &&
+              <SuccessCart/>}
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>

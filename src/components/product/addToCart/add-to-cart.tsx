@@ -1,15 +1,20 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../../redux/cart-slice';
 
 interface AddToCartProps {
   setAddToCart: (arg: boolean) => void,
+  setIsAdded: (arg: boolean) => void,
   name: string,
   vendorCode: string,
   price: number,
   previewImg: string,
-  stringCount: number
+  stringCount: number,
+  id: number
 }
 
-export default function AddToCart({setAddToCart, name, vendorCode, stringCount, price, previewImg}: AddToCartProps) {
+export default function AddToCart({setIsAdded, setAddToCart, name, vendorCode, stringCount, price, previewImg, id}: AddToCartProps) {
+  const dispatch = useDispatch();
   useEffect(() => {
     const onEsc = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
@@ -41,11 +46,17 @@ export default function AddToCart({setAddToCart, name, vendorCode, stringCount, 
               </div>
             </div>
             <div className="modal__button-container">
-              <button className="button button--red button--big modal__button modal__button--add">Добавить в корзину</button>
+              <button onClick={() => {
+                dispatch(addToCart(id));
+                setAddToCart(false);
+                setIsAdded(true);}}
+              className="button button--red button--big modal__button modal__button--add"
+              >Добавить в корзину
+              </button>
             </div>
             <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть">
               <span className="button-cross__icon"/>
-              <span className="modal__close-btn-interactive-area" onClick={() => setAddToCart(false)}></span>
+              <span className="modal__close-btn-interactive-area" onClick={() => setAddToCart(false)}/>
             </button>
           </div>
         </div>

@@ -5,7 +5,7 @@ import Loader from '../../loader/loader';
 
 export default function FormSearch() {
   const [search, setSearch] = useState('');
-  const {data, isLoading} = useGetGuitarsQuery(`q=${search}`);
+  const {data, isLoading} = useGetGuitarsQuery(`name_like=${search}`);
 
   if (isLoading) {
     return <Loader/>;
@@ -31,7 +31,7 @@ export default function FormSearch() {
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
       {search &&
-            <ul className='form-search__select-list'>
+            <ul className='list-opened form-search__select-list' style={{zIndex: 999}}>
               {data.length > 0 ? data.map((guitar: Guitar) => (
                 <li key={guitar.name} className="form-search__select-item" tabIndex={0}>
                   {guitar.name}
