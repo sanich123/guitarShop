@@ -5,15 +5,9 @@ export const guitarsApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/'}),
   endpoints: (builder) => ({
     getGuitars: builder.query({
-      query: () => 'guitars',
-    }),
-    getGuitar: builder.query({
-      query: (id = '') => `guitars?id=${id}`,
-    }),
-    filterStrings: builder.query({
       query: (filter = '') => `guitars?${filter}`,
     }),
   }),
 });
 
-export const { useGetGuitarsQuery, useGetGuitarQuery, useFilterStringsQuery } = guitarsApi;
+export const { useGetGuitarsQuery } = guitarsApi;

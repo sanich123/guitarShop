@@ -12,7 +12,8 @@ export default function SortType({setSortPopular, sortPopular}: SortTypeProps) {
       {Object.entries(sortTypes).map(([rus, eng]) => (
         <button
           key={rus}
-          className={`catalog-sort__type-button ${sortPopular === eng ? 'catalog-sort__type-button--active': ''}`}
+          className={`catalog-sort__type-button
+          ${sortPopular === eng ? 'catalog-sort__type-button--active': ''}`}
           aria-label={rus}
           value={eng}
           tabIndex={sortPopular === eng ? -1 : 0}

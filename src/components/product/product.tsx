@@ -12,13 +12,13 @@ import AddReview from './reviews/add-review/add-review';
 import { useState } from 'react';
 import AddToCart from './addToCart/add-to-cart';
 import Loader from '../loader/loader';
-import { useGetGuitarQuery } from '../../redux';
+import { useGetGuitarsQuery } from '../../redux';
 import Page404 from '../page404/page404';
 import { toast } from 'react-toastify';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
-  const {data, isLoading, isError} = useGetGuitarQuery(uniq.id);
+  const {data, isLoading, isError} = useGetGuitarsQuery(`id=${uniq.id}`);
   const [showReview, setReview] = useState(false);
   const [showAddCart, setAddToCart] = useState(false);
 

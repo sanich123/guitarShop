@@ -38,6 +38,7 @@ export default function TypeFilters({setFilterType}: TypeFiltersProps) {
             checked={checkedState[index]}
             onChange={() => handleChange(index)}
             disabled={!existingTypes.includes(type)}
+            tabIndex={0}
           />
           <label htmlFor={type}>{typeChanger(type)}</label>
         </div>

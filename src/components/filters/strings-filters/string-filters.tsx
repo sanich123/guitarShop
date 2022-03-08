@@ -39,6 +39,7 @@ export default function StringFilters({setFilterString}: StringFiltersProps) {
             disabled={!allExistingStrings.includes(number)}
             checked={checkedState[index]}
             onChange={() => handleChange(index)}
+            tabIndex={0}
           />
           <label htmlFor={`${number}-strings`}>{number}</label>
         </div>

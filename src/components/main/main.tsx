@@ -1,6 +1,5 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
-import { useFilterStringsQuery } from '../../redux/guitars-api';
+import { useGetGuitarsQuery } from '../../redux/guitars-api';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Card, { CardProps } from '../card/card';
 import PriceFilters from '../filters/price-filters/price-filters';
@@ -24,14 +23,9 @@ export default function Main() {
   const [direction, setDirection] = useState('asc');
   const [pageNumber, setPageNumber] = useState(1);
 
-  const cardsOnPage = 3;
-  const endSlicing = pageNumber * cardsOnPage;
-  const beginSlicing = endSlicing - cardsOnPage;
+  const finalRequest = [`_sort=${sortPopular}`,`_order=${direction}`,`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
 
-  const finalRequest = [`_page=${pageNumber}&_limit=${cardsOnPage}&_start=${beginSlicing}&_end=${endSlicing}`,`_sort=${sortPopular}`,`_order=${direction}`,`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
-
-  const {data, isLoading, isError} = useFilterStringsQuery(finalRequest);
-  const guitars = data;
+  const {data, isLoading, isError} = useGetGuitarsQuery(finalRequest);
 
   if (isLoading) {
     return <Loader/>;
@@ -40,6 +34,11 @@ export default function Main() {
   if (isError) {
     return <Page404/>;
   }
+
+  const cardsOnPage = 3;
+  const endSlicing = pageNumber * cardsOnPage;
+  const beginSlicing = endSlicing - cardsOnPage;
+  const guitars = data.slice(beginSlicing, endSlicing);
 
   return(
     <>
@@ -62,19 +61,27 @@ export default function Main() {
               </form>
               <div className="catalog-sort">
                 <h2 className="catalog-sort__title">Сортировать:</h2>
-                <SortType setSortPopular={setSortPopular} sortPopular={sortPopular} />
-                <SortOrder setDirection={setDirection} direction={direction} />
+                <SortType
+                  setSortPopular={setSortPopular}
+                  sortPopular={sortPopular}
+                />
+                <SortOrder
+                  setDirection={setDirection}
+                  direction={direction}
+                />
               </div>
               <div className="cards catalog__cards">
-                {guitars.map(({id, previewImg, name, rating, price}: CardProps) =>
-                  (<Card key={id} id={id} previewImg={previewImg} name={name} rating={rating} price={price} />))}
+                {guitars.length > 0 ? guitars.map(({id, ...rest}: CardProps) =>
+                  (<Card key={id} id={id} {...rest} />)) : <h2>Условиям фильтрации не соответствует не один товар</h2>}
               </div>
               <div className="pagination page-content__pagination">
+                {data.length > cardsOnPage &&
                 <MainPagination
                   setPageNumber={setPageNumber}
                   pageNumber={pageNumber}
                   cardsOnPage={cardsOnPage}
-                />
+                  count={data.length}
+                />}
               </div>
             </div>
           </div>

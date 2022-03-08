@@ -1,23 +1,16 @@
 import cn from 'classnames';
-import { useGetGuitarsQuery } from '../../redux/guitars-api';
-import Loader from '../loader/loader';
 
 interface MainPaginationProps {
   setPageNumber: (arg: number) => void,
   pageNumber: number,
   cardsOnPage: number,
+  count: number
 }
 
-export default function MainPagination({setPageNumber, pageNumber, cardsOnPage}: MainPaginationProps) {
-  const {data, isLoading} = useGetGuitarsQuery('');
-
-  if (isLoading) {
-    return <Loader/>;
-  }
-
-  const count = data.length / cardsOnPage;
+export default function MainPagination({setPageNumber, pageNumber, cardsOnPage, count}: MainPaginationProps) {
+  const counter = Math.ceil(count / cardsOnPage);
   const isVisibleStart = cn('pagination__page', 'pagination__page--next', {'visually-hidden' : pageNumber === 1});
-  const isVisibleEnd = cn('pagination__page', 'pagination__page--next', {'visually-hidden' : pageNumber === count});
+  const isVisibleEnd = cn('pagination__page', 'pagination__page--next', {'visually-hidden' : pageNumber === counter});
 
   return (
     <ul className="pagination__list">
@@ -29,7 +22,7 @@ export default function MainPagination({setPageNumber, pageNumber, cardsOnPage}:
         >Назад
         </a>
       </li>
-      {[...Array(count).keys()].map((e) => e + 1).map((number) => (
+      {[...Array(counter).keys()].map((e) => e + 1).map((number) => (
         <li
           key={number}
           className={`pagination__page ${number === pageNumber ? 'pagination__page--active' : ''}`}
