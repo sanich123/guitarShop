@@ -74,7 +74,7 @@ export default function Product() {
                 id={id}
               />}
               {isAdded &&
-              <SuccessCart/>}
+              <SuccessCart setIsAdded={setIsAdded} />}
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>

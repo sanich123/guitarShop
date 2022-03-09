@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { Guitar } from '../types/types';
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: [] as Guitar[],
+  initialState: [] as {id: number, quantity: 1, price: number}[],
   reducers: {
     addToCart: (state, action) => {
-      state.push(action.payload);
+      const {id, price} = action.payload;
+      // eslint-disable-next-line no-console
+      console.log(state);
+      state.push({id: id, quantity: 1, price: price});
     },
   },
 });

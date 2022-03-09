@@ -8,15 +8,15 @@ interface CartItemProps {
   stringCount: number,
   type: string,
   vendorCode: string,
-  setQuantity: (arg: number) => void,
+  setQuantity?: (arg: number) => void,
   id: number,
-  setId: (arg: string) => void
+  setId?: (arg: string) => void
 }
 
 export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, setQuantity, id, setId}: CartItemProps) {
   const [amount, setAmount] = useState(1);
   const totalPrice = price * (amount || 1);
-  setQuantity(amount);
+
 
   return (
     <div className="cart-item">
@@ -40,7 +40,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           onClick={() => {
             if (amount > 1) {
               setAmount(amount-1);
-              setId(id.toString());
+              // setId(id.toString());
             }}}
         >
           <svg width="8" height="8" aria-hidden="true">
@@ -63,7 +63,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           onClick={() => {
             if (amount < 100) {
               setAmount(amount+1);
-              setId(id.toString());
+              // setId(id.toString());
             }}}
         >
           <svg width="8" height="8" aria-hidden="true">

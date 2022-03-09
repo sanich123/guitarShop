@@ -8,7 +8,7 @@ export interface Guitar {
   stringCount: number,
   rating: number,
   price: number,
-  comments: Comments[]
+  comments: Comments[],
 }
 
 export interface Comments {

@@ -47,7 +47,7 @@ export default function AddToCart({setIsAdded, setAddToCart, name, vendorCode, s
             </div>
             <div className="modal__button-container">
               <button onClick={() => {
-                dispatch(addToCart(id));
+                dispatch(addToCart({id, price}));
                 setAddToCart(false);
                 setIsAdded(true);}}
               className="button button--red button--big modal__button modal__button--add"
