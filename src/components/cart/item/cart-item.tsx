@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { typeChanger } from '../../../utils/utils';
 
 interface CartItemProps {
@@ -17,11 +17,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
   const [amount, setAmount] = useState(1);
   const totalPrice = price * (amount || 1);
 
-  useEffect(() => {
-    setQuantity(amount);
-    setId(id.toString());
-  }, [amount, id, setId, setQuantity]);
-
+  setQuantity(amount);
 
   return (
     <div className="cart-item">
@@ -42,7 +38,11 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
         <button
           className="quantity__button"
           aria-label="Уменьшить количество"
-          onClick={() => amount > 1 && setAmount(amount-1)}
+          onClick={() => {
+            if (amount > 1) {
+              setAmount(amount-1);
+              setId(id.toString());
+            }}}
         >
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-minus"/>
@@ -61,7 +61,11 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
         <button
           className="quantity__button"
           aria-label="Увеличить количество"
-          onClick={() => amount < 100 && setAmount(amount+1)}
+          onClick={() => {
+            if (amount < 100) {
+              setAmount(amount+1);
+              setId(id.toString());
+            }}}
         >
           <svg width="8" height="8" aria-hidden="true">
             <use xlinkHref="#icon-plus"/>

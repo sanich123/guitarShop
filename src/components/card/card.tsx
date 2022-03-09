@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { appRoutes } from '../../utils/const';
 import Rating from '../rating/rating';
 
 export interface CardProps {
@@ -6,10 +7,11 @@ export interface CardProps {
   name: string,
   rating: number,
   price: number,
-  id: number
+  id: number,
+  inCart: number[]
 }
 
-export default function Card({previewImg, name, rating, price, id}: CardProps) {
+export default function Card({previewImg, name, rating, price, id, inCart}: CardProps) {
 
   return (
     <div className="product-card">
@@ -28,7 +30,9 @@ export default function Card({previewImg, name, rating, price, id}: CardProps) {
       </div>
       <div className="product-card__buttons">
         <Link className="button button--mini" to={`/${id}`}>Подробнее</Link>
-        <a className="button button--red button--mini button--add-to-cart" href="/">Купить</a>
+        {inCart.includes(id) ?
+          <Link className="button button--red-border button--mini button--in-cart" to={appRoutes.cart}>В Корзине</Link> :
+          <a className="button button--red button--mini button--add-to-cart" href="/">Купить</a>}
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 interface TotalInfoProps {
-  allGuitarsPrice: number,
-  discount: number
+allGuitarsPrice: number,
+discount: number
 }
 
-
 export default function TotalInfo({allGuitarsPrice, discount}: TotalInfoProps) {
+
   return (
     <div className="cart__total-info">
       <p className="cart__total-item">

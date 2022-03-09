@@ -34,14 +34,14 @@ export default function FormSearch() {
       </form>
       {search &&
             <ul className='list-opened form-search__select-list' style={{zIndex: 999}}>
-              {data.length > 0 ? data.map((guitar: Guitar) => (
+              {data.length > 0 ? data.map(({name, id}: Guitar) => (
                 <li
-                  onClick={() => history.push(`/${guitar.id}`)}
-                  key={guitar.name}
+                  onClick={() => history.push(`/${id}`)}
+                  key={name}
                   className="form-search__select-item"
                   tabIndex={0}
                 >
-                  {guitar.name}
+                  {name}
                 </li>
               )) : <p>Ничего не найдено по вашему запросу</p>}
             </ul>}

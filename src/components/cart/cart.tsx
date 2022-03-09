@@ -1,4 +1,7 @@
+/* eslint-disable no-console */
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useGetGuitarsQuery } from '../../redux';
 import { Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
@@ -10,25 +13,34 @@ import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
 
-export default function Cart({guitars}: {guitars: Guitar[]}) {
+export default function Cart() {
   const discount = 3000;
   const [quantity, setQuantity] = useState(1);
   const [cardId, setId] = useState('');
+  const inCart = [...new Set(useSelector(({cart}: {cart: number[]}) => cart))];
+  console.log(quantity, cardId);
+  const request = inCart.map((number) => `id=${number}`).join('&');
 
-  if (guitars.length === 0) {
+  const {data, isLoading} = useGetGuitarsQuery(request);
+  if (isLoading) {
     return <Loader/>;
   }
+  const adaptedGuitars = data.map((guitar: Guitar) => ({...guitar, quantity: 1}));
 
-  const adaptedGuitars = guitars.map((guitar) => ({...guitar, quantity: 1}));
+  // const [isInCart, setIsInCart] = useState(adaptedGuitars);
 
-  const changedGuitars = adaptedGuitars.map((guitar) => {
+  const changedGuitars = adaptedGuitars.map((guitar: Guitar & {quantity: number}) => {
     if (guitar.id === +cardId) {
       guitar.quantity = quantity;
     }
     return guitar;
   });
 
-  const allGuitarsPrice = changedGuitars.reduce((total, el) => total + (el.price * el.quantity), 0);
+  const allGuitarsPrice = changedGuitars.reduce((total: number, el: Guitar & {quantity: number}) => total + (el.price * el.quantity), 0);
+
+  if (isLoading) {
+    return <Loader/>;
+  }
 
   return (
     <div className="wrapper">
@@ -39,10 +51,17 @@ export default function Cart({guitars}: {guitars: Guitar[]}) {
           <h1 className="title title--bigger page-content__title">Корзина</h1>
           <Breadcrumbs place={appRoutes.cart}/>
           <div className="cart">
-            {guitars.map(({id, ...rest}) => <CartItem setQuantity={setQuantity} setId={setId} key={id} id={id} {...rest}/>)}
+            {inCart.length > 0 && data.map(({id, ...rest}: Guitar) => <CartItem setQuantity={setQuantity} setId={setId} key={id} id={id} {...rest}/>)}
             <div className="cart__footer">
-              <Promocode/>
-              <TotalInfo allGuitarsPrice={allGuitarsPrice} discount={discount} />
+
+              {inCart.length > 0 &&
+              <>
+                <Promocode/>
+                <TotalInfo
+                  discount={discount}
+                  allGuitarsPrice={allGuitarsPrice}
+                />
+              </>}
             </div>
           </div>
         </div>
