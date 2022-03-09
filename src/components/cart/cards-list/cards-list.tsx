@@ -5,11 +5,11 @@ import CartItem from '../item/cart-item';
 
 interface CartItemProps {
   guitars: Guitar[],
-  changeInCart: {id: number, quantity: number}[],
-  setIsInCart: (arg: {id: number, quantity: number}[]) => void,
+  // changeInCart: {id: number, quantity: number}[],
+  // setIsInCart: (arg: {id: number, quantity: number}[]) => void,
 }
 
-export default function CardsList({guitars, changeInCart, setIsInCart}: CartItemProps) {
+export default function CardsList({guitars}: CartItemProps) {
   // const [quantity, setQuantity] = useState(1);
   // const [cardId, setId] = useState('');
 

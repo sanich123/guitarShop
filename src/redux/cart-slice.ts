@@ -6,9 +6,11 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const {id, price} = action.payload;
-      // eslint-disable-next-line no-console
-      console.log(state);
       state.push({id: id, quantity: 1, price: price});
+    },
+    changeQuantity: (state, action) => {
+      const {amount, uniq} = action.payload;
+      state.map((cart) => cart.id === uniq ? cart.quantity = amount : cart.quantity);
     },
   },
 });
