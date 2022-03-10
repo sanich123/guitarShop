@@ -16,6 +16,7 @@ export default function SuccessCart({setIsAdded}: SuccessCartProps) {
     document.addEventListener('keydown', onEsc);
     return () => document.removeEventListener('keydown', onEsc);
   });
+
   return (
     <div className="modal is-active modal--success modal-for-ui-kit">
       <div className="modal__wrapper">
@@ -26,10 +27,21 @@ export default function SuccessCart({setIsAdded}: SuccessCartProps) {
           </svg>
           <p className="modal__message">Товар успешно добавлен в корзину</p>
           <div className="modal__button-container modal__button-container--add">
-            <button onClick={() => history.push(appRoutes.cart)} className="button button--small modal__button">Перейти в корзину</button>
-            <button onClick={() => history.push(appRoutes.main)} className="button button--black-border button--small modal__button modal__button--right">Продолжить покупки</button>
+            <button
+              onClick={() => history.push(appRoutes.cart)} className="button button--small modal__button"
+            >Перейти в корзину
+            </button>
+            <button
+              onClick={() => history.push(appRoutes.main)} className="button button--black-border button--small modal__button modal__button--right"
+            >Продолжить покупки
+            </button>
           </div>
-          <button className="modal__close-btn button-cross" type="button" aria-label="Закрыть" onClick={() => setIsAdded(false)}>
+          <button
+            className="modal__close-btn button-cross"
+            type="button"
+            aria-label="Закрыть"
+            onClick={() => setIsAdded(false)}
+          >
             <span className="button-cross__icon"/>
             <span className="modal__close-btn-interactive-area"/>
           </button>

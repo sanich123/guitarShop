@@ -1,4 +1,6 @@
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { CartType } from '../../types/types';
 import { appRoutes } from '../../utils/const';
 import Rating from '../rating/rating';
 
@@ -8,10 +10,10 @@ export interface CardProps {
   rating: number,
   price: number,
   id: number,
-  inCart: number[]
 }
 
-export default function Card({previewImg, name, rating, price, id, inCart}: CardProps) {
+export default function Card({previewImg, name, rating, price, id}: CardProps) {
+  const inCart = useSelector(({cart}: CartType) => cart).map((guitar) => guitar.id);
 
   return (
     <div className="product-card">

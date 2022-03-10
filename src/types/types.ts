@@ -22,11 +22,14 @@ export interface Comments {
   guitarId: number
 }
 
-export interface CartType {
-  cart: {
-      quantity: number,
+export interface Cart {
+  quantity: number,
   id: number,
   price: number
-  }[]
+  }
 
+export interface CartType {
+  cart: Cart[]
 }
+
+

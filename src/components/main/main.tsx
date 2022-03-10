@@ -13,10 +13,8 @@ import SortOrder from '../sort/sort-order/sort-order';
 import SortType from '../sort/sort-type/sort-type';
 import Svg from '../svg/svg';
 import Page404 from '../page404/page404';
-import { useSelector } from 'react-redux';
 
 export default function Main() {
-  const inCart = [...new Set(useSelector(({cart}: {cart: number[]}) => cart))];
   const [filterString, setFilterString] = useState('');
   const [filterType, setFilterType] = useState('');
   const [filterMinPrice, setFilterMinPrice] = useState('');
@@ -74,7 +72,7 @@ export default function Main() {
               </div>
               <div className="cards catalog__cards">
                 {guitars.length > 0 ? guitars.map(({id, ...rest}: CardProps) =>
-                  (<Card key={id} id={id} {...rest} inCart={inCart} />)) : <h2>Условиям фильтрации не соответствует не один товар</h2>}
+                  (<Card key={id} id={id} {...rest} />)) : <h2>Условиям фильтрации не соответствует не один товар</h2>}
               </div>
               <div className="pagination page-content__pagination">
                 {data.length > cardsOnPage &&

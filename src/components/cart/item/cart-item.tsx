@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { decrementQuantity, incrementQuantity } from '../../../redux/cart-slice';
 import { typeChanger } from '../../../utils/utils';
 
 interface CartItemProps {
@@ -8,15 +10,13 @@ interface CartItemProps {
   stringCount: number,
   type: string,
   vendorCode: string,
-  setQuantity?: (arg: number) => void,
   id: number,
-  setId?: (arg: string) => void
 }
 
-export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, setQuantity, id, setId}: CartItemProps) {
+export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id}: CartItemProps) {
+  const dispatch = useDispatch();
   const [amount, setAmount] = useState(1);
   const totalPrice = price * (amount || 1);
-
 
   return (
     <div className="cart-item">
@@ -40,7 +40,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           onClick={() => {
             if (amount > 1) {
               setAmount(amount-1);
-              // setId(id.toString());
+              dispatch(decrementQuantity(({id})));
             }}}
         >
           <svg width="8" height="8" aria-hidden="true">
@@ -63,7 +63,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           onClick={() => {
             if (amount < 100) {
               setAmount(amount+1);
-              // setId(id.toString());
+              dispatch(incrementQuantity(({id})));
             }}}
         >
           <svg width="8" height="8" aria-hidden="true">
