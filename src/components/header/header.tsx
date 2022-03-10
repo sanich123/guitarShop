@@ -17,13 +17,14 @@ export default function Header() {
           <NavList/>
         </nav>
         <FormSearch/>
+        {inCart > 0 &&
         <Link className="header__cart-link" to={appRoutes.cart} aria-label="Корзина">
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"/>
           </svg>
           <span className="visually-hidden">Перейти в корзину</span>
-          {inCart > 0 && <span className="header__cart-count">{inCart}</span>}
-        </Link>
+          <span className="header__cart-count">{inCart}</span>
+        </Link>}
       </div>
     </header>
   );
