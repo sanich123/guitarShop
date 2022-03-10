@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../redux';
 import { CartType, Guitar } from '../../types/types';
@@ -23,7 +22,7 @@ export default function Cart() {
   if (isLoading) {
     return <Loader/>;
   }
-  console.log(data, inCart);
+
   const totalPrice = valueChecker(data, inCart);
 
   return (

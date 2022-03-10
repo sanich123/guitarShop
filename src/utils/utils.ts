@@ -35,7 +35,7 @@ export const valueChecker = (arr1: Guitar[], arr2: Cart[]) => {
   const sortedArr2 = arr2.slice().sort((a,b) => b.id - a.id);
 
   for (let i = 0; i < sortedArr2.length; i++) {
-    const result = {} as {price: number, quantity: number};
+    const result = {} as Cart;
     result['price'] = sortedArr1[i].price;
     result['quantity'] = sortedArr2[i].quantity;
     total.push(result);

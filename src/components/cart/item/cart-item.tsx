@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { decrementQuantity, incrementQuantity } from '../../../redux/cart-slice';
+import { amountQuantity, decrementQuantity, incrementQuantity } from '../../../redux/cart-slice';
 import { typeChanger } from '../../../utils/utils';
 
 interface CartItemProps {
@@ -17,6 +17,11 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(1);
   const totalPrice = price * (amount || 1);
+  // useEffect(() => {
+  //   if (amount) {
+  //     dispatch(decrementQuantity(({id, amount})));
+  //   }
+  // }, [amount, dispatch, id]);
 
   return (
     <div className="cart-item">
@@ -40,7 +45,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           onClick={() => {
             if (amount > 1) {
               setAmount(amount-1);
-              dispatch(decrementQuantity(({id})));
+              dispatch(decrementQuantity(({id, amount})));
             }}}
         >
           <svg width="8" height="8" aria-hidden="true">
@@ -54,8 +59,13 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           id="2-count"
           name="2-count"
           max="99"
-          value={amount === 0 ? '' : amount}
-          onChange={({target}) => +target.value < 100 && setAmount(+target.value)}
+          value={amount === 0 ? 1 : amount}
+          onChange={({target}) => {
+            if (+target.value < 100 || +target.value < 1) {
+              setAmount(+target.value);
+              const value = +target.value;
+              dispatch(amountQuantity({id, value}));
+            }}}
         />
         <button
           className="quantity__button"
