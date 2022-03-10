@@ -1,3 +1,5 @@
+import { Cart, Guitar } from '../types/types';
+
 export const typeChanger = (type: string) => {
   if (type === 'acoustic') {
     return 'Акустическая';
@@ -26,3 +28,17 @@ export const stringMaker = (array: (number | false)[] | (string | false)[], type
 export const stringChanger = (direction: string) => direction === 'asc' ? 'up' : 'down';
 
 export const stringChangerBack = (direction: string) => direction === 'up' ? 'asc' : 'desc';
+
+export const valueChecker = (arr1: Guitar[], arr2: Cart[]) => {
+  const total = [];
+  const sortedArr1 = arr1.slice().sort((a,b) => b.id - a.id);
+  const sortedArr2 = arr2.slice().sort((a,b) => b.id - a.id);
+
+  for (let i = 0; i < sortedArr2.length; i++) {
+    const result = {} as {price: number, quantity: number};
+    result['price'] = sortedArr1[i].price;
+    result['quantity'] = sortedArr2[i].quantity;
+    total.push(result);
+  }
+  return total.reduce((sum, el): number => sum + el.price * el.quantity, 0);
+};

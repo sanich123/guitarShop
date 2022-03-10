@@ -1,7 +1,9 @@
+/* eslint-disable no-console */
 import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../redux';
 import { CartType, Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
+import { valueChecker } from '../../utils/utils';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import Footer from '../footer/footer';
 import Header from '../header/header';
@@ -14,15 +16,15 @@ import TotalInfo from './total-info/total-info';
 export default function Cart() {
   const discount = 3000;
   const inCart = useSelector(({cart}: CartType) => cart);
-  const forRequest = inCart.map(({id}) => id);
+  const forRequest = [...new Set(inCart.map(({id}) => id))];
   const request = forRequest.length ? forRequest.map((number) => `id=${number}`).join('&') : 'id=';
   const {data, isLoading} = useGetGuitarsQuery(request);
 
   if (isLoading) {
     return <Loader/>;
   }
-
-  const totalPrice = inCart.reduce((total, {price, quantity}) => total + price * quantity, 0);
+  console.log(data, inCart);
+  const totalPrice = valueChecker(data, inCart);
 
   return (
     <div className="wrapper">
