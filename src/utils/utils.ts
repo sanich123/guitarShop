@@ -31,8 +31,8 @@ export const stringChangerBack = (direction: string) => direction === 'up' ? 'as
 
 export const valueChecker = (arr1: Guitar[], arr2: Cart[]) => {
   const total = [];
-  const sortedArr1 = arr1.slice().sort((a,b) => b.id - a.id);
-  const sortedArr2 = arr2.slice().sort((a,b) => b.id - a.id);
+  const sortedArr1 = arr1.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
+  const sortedArr2 = arr2.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
 
   for (let i = 0; i < sortedArr2.length; i++) {
     const result = {} as Cart;
@@ -40,5 +40,5 @@ export const valueChecker = (arr1: Guitar[], arr2: Cart[]) => {
     result['quantity'] = sortedArr2[i].quantity;
     total.push(result);
   }
-  return total.reduce((sum, el): number => sum + el.price * el.quantity, 0);
+  return total.reduce((sum, el): number => sum + el.price * +el.quantity, 0);
 };

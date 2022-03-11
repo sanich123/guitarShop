@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { createSlice } from '@reduxjs/toolkit';
 import { Cart } from '../types/types';
 
@@ -14,9 +13,14 @@ const cartSlice = createSlice({
       const {id, value} = action.payload;
       state.map((cart) => cart.id === id ? cart.quantity = value : cart.quantity);
     },
+    deleteFromCart: (state, action) => {
+      const {id} = action.payload;
+      const index = state.findIndex((cart) => cart.id === id);
+      state.splice(index, 1);
+    },
   },
 });
 
-export const {addToCart, amountQuantity} = cartSlice.actions;
+export const {addToCart, amountQuantity, deleteFromCart} = cartSlice.actions;
 
 export default cartSlice.reducer;

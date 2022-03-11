@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../redux';
 import { CartType, Guitar } from '../../types/types';
@@ -8,11 +9,14 @@ import Footer from '../footer/footer';
 import Header from '../header/header';
 import Loader from '../loader/loader';
 import Svg from '../svg/svg';
+import DeleteModal from './deleteModal/delete-modal';
 import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
 
 export default function Cart() {
+  const [isDelete, setIsDelete] = useState(false);
+  const [deleteId, setDeleteId] = useState('');
   const discount = 3000;
   const inCart = useSelector(({cart}: CartType) => cart);
   const forRequest = [...new Set(inCart.map(({id}) => id))];
@@ -34,14 +38,24 @@ export default function Cart() {
           <h1 className="title title--bigger page-content__title">Корзина</h1>
           <Breadcrumbs place={appRoutes.cart}/>
           <div className="cart">
-            {data.map(({id, ...rest}: Guitar) => <CartItem key={id} id={id} {...rest}/>)}
+
+            {isDelete &&
+            <DeleteModal guitars={data} deleteId={deleteId} setIsDelete={setIsDelete} />}
+            {inCart.length === 0 &&
+            <h1>В вашей корзине ничего нет:(</h1>}
+
+            {inCart.length > 0 &&
+            data.map(({id, ...rest}: Guitar) => <CartItem key={id} id={id} {...rest} setIsDelete={setIsDelete} setDeleteId={setDeleteId} />)}
+
+            {inCart.length > 0 &&
             <div className="cart__footer">
               <Promocode/>
               <TotalInfo
                 discount={discount}
                 allGuitarsPrice={totalPrice}
               />
-            </div>
+            </div>}
+
           </div>
         </div>
       </main>

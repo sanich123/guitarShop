@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { amountQuantity } from '../../../redux/cart-slice';
+import { CartType } from '../../../types/types';
 import { typeChanger } from '../../../utils/utils';
 
 interface CartItemProps {
@@ -11,16 +11,25 @@ interface CartItemProps {
   type: string,
   vendorCode: string,
   id: number,
+  setIsDelete: (arg: boolean) => void,
+  setDeleteId: (arg: string) => void
 }
 
-export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id}: CartItemProps) {
+export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id, setIsDelete, setDeleteId}: CartItemProps) {
+  const [{quantity}] = useSelector(({cart}: CartType) => cart).filter((cart) => cart.id === id);
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState(1);
-  const totalPrice = price * (amount || 1);
+  const totalPrice = price * +quantity;
 
   return (
     <div className="cart-item">
-      <button className="cart-item__close-button button-cross" type="button" aria-label="Удалить">
+      <button
+        className="cart-item__close-button button-cross" type="button"
+        aria-label="Удалить"
+        onClick={() => {
+          setIsDelete(true);
+          setDeleteId(id.toString());
+        }}
+      >
         <span className="button-cross__icon"/>
         <span className="cart-item__close-button-interactive-area"/>
       </button>
@@ -38,9 +47,8 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           className="quantity__button"
           aria-label="Уменьшить количество"
           onClick={() => {
-            if (amount > 1) {
-              setAmount(amount-1);
-              const value = amount - 1;
+            if (+quantity > 1) {
+              const value = +quantity - 1;
               dispatch(amountQuantity(({id, value})));
             }}}
         >
@@ -51,15 +59,12 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
         <input
           className="quantity__input"
           type="number"
-          placeholder="1"
           id="2-count"
           name="2-count"
           max="99"
-          value={amount}
-          onFocus={() => setAmount(0)}
+          value={quantity.toString()[0] === '0' ? quantity.toString().slice(1) : quantity.toString()}
           onChange={({target}) => {
-            if (+target.value < 100 || +target.value < 1) {
-              setAmount(+target.value);
+            if (+target.value < 100) {
               const value = +target.value;
               dispatch(amountQuantity({id, value}));
             }}}
@@ -68,9 +73,8 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           className="quantity__button"
           aria-label="Увеличить количество"
           onClick={() => {
-            if (amount < 100) {
-              setAmount(amount+1);
-              const value = amount + 1;
+            if (+quantity < 100) {
+              const value = quantity + 1;
               dispatch(amountQuantity(({id, value})));
             }}}
         >

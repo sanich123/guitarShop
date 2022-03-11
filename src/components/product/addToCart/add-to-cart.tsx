@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../redux/cart-slice';
+import ModalInfo from '../../modal/modal-info';
 
-interface AddToCartProps {
+export interface AddToCartProps {
   setAddToCart: (arg: boolean) => void,
   setIsAdded: (arg: boolean) => void,
   name: string,
@@ -33,18 +34,7 @@ export default function AddToCart({setIsAdded, setAddToCart, name, vendorCode, s
           <div className="modal__overlay" data-close-modal></div>
           <div className="modal__content">
             <h2 className="modal__header title title--medium">Добавить товар в корзину</h2>
-            <div className="modal__info">
-              <img className="modal__img" src={previewImg} width="67" height="137" alt={name} />
-              <div className="modal__info-wrapper">
-                <h3 className="modal__product-name title title--little title--uppercase">{name}</h3>
-                <p className="modal__product-params modal__product-params--margin-11">Артикул: {vendorCode}</p>
-                <p className="modal__product-params">Электрогитара, {stringCount} струнная</p>
-                <p className="modal__price-wrapper">
-                  <span className="modal__price">Цена:</span>
-                  <span className="modal__price">{price} ₽</span>
-                </p>
-              </div>
-            </div>
+            <ModalInfo previewImg={previewImg} name={name} vendorCode={vendorCode} stringCount={stringCount} price={price} />
             <div className="modal__button-container">
               <button onClick={() => {
                 dispatch(addToCart({id, price}));
