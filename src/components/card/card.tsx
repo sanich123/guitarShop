@@ -10,10 +10,13 @@ export interface CardProps {
   rating: number,
   price: number,
   id: number,
+  setIsAdded: (arg: boolean) => void,
+  setGuitarId: (arg: string) => void
 }
 
-export default function Card({previewImg, name, rating, price, id}: CardProps) {
+export default function Card({previewImg, name, rating, price, id, setIsAdded, setGuitarId}: CardProps) {
   const inCart = useSelector(({cart}: CartType) => cart).map((guitar) => guitar.id);
+
 
   return (
     <div className="product-card">
@@ -23,7 +26,7 @@ export default function Card({previewImg, name, rating, price, id}: CardProps) {
           <span className="visually-hidden">Рейтинг:</span>
           <Rating width={12} height={11} rating={rating} />
           <span className="rate__count">{rating}</span>
-          <span className="rate__message"></span>
+          <span className="rate__message"/>
         </div>
         <p className="product-card__title">{name}</p>
         <p className="product-card__price">
@@ -34,7 +37,13 @@ export default function Card({previewImg, name, rating, price, id}: CardProps) {
         <Link className="button button--mini" to={`/${id}`}>Подробнее</Link>
         {inCart.includes(id) ?
           <Link className="button button--red-border button--mini button--in-cart" to={appRoutes.cart}>В Корзине</Link> :
-          <a className="button button--red button--mini button--add-to-cart" href="/">Купить</a>}
+          <button className="button button--red button--mini button--add-to-cart"
+            onClick={() => {
+              setIsAdded(true);
+              setGuitarId(id.toString());
+            }}
+          >Купить
+          </button>}
       </div>
     </div>
   );

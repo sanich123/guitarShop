@@ -22,6 +22,10 @@ export default function Main() {
   const [sortPopular, setSortPopular] = useState('price');
   const [direction, setDirection] = useState('asc');
   const [pageNumber, setPageNumber] = useState(1);
+  const [isAdded, setIsAdded] = useState(false);
+  const [guitarId, setGuitarId] = useState('');
+  // eslint-disable-next-line no-console
+  console.log(guitarId, isAdded);
 
   const finalRequest = [`_sort=${sortPopular}`,`_order=${direction}`,`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
 
@@ -72,7 +76,7 @@ export default function Main() {
               </div>
               <div className="cards catalog__cards">
                 {guitars.length > 0 ? guitars.map(({id, ...rest}: CardProps) =>
-                  (<Card key={id} id={id} {...rest} />)) : <h2>Условиям фильтрации не соответствует не один товар</h2>}
+                  (<Card key={id} id={id} {...rest} setIsAdded={setIsAdded} setGuitarId={setGuitarId} />)) : <h2>Условиям фильтрации не соответствует не один товар</h2>}
               </div>
               <div className="pagination page-content__pagination">
                 {data.length > cardsOnPage &&
