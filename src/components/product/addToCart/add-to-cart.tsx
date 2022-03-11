@@ -1,20 +1,18 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../redux/cart-slice';
+import { Guitar } from '../../../types/types';
 import ModalInfo from '../../modal/modal-info';
 
 export interface AddToCartProps {
   setAddToCart: (arg: boolean) => void,
   setIsAdded: (arg: boolean) => void,
-  name: string,
-  vendorCode: string,
-  price: number,
-  previewImg: string,
-  stringCount: number,
+  guitars: Guitar[],
   id: number
 }
 
-export default function AddToCart({setIsAdded, setAddToCart, name, vendorCode, stringCount, price, previewImg, id}: AddToCartProps) {
+export default function AddToCart({setIsAdded, setAddToCart, id, guitars}: AddToCartProps) {
+  const [{previewImg, name, stringCount, vendorCode, price}] = guitars.filter((guitar) => guitar.id === id);
   const dispatch = useDispatch();
   useEffect(() => {
     const onEsc = (evt: KeyboardEvent) => {

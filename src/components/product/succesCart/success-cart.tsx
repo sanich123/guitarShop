@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { appRoutes } from '../../../utils/const';
 interface SuccessCartProps {
-  setIsAdded: (arg: boolean) => void
+  setIsAdded: (arg: boolean) => void,
+  place: string,
 }
-export default function SuccessCart({setIsAdded}: SuccessCartProps) {
+export default function SuccessCart({setIsAdded, place}: SuccessCartProps) {
   const history = useHistory();
+
   useEffect(() => {
     const onEsc = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
@@ -20,7 +22,7 @@ export default function SuccessCart({setIsAdded}: SuccessCartProps) {
   return (
     <div className="modal is-active modal--success modal-for-ui-kit">
       <div className="modal__wrapper">
-        <div className="modal__overlay" data-close-modal=""></div>
+        <div className="modal__overlay" data-close-modal=""/>
         <div className="modal__content">
           <svg className="modal__icon" width="26" height="20" aria-hidden="true">
             <use xlinkHref="#icon-success"/>
@@ -32,7 +34,7 @@ export default function SuccessCart({setIsAdded}: SuccessCartProps) {
             >Перейти в корзину
             </button>
             <button
-              onClick={() => history.push(appRoutes.main)} className="button button--black-border button--small modal__button modal__button--right"
+              onClick={place === 'main' ? () => setIsAdded(false) : () => history.push(appRoutes.main)} className="button button--black-border button--small modal__button modal__button--right"
             >Продолжить покупки
             </button>
           </div>

@@ -13,6 +13,8 @@ import SortOrder from '../sort/sort-order/sort-order';
 import SortType from '../sort/sort-type/sort-type';
 import Svg from '../svg/svg';
 import Page404 from '../page404/page404';
+import AddToCart from '../product/addToCart/add-to-cart';
+import SuccessCart from '../product/succesCart/success-cart';
 
 export default function Main() {
   const [filterString, setFilterString] = useState('');
@@ -22,10 +24,10 @@ export default function Main() {
   const [sortPopular, setSortPopular] = useState('price');
   const [direction, setDirection] = useState('asc');
   const [pageNumber, setPageNumber] = useState(1);
+
+  const [showAddCart, setAddToCart] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [guitarId, setGuitarId] = useState('');
-  // eslint-disable-next-line no-console
-  console.log(guitarId, isAdded);
 
   const finalRequest = [`_sort=${sortPopular}`,`_order=${direction}`,`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
 
@@ -75,8 +77,19 @@ export default function Main() {
                 />
               </div>
               <div className="cards catalog__cards">
-                {guitars.length > 0 ? guitars.map(({id, ...rest}: CardProps) =>
-                  (<Card key={id} id={id} {...rest} setIsAdded={setIsAdded} setGuitarId={setGuitarId} />)) : <h2>Условиям фильтрации не соответствует не один товар</h2>}
+                {showAddCart &&
+              <AddToCart
+                setAddToCart={setAddToCart}
+                setIsAdded={setIsAdded}
+                guitars={data}
+                id={+guitarId}
+              />}
+                {guitars.length > 0 ?
+                  guitars.map(({id, ...rest}: CardProps) =>
+                    (<Card key={id} id={id} {...rest} setGuitarId={setGuitarId} setAddToCart={setAddToCart}/>)) :
+                  <h2>Условиям фильтрации не соответствует не один товар</h2>}
+                {isAdded &&
+              <SuccessCart place={'main'} setIsAdded={setIsAdded} />}
               </div>
               <div className="pagination page-content__pagination">
                 {data.length > cardsOnPage &&

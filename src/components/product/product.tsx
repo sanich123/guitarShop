@@ -33,7 +33,7 @@ export default function Product() {
     return <Page404/>;
   }
 
-  const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments, id}] = data;
+  const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = data;
 
   return (
     <>
@@ -66,15 +66,11 @@ export default function Product() {
               <AddToCart
                 setAddToCart={setAddToCart}
                 setIsAdded={setIsAdded}
-                name={name}
-                stringCount={stringCount}
-                vendorCode={vendorCode}
-                price={price}
-                previewImg={previewImg}
-                id={id}
+                guitars={data}
+                id={+uniq.id}
               />}
               {isAdded &&
-              <SuccessCart setIsAdded={setIsAdded} />}
+              <SuccessCart place={'product'} setIsAdded={setIsAdded} />}
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>

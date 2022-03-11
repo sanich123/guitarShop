@@ -10,11 +10,11 @@ export interface CardProps {
   rating: number,
   price: number,
   id: number,
-  setIsAdded: (arg: boolean) => void,
+  setAddToCart: (arg: boolean) => void,
   setGuitarId: (arg: string) => void
 }
 
-export default function Card({previewImg, name, rating, price, id, setIsAdded, setGuitarId}: CardProps) {
+export default function Card({previewImg, name, rating, price, id, setAddToCart, setGuitarId}: CardProps) {
   const inCart = useSelector(({cart}: CartType) => cart).map((guitar) => guitar.id);
 
 
@@ -39,7 +39,7 @@ export default function Card({previewImg, name, rating, price, id, setIsAdded, s
           <Link className="button button--red-border button--mini button--in-cart" to={appRoutes.cart}>В Корзине</Link> :
           <button className="button button--red button--mini button--add-to-cart"
             onClick={() => {
-              setIsAdded(true);
+              setAddToCart(true);
               setGuitarId(id.toString());
             }}
           >Купить
