@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { amountQuantity } from '../../../redux/cart-slice';
-import { CartType } from '../../../types/types';
+import { Cart } from '../../../types/types';
 import { typeChanger } from '../../../utils/utils';
 
 interface CartItemProps {
@@ -12,12 +12,13 @@ interface CartItemProps {
   vendorCode: string,
   id: number,
   setIsDelete: (arg: boolean) => void,
-  setDeleteId: (arg: string) => void
+  setDeleteId: (arg: string) => void,
+  inCart: Cart[]
 }
 
-export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id, setIsDelete, setDeleteId}: CartItemProps) {
-  const [{quantity}] = useSelector(({cart}: CartType) => cart).filter((cart) => cart.id === id);
+export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id, setIsDelete, setDeleteId, inCart}: CartItemProps) {
   const dispatch = useDispatch();
+  const [{quantity}] = inCart.filter((cart) => cart.id === id);
   const totalPrice = price * +quantity;
 
   return (

@@ -20,6 +20,7 @@ export default function Cart() {
   const discount = 3000;
   const inCart = useSelector(({cart}: CartType) => cart);
   const forRequest = [...new Set(inCart.map(({id}) => id))];
+
   const request = forRequest.length ? forRequest.map((number) => `id=${number}`).join('&') : 'id=';
   const {data, isLoading} = useGetGuitarsQuery(request);
 
@@ -45,7 +46,7 @@ export default function Cart() {
             <h1>В вашей корзине ничего нет:(</h1>}
 
             {inCart.length > 0 &&
-            data.map(({id, ...rest}: Guitar) => <CartItem key={id} id={id} {...rest} setIsDelete={setIsDelete} setDeleteId={setDeleteId} />)}
+            data.map(({id, ...rest}: Guitar) => <CartItem key={id} id={id} {...rest} setIsDelete={setIsDelete} setDeleteId={setDeleteId} inCart={inCart} />)}
 
             {inCart.length > 0 &&
             <div className="cart__footer">
