@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddCommentMutation } from '../../../../redux';
-import { marks } from '../../../../utils/const';
+import { marks, messages } from '../../../../utils/const';
 
 interface AddReviewProps {
   setReview: (arg: boolean) => void,
@@ -11,7 +11,7 @@ interface AddReviewProps {
 }
 
 export default function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
-  const [addComment, {isSuccess}] = useAddCommentMutation();
+  const [addComment, {isSuccess, isError}] = useAddCommentMutation();
 
   useEffect(() => {
     const onEsc = (evt: KeyboardEvent) => {
@@ -29,7 +29,13 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
       setReview(false);
       setIsSended(true);
     }
-  }, [isSuccess, setIsSended, setReview]);
+
+    if (isError) {
+      setReview(true);
+      setIsSended(false);
+      toast.warn(messages.failedSending);
+    }
+  }, [isSuccess, isError, setIsSended, setReview]);
 
   const [rating, setRating] = useState('');
   const [surName, setSurName] = useState('');
@@ -41,11 +47,11 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
     evt.preventDefault();
 
     if (+rating === 0) {
-      return toast.warn('Поле рейтинга не может быть равно нулю. Пожалуйста, введите значение от 1 до 5');
+      return toast.warn(messages.ratingRequired);
     }
 
     if (surName === '') {
-      return toast.warn('Поле фамилии не может быть пусто');
+      return toast.warn(messages.surnameRequired);
     }
 
     await addComment({

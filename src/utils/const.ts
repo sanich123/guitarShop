@@ -17,3 +17,9 @@ export const tabs = {
 export const marks = {'Отлично': 5, 'Хорошо': 4, 'Нормально': 3, 'Плохо': 2, 'Ужасно': 1};
 export const sortTypes = {'по цене': 'price', 'по популярности': 'rating'};
 export const sortDirections = {'По возрастанию': 'up', 'По убыванию': 'down'};
+
+export const messages = {
+  failedSending: 'Не удалось отправить ваш комментарий, неполадки с сетью',
+  surnameRequired: 'Поле фамилии не может быть пусто',
+  ratingRequired: 'Поле рейтинга не может быть равно нулю. Пожалуйста, введите значение от 1 до 5',
+};
