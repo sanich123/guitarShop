@@ -16,6 +16,7 @@ import { useGetGuitarsQuery } from '../../redux';
 import Page404 from '../page404/page404';
 import { toast } from 'react-toastify';
 import SuccessCart from './succesCart/success-cart';
+import SuccessReview from './successReview/success-review';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
@@ -23,6 +24,7 @@ export default function Product() {
   const [showReview, setReview] = useState(false);
   const [showAddCart, setAddToCart] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
+  const [isSended, setIsSended] = useState(false);
 
   if (isLoading) {
     return <Loader/>;
@@ -62,6 +64,7 @@ export default function Product() {
                 />
               </div>
               <Price price={price} setAddToCart={setAddToCart} />
+
               {showAddCart &&
               <AddToCart
                 setAddToCart={setAddToCart}
@@ -69,8 +72,13 @@ export default function Product() {
                 guitars={data}
                 id={+uniq.id}
               />}
+
               {isAdded &&
-              <SuccessCart place={'product'} setIsAdded={setIsAdded} />}
+              <SuccessCart
+                place={'product'}
+                setIsAdded={setIsAdded}
+              />}
+
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
@@ -79,7 +87,18 @@ export default function Product() {
                 className="button button--red-border button--big reviews__submit-button"
               >Оставить отзыв
               </button>
-              {showReview && <AddReview setReview={setReview} name={name} />}
+
+              {showReview &&
+              <AddReview
+                id={+uniq.id}
+                setIsSended={setIsSended}
+                setReview={setReview}
+                name={name}
+              />}
+
+              {isSended &&
+              <SuccessReview setIsSended={setIsSended} />}
+
               <Reviews comments={comments}/>
               <a style={{zIndex: 900}} className="button button--red-border button--big reviews__up-button button--up" href="#header">Наверх</a>
             </section>

@@ -41,7 +41,7 @@
     "eject": "react-scripts eject",
     "eslint": "eslint --ext .tsx --ext .ts src/",
     "dev": "concurrently \"npm run server\" \"npm run start\"",
-    "server": "json-server -w server/db.json -p 3001"
+    "server": "json-server -w server/db.json -r server/routes.json -p 3001"
   },
   "eslintConfig": {
     "extends": [

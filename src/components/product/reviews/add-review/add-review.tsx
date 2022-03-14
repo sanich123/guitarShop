@@ -1,12 +1,18 @@
-import React, { useEffect } from 'react';
-import { issues, marks } from '../../../../utils/const';
+import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
+import { useAddCommentMutation } from '../../../../redux';
+import { marks } from '../../../../utils/const';
 
 interface AddReviewProps {
   setReview: (arg: boolean) => void,
+  setIsSended: (arg: boolean) => void,
   name: string,
+  id: number,
 }
 
-export default function AddReview({setReview, name}: AddReviewProps) {
+export default function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
+  const [addComment, {isSuccess}] = useAddCommentMutation();
+
   useEffect(() => {
     const onEsc = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
@@ -17,6 +23,41 @@ export default function AddReview({setReview, name}: AddReviewProps) {
     document.addEventListener('keydown', onEsc);
     return () => document.removeEventListener('keydown', onEsc);
   });
+
+  useEffect(() => {
+    if (isSuccess) {
+      setReview(false);
+      setIsSended(true);
+    }
+  }, [isSuccess, setIsSended, setReview]);
+
+  const [rating, setRating] = useState('');
+  const [surName, setSurName] = useState('');
+  const [issue, setIssue] = useState('');
+  const [advantage, setAdvantage] = useState('');
+  const [comment, setComment] = useState('');
+
+  const handleSubmit = async (evt: React.FormEvent) => {
+    evt.preventDefault();
+
+    if (+rating === 0) {
+      return toast.warn('Поле рейтинга не может быть равно нулю. Пожалуйста, введите значение от 1 до 5');
+    }
+
+    if (surName === '') {
+      return toast.warn('Поле фамилии не может быть пусто');
+    }
+
+    await addComment({
+      rating: +rating,
+      userName: surName,
+      disadvantage: issue,
+      advantage: advantage,
+      comment: comment,
+      createAt: new Date(),
+      guitarId: id,
+    }).unwrap();
+  };
 
   return (
     <div style={{
@@ -31,11 +72,18 @@ export default function AddReview({setReview, name}: AddReviewProps) {
           <div className="modal__content">
             <h2 className="modal__header modal__header--review title title--medium">Оставить отзыв</h2>
             <h3 className="modal__product-name title title--medium-20 title--uppercase">{name}</h3>
-            <form className="form-review">
+            <form className="form-review" onSubmit={handleSubmit}>
               <div className="form-review__wrapper">
                 <div className="form-review__name-wrapper">
                   <label className="form-review__label form-review__label--required" htmlFor="user-name">Ваше Имя</label>
-                  <input className="form-review__input form-review__input--name" id="user-name" type="text" autoComplete="off" autoFocus/>
+                  <input
+                    className="form-review__input form-review__input--name"
+                    id="user-name"
+                    type="text"
+                    autoComplete="off"
+                    autoFocus
+                    onChange={({target}) => setSurName(target.value)}
+                  />
                   <span className="form-review__warning">Заполните поле</span>
                 </div>
                 <div>
@@ -43,7 +91,15 @@ export default function AddReview({setReview, name}: AddReviewProps) {
                   <div className="rate rate--reverse">
                     {Object.entries(marks).map(([title, mark]) => (
                       <React.Fragment key={title}>
-                        <input className="visually-hidden" type="radio" id={`star-${title}`} name="rate" value={mark} tabIndex={0}/>
+                        <input
+                          onClick={() => setRating(mark.toString())}
+                          className="visually-hidden"
+                          type="radio"
+                          id={`star-${title}`}
+                          name="rate"
+                          value={mark}
+                          tabIndex={0}
+                        />
                         <label className="rate__label" htmlFor={`star-${title}`} title={mark.toString()} />
                       </React.Fragment>
                     ))}
@@ -52,17 +108,44 @@ export default function AddReview({setReview, name}: AddReviewProps) {
                   </div>
                 </div>
               </div>
-              {issues.map((issue) => (
-                <React.Fragment key={issue}>
-                  <label className="form-review__label" htmlFor="user-name">{issue}</label>
-                  <input className="form-review__input" id="pros" type="text" autoComplete="off"/>
-                </React.Fragment>
-              ))}
+              <label className="form-review__label" htmlFor="user-name">Недостатки</label>
+              <input
+                className="form-review__input"
+                id="pros"
+                type="text"
+                autoComplete="off"
+                onChange={({target}) => setIssue(target.value)}
+              />
+              <label className="form-review__label" htmlFor="user-name">Достоинства</label>
+              <input
+                className="form-review__input"
+                id="pros"
+                type="text"
+                autoComplete="off"
+                onChange={({target}) => setAdvantage(target.value)}
+              />
+
               <label className="form-review__label" htmlFor="user-name">Комментарий</label>
-              <textarea className="form-review__input form-review__input--textarea" id="user-name" rows={10} autoComplete="off"/>
-              <button className="button button--medium-20 form-review__button" type="submit">Отправить отзыв</button>
+              <textarea
+                className="form-review__input form-review__input--textarea"
+                id="user-name"
+                rows={10}
+                autoComplete="off"
+                onChange={({target}) => setComment(target.value)}
+              />
+              <button
+                className="button button--medium-20 form-review__button"
+                type="submit"
+
+              >Отправить отзыв
+              </button>
             </form>
-            <button className="modal__close-btn button-cross" onClick={() => setReview(false)} type="button" aria-label="Закрыть">
+            <button
+              className="modal__close-btn button-cross"
+              onClick={() => setReview(false)}
+              type="button"
+              aria-label="Закрыть"
+            >
               <span className="button-cross__icon"/>
               <span className="modal__close-btn-interactive-area"/>
             </button>
