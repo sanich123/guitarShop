@@ -22,45 +22,66 @@ export default function Cart() {
   const forRequest = [...new Set(inCart.map(({id}) => id))];
 
   const request = forRequest.length ? forRequest.map((number) => `id=${number}`).join('&') : 'id=';
-  const {data, isLoading} = useGetGuitarsQuery(request);
+  const {data, isLoading} = useGetGuitarsQuery(`?${request}`);
 
   if (isLoading) {
     return <Loader/>;
   }
 
   const totalPrice = valueChecker(data, inCart);
+  // eslint-disable-next-line no-console
+  console.log(
+    request,
+    data.map((guitar: Guitar) => forRequest.includes(guitar.id) ? guitar : '').filter(Boolean),
+    inCart,
+  );
 
   return (
     <div className="wrapper">
-      <Svg/>
-      <Header/>
+      <Svg />
+      <Header />
       <main className="page-content">
         <div className="container">
           <h1 className="title title--bigger page-content__title">Корзина</h1>
-          <Breadcrumbs place={appRoutes.cart}/>
+          <Breadcrumbs place={appRoutes.cart} />
           <div className="cart">
-
-            {isDelete &&
-            <DeleteModal guitars={data} deleteId={deleteId} setIsDelete={setIsDelete} />}
-            {inCart.length === 0 &&
-            <h1>В вашей корзине ничего нет:(</h1>}
-
-            {inCart.length > 0 &&
-            data.map(({id, ...rest}: Guitar) => <CartItem key={id} id={id} {...rest} setIsDelete={setIsDelete} setDeleteId={setDeleteId} inCart={inCart} />)}
-
-            {inCart.length > 0 &&
-            <div className="cart__footer">
-              <Promocode/>
-              <TotalInfo
-                discount={discount}
-                allGuitarsPrice={totalPrice}
+            {isDelete && (
+              <DeleteModal
+                guitars={data}
+                deleteId={deleteId}
+                setIsDelete={setIsDelete}
               />
-            </div>}
+            )}
 
+            {inCart.length > 0 ? (
+              data
+                .map((guitar: Guitar) =>
+                  forRequest.includes(guitar.id) ? guitar : '')
+                .filter(Boolean)
+                .map(({ id, ...rest }: Guitar) => (
+                  <CartItem
+                    key={id}
+                    id={id}
+                    {...rest}
+                    setIsDelete={setIsDelete}
+                    setDeleteId={setDeleteId}
+                    inCart={inCart}
+                  />
+                ))
+            ) : (
+              <h1>В вашей корзине ничего нет:(</h1>
+            )}
+
+            {inCart.length > 0 && (
+              <div className="cart__footer">
+                <Promocode />
+                <TotalInfo discount={discount} allGuitarsPrice={totalPrice} />
+              </div>
+            )}
           </div>
         </div>
       </main>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

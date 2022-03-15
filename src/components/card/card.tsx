@@ -17,7 +17,6 @@ export interface CardProps {
 export default function Card({previewImg, name, rating, price, id, setAddToCart, setGuitarId}: CardProps) {
   const inCart = useSelector(({cart}: CartType) => cart).map((guitar) => guitar.id);
 
-
   return (
     <div className="product-card">
       <img src={previewImg} width="75" height="190" alt={name}/>

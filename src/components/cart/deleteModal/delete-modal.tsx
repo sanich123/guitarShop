@@ -5,6 +5,7 @@ import { deleteFromCart } from '../../../redux/cart-slice';
 import { Guitar } from '../../../types/types';
 import { appRoutes } from '../../../utils/const';
 import ModalInfo from '../../modal/modal-info';
+
 interface DeleteModalProps {
   guitars: Guitar[],
   deleteId: string,
@@ -12,7 +13,8 @@ interface DeleteModalProps {
 }
 
 export default function DeleteModal({guitars, deleteId, setIsDelete}: DeleteModalProps) {
-
+  const history = useHistory();
+  const dispatch = useDispatch();
   useEffect(() => {
     const onEsc = (evt: KeyboardEvent) => {
       if (evt.key === 'Escape') {
@@ -23,9 +25,6 @@ export default function DeleteModal({guitars, deleteId, setIsDelete}: DeleteModa
     document.addEventListener('keydown', onEsc);
     return () => document.removeEventListener('keydown', onEsc);
   });
-
-  const history = useHistory();
-  const dispatch = useDispatch();
 
   if (deleteId !== '') {
     const [{previewImg, name, vendorCode, stringCount, price}] = guitars.filter((guitar: Guitar) => guitar.id === +deleteId);
