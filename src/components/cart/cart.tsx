@@ -29,12 +29,6 @@ export default function Cart() {
   }
 
   const totalPrice = valueChecker(data, inCart);
-  // eslint-disable-next-line no-console
-  console.log(
-    request,
-    data.map((guitar: Guitar) => forRequest.includes(guitar.id) ? guitar : '').filter(Boolean),
-    inCart,
-  );
 
   return (
     <div className="wrapper">
