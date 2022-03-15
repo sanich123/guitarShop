@@ -660,43 +660,33 @@
   ],
   "comments": [
     {
-      "id": 1,
-      "reviews": [
-        {
-          "id": "968f05b1-38e7-4f13-a865-d07dedc79919",
-          "userName": "Саша",
-          "advantage": "Рекомендую!",
-          "disadvantage": "Разбитая гитара. Плохая упаковка.",
-          "comment": "Купила гитуру, прислали которая несоответствует описанию, струны плохого качества.",
-          "rating": 2,
-          "createAt": "2021-11-21T03:09:14.816Z",
-          "guitarId": 1
-        }
-      ]
+      "rating": 5,
+      "userName": "Александр",
+      "disadvantage": "Очень отвратительная гитара",
+      "advantage": "Очень",
+      "comment": "Не очень",
+      "createAt": "2022-03-15T04:19:39.646Z",
+      "guitarId": 9,
+      "id": 1
     },
     {
-      "id": 2,
-      "reviews": [
-        {
-          "id": "968f05b1-38e7-4f13-a865-d07dedc79919",
-          "userName": "Саша",
-          "advantage": "Рекомендую!",
-          "disadvantage": "Разбитая гитара. Плохая упаковка.",
-          "comment": "Купила гитуру, прислали которая несоответствует описанию, струны плохого качества.",
-          "rating": 2,
-          "createAt": "2021-11-21T03:09:14.816Z",
-          "guitarId": 1
-        }
-      ]
+      "rating": 5,
+      "userName": "Donald Trump",
+      "disadvantage": "Very bad guitar",
+      "advantage": "VVery good guitar",
+      "comment": "Some strange letters",
+      "createAt": "2022-03-15T04:36:19.548Z",
+      "guitarId": 5,
+      "id": 2
     },
     {
-      "rating": 0,
-      "userName": "",
-      "disadvantage": "",
-      "advantage": "",
-      "comment": "",
-      "createAt": "2022-03-14T16:00:35.212Z",
-      "guitarId": 7,
+      "rating": 1,
+      "userName": "Joseph Biden",
+      "disadvantage": "It's very bad guitar, I broke my hand, trying to play",
+      "advantage": "None",
+      "comment": "Never ever buy this",
+      "createAt": "2022-03-15T04:40:19.232Z",
+      "guitarId": 9,
       "id": 3
     }
   ]

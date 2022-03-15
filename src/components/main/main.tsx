@@ -31,7 +31,7 @@ export default function Main() {
 
   const finalRequest = [`_sort=${sortPopular}`,`_order=${direction}`,`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
 
-  const {data, isLoading, isError} = useGetGuitarsQuery(finalRequest);
+  const {data, isLoading, isError} = useGetGuitarsQuery(`?${finalRequest}`);
 
   if (isLoading) {
     return <Loader/>;

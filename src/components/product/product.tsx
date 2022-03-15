@@ -20,7 +20,7 @@ import SuccessReview from './successReview/success-review';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
-  const {data, isLoading, isError} = useGetGuitarsQuery(`id=${uniq.id}`);
+  const {data, isLoading, isError} = useGetGuitarsQuery(`?id=${uniq.id}`);
   const [showReview, setReview] = useState(false);
   const [showAddCart, setAddToCart] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -99,7 +99,7 @@ export default function Product() {
               {isSended &&
               <SuccessReview setIsSended={setIsSended} />}
 
-              <Reviews comments={comments}/>
+              <Reviews comments={comments} uniq={uniq.id} />
               <a style={{zIndex: 900}} className="button button--red-border button--big reviews__up-button button--up" href="#header">Наверх</a>
             </section>
           </div>

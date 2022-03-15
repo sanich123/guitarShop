@@ -6,7 +6,7 @@ import Loader from '../../loader/loader';
 
 export default function FormSearch() {
   const [search, setSearch] = useState('');
-  const {data, isLoading} = useGetGuitarsQuery(`name_like=${search}`);
+  const {data, isLoading} = useGetGuitarsQuery(`?name_like=${search}`);
   const history = useHistory();
 
   if (isLoading) {
