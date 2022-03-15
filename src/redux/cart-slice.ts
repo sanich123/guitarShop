@@ -14,8 +14,8 @@ const cartSlice = createSlice({
       state.map((cart) => cart.id === id ? cart.quantity = value : cart.quantity);
     },
     deleteFromCart: (state, action) => {
-      const {id} = action.payload;
-      const index = state.findIndex((cart) => cart.id === id);
+      const {uniq} = action.payload;
+      const index = state.findIndex((cart) => cart.id === uniq);
       state.splice(index, 1);
     },
   },

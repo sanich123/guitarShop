@@ -1,4 +1,4 @@
-import { Cart, Guitar } from '../types/types';
+import { Cart, Comments, Guitar } from '../types/types';
 
 export const typeChanger = (type: string) => {
   if (type === 'acoustic') {
@@ -42,3 +42,6 @@ export const valueChecker = (arr1: Guitar[], arr2: Cart[]) => {
   }
   return total.reduce((sum, el): number => sum + el.price * +el.quantity, 0);
 };
+
+export const sortReviews = (arr: Comments[]) => arr.slice().sort((dateA, dateB) =>
+  Date.parse(dateB.createAt) - Date.parse(dateA.createAt));

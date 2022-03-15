@@ -9,13 +9,13 @@ import Footer from '../footer/footer';
 import Header from '../header/header';
 import Loader from '../loader/loader';
 import Svg from '../svg/svg';
-import DeleteModal from './deleteModal/delete-modal';
 import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
+import ModalAction from '../modal/modal-action';
 
 export default function Cart() {
-  const [isDelete, setIsDelete] = useState(false);
+  const [showActionModal, setActionModal] = useState(false);
   const [deleteId, setDeleteId] = useState('');
   const discount = 3000;
   const inCart = useSelector(({cart}: CartType) => cart);
@@ -39,25 +39,24 @@ export default function Cart() {
           <h1 className="title title--bigger page-content__title">Корзина</h1>
           <Breadcrumbs place={appRoutes.cart} />
           <div className="cart">
-            {isDelete && (
-              <DeleteModal
+            {showActionModal && (
+              <ModalAction
                 guitars={data}
                 deleteId={deleteId}
-                setIsDelete={setIsDelete}
+                setActionModal={setActionModal}
               />
             )}
 
             {inCart.length > 0 ? (
               data
-                .map((guitar: Guitar) =>
-                  forRequest.includes(guitar.id) ? guitar : '')
-                .filter(Boolean)
+                .filter((guitar: Guitar) =>
+                  forRequest.includes(guitar.id))
                 .map(({ id, ...rest }: Guitar) => (
                   <CartItem
                     key={id}
                     id={id}
                     {...rest}
-                    setIsDelete={setIsDelete}
+                    setActionModal={setActionModal}
                     setDeleteId={setDeleteId}
                     inCart={inCart}
                   />

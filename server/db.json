@@ -688,6 +688,56 @@
       "createAt": "2022-03-15T04:40:19.232Z",
       "guitarId": 9,
       "id": 3
+    },
+    {
+      "rating": 3,
+      "userName": "VPutin",
+      "disadvantage": "",
+      "advantage": "Очень хорошая гитара",
+      "comment": "Не понравилась в итоге",
+      "createAt": "2022-03-15T06:23:49.649Z",
+      "guitarId": 9,
+      "id": 4
+    },
+    {
+      "rating": 3,
+      "userName": "Vladimir Putin",
+      "disadvantage": "It's terrible guitar",
+      "advantage": "I liked it",
+      "comment": "Never ever again buy this product",
+      "createAt": "2022-03-15T07:22:59.576Z",
+      "guitarId": 9,
+      "id": 5
+    },
+    {
+      "rating": 3,
+      "userName": "Emmanuel Macron",
+      "disadvantage": "Что за сраная гитара",
+      "advantage": "Нет",
+      "comment": "Никогда у вас ничего больше не куплю",
+      "createAt": "2022-03-15T08:23:23.610Z",
+      "guitarId": 9,
+      "id": 6
+    },
+    {
+      "rating": 5,
+      "userName": "Dmitry",
+      "disadvantage": "No",
+      "advantage": "Very good guitar",
+      "comment": "I bought this guitar last year, and for now it plays very good. I'm satisfied with this purchase",
+      "createAt": "2022-03-15T11:16:07.186Z",
+      "guitarId": 9,
+      "id": 7
+    },
+    {
+      "rating": 5,
+      "userName": "Gomer simpsion",
+      "disadvantage": "It's very bad guitar",
+      "advantage": "I hate it",
+      "comment": "Nasty\n",
+      "createAt": "2022-03-15T11:36:56.733Z",
+      "guitarId": 7,
+      "id": 8
     }
   ]
 }

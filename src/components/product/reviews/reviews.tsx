@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useGetGuitarsQuery } from '../../../redux';
 import { Comments } from '../../../types/types';
+import { sortReviews } from '../../../utils/utils';
 import Loader from '../../loader/loader';
 import Review from '../../review/review';
 
@@ -22,7 +23,7 @@ export default function Reviews({comments, uniq}: ReviewsProps) {
 
   return (
     <>
-      {allComments.slice(0, sliceNumber).map(({id, ...rest}) => <Review key={id} {...rest} />)}
+      {sortReviews(allComments).slice(0, sliceNumber).map(({id, ...rest}) => <Review key={id} {...rest} />)}
       {allComments.length >= 2 && sliceNumber < comments.length &&
       <button
         className="button button--medium reviews__more-button"

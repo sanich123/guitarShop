@@ -11,12 +11,12 @@ interface CartItemProps {
   type: string,
   vendorCode: string,
   id: number,
-  setIsDelete: (arg: boolean) => void,
+  setActionModal: (arg: boolean) => void,
   setDeleteId: (arg: string) => void,
   inCart: Cart[]
 }
 
-export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id, setIsDelete, setDeleteId, inCart}: CartItemProps) {
+export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id, setActionModal, setDeleteId, inCart}: CartItemProps) {
   const dispatch = useDispatch();
   const [{quantity}] = inCart.filter((cart) => cart.id === id);
   const totalPrice = price * +quantity;
@@ -27,7 +27,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
         className="cart-item__close-button button-cross" type="button"
         aria-label="Удалить"
         onClick={() => {
-          setIsDelete(true);
+          setActionModal(true);
           setDeleteId(id.toString());
         }}
       >

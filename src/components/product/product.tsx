@@ -10,19 +10,19 @@ import Reviews from './reviews/reviews';
 import { appRoutes } from '../../utils/const';
 import AddReview from './reviews/add-review/add-review';
 import { useState } from 'react';
-import AddToCart from './addToCart/add-to-cart';
 import Loader from '../loader/loader';
 import { useGetGuitarsQuery } from '../../redux';
 import Page404 from '../page404/page404';
 import { toast } from 'react-toastify';
-import SuccessCart from './succesCart/success-cart';
-import SuccessReview from './successReview/success-review';
+import SuccessCart from '../modal/succesCart/success-cart';
+import SuccessReview from '../modal/successReview/success-review';
+import ModalAction from '../modal/modal-action';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
   const {data, isLoading, isError} = useGetGuitarsQuery(`?id=${uniq.id}`);
   const [showReview, setReview] = useState(false);
-  const [showAddCart, setAddToCart] = useState(false);
+  const [showActionModal, setActionModal] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [isSended, setIsSended] = useState(false);
 
@@ -63,11 +63,11 @@ export default function Product() {
                   description={description}
                 />
               </div>
-              <Price price={price} setAddToCart={setAddToCart} />
+              <Price price={price} setActionModal={setActionModal} />
 
-              {showAddCart &&
-              <AddToCart
-                setAddToCart={setAddToCart}
+              {showActionModal &&
+              <ModalAction
+                setActionModal={setActionModal}
                 setIsAdded={setIsAdded}
                 guitars={data}
                 id={+uniq.id}
