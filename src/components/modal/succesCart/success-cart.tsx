@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { appRoutes } from '../../../utils/const';
+
 interface SuccessCartProps {
   setIsAdded: (arg: boolean) => void,
   place: string,

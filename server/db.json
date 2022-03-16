@@ -738,6 +738,36 @@
       "createAt": "2022-03-15T11:36:56.733Z",
       "guitarId": 7,
       "id": 8
+    },
+    {
+      "rating": 4,
+      "userName": "Алина Воронина",
+      "disadvantage": "Очень плохая гитара! Никому не советую такую покупать!",
+      "advantage": "У нее их нет!",
+      "comment": "Полное говно!",
+      "createAt": "2022-03-15T18:51:10.052Z",
+      "guitarId": 2,
+      "id": 9
+    },
+    {
+      "rating": 2,
+      "userName": "fwe",
+      "disadvantage": "",
+      "advantage": "",
+      "comment": "",
+      "createAt": "2022-03-16T08:26:37.687Z",
+      "guitarId": 2,
+      "id": 10
+    },
+    {
+      "rating": 2,
+      "userName": "fwe",
+      "disadvantage": "",
+      "advantage": "",
+      "comment": "",
+      "createAt": "2022-03-16T08:28:23.346Z",
+      "guitarId": 2,
+      "id": 11
     }
   ]
 }

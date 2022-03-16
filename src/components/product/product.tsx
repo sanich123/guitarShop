@@ -1,10 +1,8 @@
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import Svg from '../svg/svg';
-import Rating from '../rating/rating';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
 import { useParams } from 'react-router-dom';
-import Properties from './properties/properties';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
 import { appRoutes } from '../../utils/const';
@@ -16,7 +14,10 @@ import Page404 from '../page404/page404';
 import { toast } from 'react-toastify';
 import SuccessCart from '../modal/succesCart/success-cart';
 import SuccessReview from '../modal/successReview/success-review';
-import ModalAction from '../modal/modal-action';
+import ModalAction from '../modal/modal-action/modal-action';
+import UpBtn from './up-button/up-button';
+import AddReviewBtn from './add-review-btn/add-review-btn';
+import ProductInfo from './product-info/product-info';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
@@ -48,21 +49,7 @@ export default function Product() {
             <Breadcrumbs place={appRoutes.product}/>
             <div className="product-container">
               <img className="product-container__img" src={previewImg} width="90" height="235" alt="" />
-              <div className="product-container__info-wrapper">
-                <h2 className="product-container__title title title--big title--uppercase">{name}</h2>
-                <div className="rate product-container__rating" aria-hidden="true">
-                  <span className="visually-hidden">Рейтинг:</span>
-                  <Rating width={14} height={14} rating={rating}/>
-                  <span className="rate__count"></span>
-                  <span className="rate__message"></span>
-                </div>
-                <Properties
-                  vendorCode={vendorCode}
-                  stringCount={stringCount}
-                  type={type}
-                  description={description}
-                />
-              </div>
+              <ProductInfo name={name} vendorCode={vendorCode} type={type} stringCount={stringCount} description={description} rating={rating} />
               <Price price={price} setActionModal={setActionModal} />
 
               {showActionModal &&
@@ -82,11 +69,8 @@ export default function Product() {
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
-              <button
-                onClick={() => setReview(true)}
-                className="button button--red-border button--big reviews__submit-button"
-              >Оставить отзыв
-              </button>
+
+              <AddReviewBtn setReview={setReview} />
 
               {showReview &&
               <AddReview
@@ -100,7 +84,8 @@ export default function Product() {
               <SuccessReview setIsSended={setIsSended} />}
 
               <Reviews comments={comments} uniq={uniq.id} />
-              <a style={{zIndex: 900}} className="button button--red-border button--big reviews__up-button button--up" href="#header">Наверх</a>
+
+              <UpBtn/>
             </section>
           </div>
         </main>

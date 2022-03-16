@@ -14,7 +14,7 @@ import SortType from '../sort/sort-type/sort-type';
 import Svg from '../svg/svg';
 import Page404 from '../page404/page404';
 import SuccessCart from '../modal/succesCart/success-cart';
-import ModalAction from '../modal/modal-action';
+import ModalAction from '../modal/modal-action/modal-action';
 
 export default function Main() {
   const [filterString, setFilterString] = useState('');
@@ -77,6 +77,7 @@ export default function Main() {
                 />
               </div>
               <div className="cards catalog__cards">
+
                 {showActionModal &&
               <ModalAction
                 setActionModal={setActionModal}
@@ -84,12 +85,15 @@ export default function Main() {
                 guitars={data}
                 id={+guitarId}
               />}
+
                 {guitars.length > 0 ?
                   guitars.map(({id, ...rest}: CardProps) =>
                     (<Card key={id} id={id} {...rest} setGuitarId={setGuitarId} setActionModal={setActionModal}/>)) :
                   <h2>Условиям фильтрации не соответствует не один товар</h2>}
+
                 {isAdded &&
               <SuccessCart place={'main'} setIsAdded={setIsAdded} />}
+
               </div>
               <div className="pagination page-content__pagination">
                 {data.length > cardsOnPage &&

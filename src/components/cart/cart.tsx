@@ -12,7 +12,7 @@ import Svg from '../svg/svg';
 import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
-import ModalAction from '../modal/modal-action';
+import ModalAction from '../modal/modal-action/modal-action';
 
 export default function Cart() {
   const [showActionModal, setActionModal] = useState(false);
