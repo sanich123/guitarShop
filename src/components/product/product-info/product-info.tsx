@@ -1,4 +1,4 @@
-import Rating from '../../rating/rating';
+import Rating from '../../common/rating/rating';
 import Properties from './properties/properties';
 
 interface ProductInfoProps {

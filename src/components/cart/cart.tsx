@@ -4,15 +4,15 @@ import { useGetGuitarsQuery } from '../../redux';
 import { CartType, Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
 import { valueChecker } from '../../utils/utils';
-import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import Footer from '../footer/footer';
-import Header from '../header/header';
-import Loader from '../loader/loader';
-import Svg from '../svg/svg';
+import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
+import Footer from '../common/footer/footer';
+import Header from '../common/header/header';
+import Loader from '../common/loader/loader';
+import Svg from '../common/svg/svg';
 import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
-import ModalAction from '../modal/modal-action/modal-action';
+import ModalAction from '../common/modal/modal-action/modal-action';
 
 export default function Cart() {
   const [showActionModal, setActionModal] = useState(false);
@@ -24,9 +24,7 @@ export default function Cart() {
   const request = forRequest.length ? forRequest.map((number) => `id=${number}`).join('&') : 'id=';
   const {data, isLoading} = useGetGuitarsQuery(`?${request}`);
 
-  if (isLoading) {
-    return <Loader/>;
-  }
+  if (isLoading) {return <Loader/>;}
 
   const totalPrice = valueChecker(data, inCart);
 

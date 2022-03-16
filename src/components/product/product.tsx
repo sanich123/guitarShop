@@ -1,23 +1,22 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useGetGuitarsQuery } from '../../redux';
-import Footer from '../footer/footer';
-import Header from '../header/header';
-import Svg from '../svg/svg';
-import Breadcrumbs from '../breadcrumbs/breadcrumbs';
+import Footer from '../common/footer/footer';
+import Header from '../common/header/header';
+import Svg from '../common/svg/svg';
+import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
 import AddReview from './reviews/add-review/add-review';
-import Loader from '../loader/loader';
-import Page404 from '../page404/page404';
-import SuccessCart from '../modal/succesCart/success-cart';
-import SuccessReview from '../modal/successReview/success-review';
-import ModalAction from '../modal/modal-action/modal-action';
+import Loader from '../common/loader/loader';
+import Page404 from '../common/page404/page404';
+import ModalAction from '../common/modal/modal-action/modal-action';
 import UpBtn from './up-button/up-button';
 import AddReviewBtn from './add-review-btn/add-review-btn';
 import ProductInfo from './product-info/product-info';
 import { appRoutes } from '../../utils/const';
 import { toast } from 'react-toastify';
+import ModalSuccess from '../common/modal/modal-success';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
@@ -27,9 +26,7 @@ export default function Product() {
   const [isAdded, setIsAdded] = useState(false);
   const [isSended, setIsSended] = useState(false);
 
-  if (isLoading) {
-    return <Loader/>;
-  }
+  if (isLoading) {return <Loader/>;}
 
   if (isError) {
     toast.warn('Произошла ошибка.');
@@ -49,7 +46,16 @@ export default function Product() {
             <Breadcrumbs place={appRoutes.product}/>
             <div className="product-container">
               <img className="product-container__img" src={previewImg} width="90" height="235" alt="" />
-              <ProductInfo name={name} vendorCode={vendorCode} type={type} stringCount={stringCount} description={description} rating={rating} />
+
+              <ProductInfo
+                name={name}
+                vendorCode={vendorCode}
+                type={type}
+                stringCount={stringCount}
+                description={description}
+                rating={rating}
+              />
+
               <Price price={price} setActionModal={setActionModal} />
 
               {showActionModal &&
@@ -61,7 +67,7 @@ export default function Product() {
               />}
 
               {isAdded &&
-              <SuccessCart
+              <ModalSuccess
                 place={'product'}
                 setIsAdded={setIsAdded}
               />}
@@ -81,7 +87,7 @@ export default function Product() {
               />}
 
               {isSended &&
-              <SuccessReview setIsSended={setIsSended} />}
+              <ModalSuccess setIsSended={setIsSended} />}
 
               <Reviews comments={comments} uniq={uniq.id} />
 

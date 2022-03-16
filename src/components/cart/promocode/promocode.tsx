@@ -1,4 +1,5 @@
 export default function Promocode() {
+
   return (
     <div className="cart__coupon coupon">
       <h2 className="title title--little coupon__title">Промокод на скидку</h2>
