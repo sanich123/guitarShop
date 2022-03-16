@@ -1,23 +1,23 @@
+import { useParams } from 'react-router-dom';
+import { useState } from 'react';
+import { useGetGuitarsQuery } from '../../redux';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import Svg from '../svg/svg';
 import Breadcrumbs from '../breadcrumbs/breadcrumbs';
-import { useParams } from 'react-router-dom';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
-import { appRoutes } from '../../utils/const';
 import AddReview from './reviews/add-review/add-review';
-import { useState } from 'react';
 import Loader from '../loader/loader';
-import { useGetGuitarsQuery } from '../../redux';
 import Page404 from '../page404/page404';
-import { toast } from 'react-toastify';
 import SuccessCart from '../modal/succesCart/success-cart';
 import SuccessReview from '../modal/successReview/success-review';
 import ModalAction from '../modal/modal-action/modal-action';
 import UpBtn from './up-button/up-button';
 import AddReviewBtn from './add-review-btn/add-review-btn';
 import ProductInfo from './product-info/product-info';
+import { appRoutes } from '../../utils/const';
+import { toast } from 'react-toastify';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
