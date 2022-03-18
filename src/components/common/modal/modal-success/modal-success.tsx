@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-import { appRoutes } from '../../../../utils/const';
+import CartContinueBtn from './cart-continue-btn';
 import CloseBtnReview from './close-btn';
 import CloseBtnCart from './close-btn-cart';
+import ContinueBtn from './continue-btn';
+import SvgModal from './svg';
+import { FocusOn } from 'react-focus-on';
+import cn from 'classnames';
 
 interface SuccessCartProps {
   setIsAdded?: (arg: boolean) => void;
@@ -11,84 +13,50 @@ interface SuccessCartProps {
 }
 
 export default function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProps) {
-  const history = useHistory();
+  const modalMessage = setIsAdded
+    ? 'Товар успешно добавлен в корзину'
+    : 'Спасибо за ваш отзыв!';
 
-  useEffect(() => {
-    const onEsc = (evt: KeyboardEvent) => {
-      if (setIsAdded && evt.key === 'Escape') {
-        evt.preventDefault();
-        setIsAdded(false);
-      }
-
-      if (setIsSended && evt.key === 'Escape') {
-        evt.preventDefault();
-        setIsSended(false);
-      }
-
-    };
-    document.addEventListener('keydown', onEsc);
-    return () => document.removeEventListener('keydown', onEsc);
-  });
+  const activeClass = cn('modal__button-container', {'modal__button-container--add': setIsAdded},
+    {'modal__button-container--review' : setIsSended});
 
   return (
     <div className="modal is-active modal--success modal-for-ui-kit">
       <div className="modal__wrapper">
-        <div className="modal__overlay" data-close-modal="" />
-        <div className="modal__content">
-          <svg
-            className="modal__icon"
-            width="26"
-            height="20"
-            aria-hidden="true"
-          >
-            <use xlinkHref="#icon-success" />
-          </svg>
-          <p className="modal__message">
-            {setIsAdded
-              ? 'Товар успешно добавлен в корзину'
-              : 'Спасибо за ваш отзыв!'}
-          </p>
-          <div
-            className={`modal__button-container ${
-              setIsAdded
-                ? 'modal__button-container--add'
-                : 'modal__button-container--review'
-            }`}
-          >
-            {setIsAdded && (
-              <>
-                <button
-                  onClick={() => history.push(appRoutes.cart)}
-                  className="button button--small modal__button"
-                >
-                  Перейти в корзину
-                </button>
-                <button
-                  onClick={
-                    place === 'main'
-                      ? () => setIsAdded(false)
-                      : () => history.push(appRoutes.main)
-                  }
-                  className="button button--black-border button--small modal__button modal__button--right"
-                >
-                  Продолжить покупки
-                </button>
-              </>
-            )}
+        <div className="modal__overlay" data-close-modal />
 
-            {setIsSended && (
-              <button
-                onClick={() => history.push(appRoutes.main)}
-                className="button button--small modal__button modal__button--review"
-              >
-                К покупкам!
-              </button>
-            )}
-          </div>
+        {setIsAdded && (
+          <FocusOn
+            onClickOutside={() => setIsAdded(false)}
+            onEscapeKey={() => setIsAdded(false)}
+          >
+            <div className="modal__content">
+              <SvgModal />
+              <p className="modal__message">{modalMessage}</p>
+              <div className={activeClass}>
+                <CartContinueBtn place={place} setIsAdded={setIsAdded} />
+              </div>
+              <CloseBtnCart setIsAdded={setIsAdded} />
+            </div>
+          </FocusOn>
+        )}
 
-          {setIsAdded && <CloseBtnCart setIsAdded={setIsAdded} />}
-          {setIsSended && <CloseBtnReview setIsSended={setIsSended} />}
-        </div>
+        {setIsSended && (
+          <FocusOn
+            onClickOutside={() => setIsSended(false)}
+            onEscapeKey={() => setIsSended(false)}
+          >
+            <div className="modal__content">
+              <SvgModal />
+              <p className="modal__message">{modalMessage}</p>
+              <div className={activeClass}>
+                <ContinueBtn />
+              </div>
+              <CloseBtnReview setIsSended={setIsSended} />
+            </div>
+          </FocusOn>
+        )}
+
       </div>
     </div>
   );

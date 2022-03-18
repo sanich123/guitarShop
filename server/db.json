@@ -788,6 +788,26 @@
       "createAt": "2022-03-16T17:30:46.917Z",
       "guitarId": 7,
       "id": 13
+    },
+    {
+      "rating": 3,
+      "userName": "пцукп",
+      "disadvantage": "",
+      "advantage": "",
+      "comment": "",
+      "createAt": "2022-03-18T11:25:04.913Z",
+      "guitarId": 9,
+      "id": 14
+    },
+    {
+      "rating": 3,
+      "userName": "fwef",
+      "disadvantage": "",
+      "advantage": "",
+      "comment": "",
+      "createAt": "2022-03-18T13:40:17.085Z",
+      "guitarId": 7,
+      "id": 15
     }
   ]
 }

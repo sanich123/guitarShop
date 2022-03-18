@@ -15,7 +15,6 @@ import Svg from '../common/svg/svg';
 import Page404 from '../common/page404/page404';
 import ModalAction from '../common/modal/modal-action/modal-action';
 import ModalSuccess from '../common/modal/modal-success/modal-success';
-import { FocusOn } from 'react-focus-on';
 
 export default function Main() {
   const [filterString, setFilterString] = useState('');
@@ -75,14 +74,12 @@ export default function Main() {
               </div>
               <div className="cards catalog__cards">
                 {showActionModal && (
-                  <FocusOn>
-                    <ModalAction
-                      setActionModal={setActionModal}
-                      setIsAdded={setIsAdded}
-                      guitars={data}
-                      id={+guitarId}
-                    />
-                  </FocusOn>
+                  <ModalAction
+                    setActionModal={setActionModal}
+                    setIsAdded={setIsAdded}
+                    guitars={data}
+                    id={+guitarId}
+                  />
                 )}
 
                 {guitars.length > 0 ? (
@@ -100,9 +97,7 @@ export default function Main() {
                 )}
 
                 {isAdded && (
-                  <FocusOn>
-                    <ModalSuccess place={'main'} setIsAdded={setIsAdded} />
-                  </FocusOn>
+                  <ModalSuccess place={'main'} setIsAdded={setIsAdded} />
                 )}
               </div>
               <div className="pagination page-content__pagination">

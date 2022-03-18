@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../redux';
@@ -13,7 +14,6 @@ import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
 import ModalAction from '../common/modal/modal-action/modal-action';
-import { FocusOn } from 'react-focus-on';
 
 export default function Cart() {
   const [showActionModal, setActionModal] = useState(false);
@@ -40,13 +40,11 @@ export default function Cart() {
           <div className="cart">
 
             {showActionModal && (
-              <FocusOn>
-                <ModalAction
-                  guitars={data}
-                  deleteId={deleteId}
-                  setActionModal={setActionModal}
-                />
-              </FocusOn>
+              <ModalAction
+                guitars={data}
+                deleteId={deleteId}
+                setActionModal={setActionModal}
+              />
             )}
 
             {inCart.length > 0 ? (

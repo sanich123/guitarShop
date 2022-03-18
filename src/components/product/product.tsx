@@ -16,7 +16,6 @@ import AddReviewBtn from './add-review-btn/add-review-btn';
 import ProductInfo from './product-info/product-info';
 import { appRoutes } from '../../utils/const';
 import ModalSuccess from '../common/modal/modal-success/modal-success';
-import { FocusOn } from 'react-focus-on';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
@@ -61,20 +60,16 @@ export default function Product() {
               <Price price={price} setActionModal={setActionModal} />
 
               {showActionModal && (
-                <FocusOn>
-                  <ModalAction
-                    setActionModal={setActionModal}
-                    setIsAdded={setIsAdded}
-                    guitars={data}
-                    id={+uniq.id}
-                  />
-                </FocusOn>
+                <ModalAction
+                  setActionModal={setActionModal}
+                  setIsAdded={setIsAdded}
+                  guitars={data}
+                  id={+uniq.id}
+                />
               )}
 
               {isAdded && (
-                <FocusOn>
-                  <ModalSuccess place={'product'} setIsAdded={setIsAdded} />
-                </FocusOn>
+                <ModalSuccess place={'product'} setIsAdded={setIsAdded} />
               )}
             </div>
             <section className="reviews">
@@ -83,20 +78,16 @@ export default function Product() {
               <AddReviewBtn setReview={setReview} />
 
               {showReview && (
-                <FocusOn>
-                  <AddReview
-                    id={+uniq.id}
-                    setIsSended={setIsSended}
-                    setReview={setReview}
-                    name={name}
-                  />
-                </FocusOn>
+                <AddReview
+                  id={+uniq.id}
+                  setIsSended={setIsSended}
+                  setReview={setReview}
+                  name={name}
+                />
               )}
 
               {isSended && (
-                <FocusOn>
-                  <ModalSuccess setIsSended={setIsSended} />
-                </FocusOn>
+                <ModalSuccess setIsSended={setIsSended} />
               )}
 
               <Reviews comments={comments} uniq={uniq.id} />
