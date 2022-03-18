@@ -7,7 +7,7 @@ import Svg from '../common/svg/svg';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
-import AddReview from './reviews/add-review/add-review';
+import AddReview from '../common/modal/modal-review/add-review';
 import Loader from '../common/loader/loader';
 import Page404 from '../common/page404/page404';
 import ModalAction from '../common/modal/modal-action/modal-action';

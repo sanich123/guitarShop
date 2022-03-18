@@ -58,7 +58,6 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
     <div className="modal is-active modal--review modal-for-ui-kit">
       <div className="modal__wrapper">
         <div className="modal__overlay" data-close-modal/>
-
         <FocusOn
           onEscapeKey={() => setReview(false)}
           onClickOutside={() => setReview(false)}
@@ -71,22 +70,18 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
               {name}
             </h3>
             <form className="form-review" onSubmit={handleSubmit}>
-
               <div className="form-review__wrapper">
                 <AddName setSurName={setSurName}/>
                 <Rating setRating={setRating} />
               </div>
-
               <Issue setIssue={setIssue} />
               <Advantage setAdvantage={setAdvantage}/>
               <AddComment setComment={setComment}/>
-
               <SendReviewBtn/>
             </form>
             <CloseReviewBtn setReview={setReview}/>
           </div>
         </FocusOn>
-
       </div>
     </div>
   );
