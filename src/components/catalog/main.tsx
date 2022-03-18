@@ -14,7 +14,8 @@ import SortType from './sort/type/sort-type';
 import Svg from '../common/svg/svg';
 import Page404 from '../common/page404/page404';
 import ModalAction from '../common/modal/modal-action/modal-action';
-import ModalSuccess from '../common/modal/modal-success';
+import ModalSuccess from '../common/modal/modal-success/modal-success';
+import { FocusOn } from 'react-focus-on';
 
 export default function Main() {
   const [filterString, setFilterString] = useState('');
@@ -41,18 +42,22 @@ export default function Main() {
   const beginSlicing = endSlicing - cardsOnPage;
   const guitars = data.slice(beginSlicing, endSlicing);
 
-  return(
+  return (
     <>
-      <Svg/>
+      <Svg />
       <div className="wrapper">
-        <Header/>
+        <Header />
         <main className="page-content">
           <div className="container">
-            <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
-            <Breadcrumbs/>
+            <h1 className="page-content__title title title--bigger">
+              Каталог гитар
+            </h1>
+            <Breadcrumbs />
             <div className="catalog">
               <form className="catalog-filter">
-                <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
+                <h2 className="title title--bigger catalog-filter__title">
+                  Фильтр
+                </h2>
                 <PriceFilters
                   setFilterMinPrice={setFilterMinPrice}
                   setFilterMaxPrice={setFilterMaxPrice}
@@ -66,38 +71,49 @@ export default function Main() {
                   setSortPopular={setSortPopular}
                   sortPopular={sortPopular}
                 />
-                <SortOrder
-                  setDirection={setDirection}
-                  direction={direction}
-                />
+                <SortOrder setDirection={setDirection} direction={direction} />
               </div>
               <div className="cards catalog__cards">
+                {showActionModal && (
+                  <FocusOn>
+                    <ModalAction
+                      setActionModal={setActionModal}
+                      setIsAdded={setIsAdded}
+                      guitars={data}
+                      id={+guitarId}
+                    />
+                  </FocusOn>
+                )}
 
-                {showActionModal &&
-              <ModalAction
-                setActionModal={setActionModal}
-                setIsAdded={setIsAdded}
-                guitars={data}
-                id={+guitarId}
-              />}
+                {guitars.length > 0 ? (
+                  guitars.map(({ id, ...rest }: CardProps) => (
+                    <Card
+                      key={id}
+                      id={id}
+                      {...rest}
+                      setGuitarId={setGuitarId}
+                      setActionModal={setActionModal}
+                    />
+                  ))
+                ) : (
+                  <h2>Условиям фильтрации не соответствует не один товар</h2>
+                )}
 
-                {guitars.length > 0 ?
-                  guitars.map(({id, ...rest}: CardProps) =>
-                    (<Card key={id} id={id} {...rest} setGuitarId={setGuitarId} setActionModal={setActionModal}/>)) :
-                  <h2>Условиям фильтрации не соответствует не один товар</h2>}
-
-                {isAdded &&
-              <ModalSuccess place={'main'} setIsAdded={setIsAdded} />}
-
+                {isAdded && (
+                  <FocusOn>
+                    <ModalSuccess place={'main'} setIsAdded={setIsAdded} />
+                  </FocusOn>
+                )}
               </div>
               <div className="pagination page-content__pagination">
-                {data.length > cardsOnPage &&
-                <MainPagination
-                  setPageNumber={setPageNumber}
-                  pageNumber={pageNumber}
-                  cardsOnPage={cardsOnPage}
-                  count={data.length}
-                />}
+                {data.length > cardsOnPage && (
+                  <MainPagination
+                    setPageNumber={setPageNumber}
+                    pageNumber={pageNumber}
+                    cardsOnPage={cardsOnPage}
+                    count={data.length}
+                  />
+                )}
               </div>
             </div>
           </div>

@@ -1,6 +1,8 @@
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { appRoutes } from '../../../utils/const';
+import { appRoutes } from '../../../../utils/const';
+import CloseBtnReview from './close-btn';
+import CloseBtnCart from './close-btn-cart';
 
 interface SuccessCartProps {
   setIsAdded?: (arg: boolean) => void;
@@ -84,29 +86,8 @@ export default function ModalSuccess({ setIsSended, setIsAdded, place }: Success
             )}
           </div>
 
-          {setIsAdded && (
-            <button
-              className="modal__close-btn button-cross"
-              type="button"
-              aria-label="Закрыть"
-              onClick={() => setIsAdded(false)}
-            >
-              <span className="button-cross__icon" />
-              <span className="modal__close-btn-interactive-area" />
-            </button>
-          )}
-
-          {setIsSended && (
-            <button
-              className="modal__close-btn button-cross"
-              type="button"
-              aria-label="Закрыть"
-              onClick={() => setIsSended(false)}
-            >
-              <span className="button-cross__icon" />
-              <span className="modal__close-btn-interactive-area" />
-            </button>
-          )}
+          {setIsAdded && <CloseBtnCart setIsAdded={setIsAdded} />}
+          {setIsSended && <CloseBtnReview setIsSended={setIsSended} />}
         </div>
       </div>
     </div>

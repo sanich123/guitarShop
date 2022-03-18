@@ -13,6 +13,7 @@ import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
 import ModalAction from '../common/modal/modal-action/modal-action';
+import { FocusOn } from 'react-focus-on';
 
 export default function Cart() {
   const [showActionModal, setActionModal] = useState(false);
@@ -37,18 +38,20 @@ export default function Cart() {
           <h1 className="title title--bigger page-content__title">Корзина</h1>
           <Breadcrumbs place={appRoutes.cart} />
           <div className="cart">
+
             {showActionModal && (
-              <ModalAction
-                guitars={data}
-                deleteId={deleteId}
-                setActionModal={setActionModal}
-              />
+              <FocusOn>
+                <ModalAction
+                  guitars={data}
+                  deleteId={deleteId}
+                  setActionModal={setActionModal}
+                />
+              </FocusOn>
             )}
 
             {inCart.length > 0 ? (
               data
-                .filter((guitar: Guitar) =>
-                  forRequest.includes(guitar.id))
+                .filter((guitar: Guitar) => forRequest.includes(guitar.id))
                 .map(({ id, ...rest }: Guitar) => (
                   <CartItem
                     key={id}
