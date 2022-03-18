@@ -808,6 +808,16 @@
       "createAt": "2022-03-18T13:40:17.085Z",
       "guitarId": 7,
       "id": 15
+    },
+    {
+      "rating": 5,
+      "userName": "Barak Obama",
+      "disadvantage": "It's a very bad guitar",
+      "advantage": "It has no advantages",
+      "comment": "I don't recommend to buy this guitar, because it is out of quality\n",
+      "createAt": "2022-03-18T14:19:16.174Z",
+      "guitarId": 4,
+      "id": 16
     }
   ]
 }

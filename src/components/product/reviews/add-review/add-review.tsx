@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddCommentMutation } from '../../../../redux';
-import { marks, messages } from '../../../../utils/const';
+import { messages } from '../../../../utils/const';
+import {FocusOn} from 'react-focus-on';
+import Issue from './issue';
+import Advantage from './advantage';
+import AddComment from './add-comment';
+import AddName from './add-name';
+import Rating from './rating';
+import CloseReviewBtn from './close-review-btn';
+import SendReviewBtn from './send-review-btn';
 
 interface AddReviewProps {
   setReview: (arg: boolean) => void,
@@ -14,22 +22,10 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
   const [addComment, {isSuccess, isError}] = useAddCommentMutation();
 
   useEffect(() => {
-    const onEsc = (evt: KeyboardEvent) => {
-      if (evt.key === 'Escape') {
-        evt.preventDefault();
-        setReview(false);
-      }
-    };
-    document.addEventListener('keydown', onEsc);
-    return () => document.removeEventListener('keydown', onEsc);
-  });
-
-  useEffect(() => {
     if (isSuccess) {
       setReview(false);
       setIsSended(true);
     }
-
     if (isError) {
       setReview(true);
       setIsSended(false);
@@ -45,15 +41,8 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-
-    if (+rating === 0) {
-      return toast.warn(messages.ratingRequired);
-    }
-
-    if (surName === '') {
-      return toast.warn(messages.surnameRequired);
-    }
-
+    if (+rating === 0) {return toast.warn(messages.ratingRequired);}
+    if (surName === '') {return toast.warn(messages.surnameRequired);}
     await addComment({
       rating: +rating,
       userName: surName,
@@ -66,97 +55,38 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
   };
 
   return (
-    <div style={{
-      position: 'relative',
-      width: '550px',
-      height: '610px',
-      marginBottom: '50px'}}
-    >
-      <div className="modal is-active modal--review modal-for-ui-kit">
-        <div className="modal__wrapper">
-          <div className="modal__overlay" data-close-modal/>
+    <div className="modal is-active modal--review modal-for-ui-kit">
+      <div className="modal__wrapper">
+        <div className="modal__overlay" data-close-modal/>
+
+        <FocusOn
+          onEscapeKey={() => setReview(false)}
+          onClickOutside={() => setReview(false)}
+        >
           <div className="modal__content">
-            <h2 className="modal__header modal__header--review title title--medium">Оставить отзыв</h2>
-            <h3 className="modal__product-name title title--medium-20 title--uppercase">{name}</h3>
+            <h2 className="modal__header modal__header--review title title--medium">
+              Оставить отзыв
+            </h2>
+            <h3 className="modal__product-name title title--medium-20 title--uppercase">
+              {name}
+            </h3>
             <form className="form-review" onSubmit={handleSubmit}>
+
               <div className="form-review__wrapper">
-                <div className="form-review__name-wrapper">
-                  <label className="form-review__label form-review__label--required" htmlFor="user-name">Ваше Имя</label>
-                  <input
-                    className="form-review__input form-review__input--name"
-                    id="user-name"
-                    type="text"
-                    autoComplete="off"
-                    autoFocus
-                    onChange={({target}) => setSurName(target.value)}
-                  />
-                  <span className="form-review__warning">Заполните поле</span>
-                </div>
-                <div>
-                  <span className="form-review__label form-review__label--required">Ваша Оценка</span>
-                  <div className="rate rate--reverse">
-                    {Object.entries(marks).map(([title, mark]) => (
-                      <React.Fragment key={title}>
-                        <input
-                          onClick={() => setRating(mark.toString())}
-                          className="visually-hidden"
-                          type="radio"
-                          id={`star-${title}`}
-                          name="rate"
-                          value={mark}
-                          tabIndex={0}
-                        />
-                        <label className="rate__label" htmlFor={`star-${title}`} title={mark.toString()} />
-                      </React.Fragment>
-                    ))}
-                    <span className="rate__count"></span>
-                    <span className="rate__message">Поставьте оценку</span>
-                  </div>
-                </div>
+                <AddName setSurName={setSurName}/>
+                <Rating setRating={setRating} />
               </div>
-              <label className="form-review__label" htmlFor="user-name">Недостатки</label>
-              <input
-                className="form-review__input"
-                id="pros"
-                type="text"
-                autoComplete="off"
-                onChange={({target}) => setIssue(target.value)}
-              />
-              <label className="form-review__label" htmlFor="user-name">Достоинства</label>
-              <input
-                className="form-review__input"
-                id="pros"
-                type="text"
-                autoComplete="off"
-                onChange={({target}) => setAdvantage(target.value)}
-              />
 
-              <label className="form-review__label" htmlFor="user-name">Комментарий</label>
-              <textarea
-                className="form-review__input form-review__input--textarea"
-                id="user-name"
-                rows={10}
-                autoComplete="off"
-                onChange={({target}) => setComment(target.value)}
-              />
-              <button
-                className="button button--medium-20 form-review__button"
-                type="submit"
+              <Issue setIssue={setIssue} />
+              <Advantage setAdvantage={setAdvantage}/>
+              <AddComment setComment={setComment}/>
 
-              >Отправить отзыв
-              </button>
+              <SendReviewBtn/>
             </form>
-            <button
-              className="modal__close-btn button-cross"
-              onClick={() => setReview(false)}
-              type="button"
-              aria-label="Закрыть"
-            >
-              <span className="button-cross__icon"/>
-              <span className="modal__close-btn-interactive-area"/>
-            </button>
+            <CloseReviewBtn setReview={setReview}/>
           </div>
-        </div>
+        </FocusOn>
+
       </div>
     </div>
   );
