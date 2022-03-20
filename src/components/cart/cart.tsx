@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../redux';
@@ -37,6 +38,7 @@ export default function Cart() {
           <h1 className="title title--bigger page-content__title">Корзина</h1>
           <Breadcrumbs place={appRoutes.cart} />
           <div className="cart">
+
             {showActionModal && (
               <ModalAction
                 guitars={data}
@@ -47,8 +49,7 @@ export default function Cart() {
 
             {inCart.length > 0 ? (
               data
-                .filter((guitar: Guitar) =>
-                  forRequest.includes(guitar.id))
+                .filter((guitar: Guitar) => forRequest.includes(guitar.id))
                 .map(({ id, ...rest }: Guitar) => (
                   <CartItem
                     key={id}

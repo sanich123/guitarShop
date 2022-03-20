@@ -7,7 +7,7 @@ import Svg from '../common/svg/svg';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
-import AddReview from './reviews/add-review/add-review';
+import AddReview from '../common/modal/modal-review/add-review';
 import Loader from '../common/loader/loader';
 import Page404 from '../common/page404/page404';
 import ModalAction from '../common/modal/modal-action/modal-action';
@@ -15,8 +15,7 @@ import UpBtn from './up-button/up-button';
 import AddReviewBtn from './add-review-btn/add-review-btn';
 import ProductInfo from './product-info/product-info';
 import { appRoutes } from '../../utils/const';
-import { toast } from 'react-toastify';
-import ModalSuccess from '../common/modal/modal-success';
+import ModalSuccess from '../common/modal/modal-success/modal-success';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
@@ -27,11 +26,7 @@ export default function Product() {
   const [isSended, setIsSended] = useState(false);
 
   if (isLoading) {return <Loader/>;}
-
-  if (isError) {
-    toast.warn('Произошла ошибка.');
-    return <Page404/>;
-  }
+  if (isError) {return <Page404/>;}
 
   const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = data;
 
@@ -43,9 +38,15 @@ export default function Product() {
         <main className="page-content">
           <div className="container">
             <h1 className="page-content__title title title--bigger">Товар</h1>
-            <Breadcrumbs place={appRoutes.product}/>
+            <Breadcrumbs place={appRoutes.product} />
             <div className="product-container">
-              <img className="product-container__img" src={previewImg} width="90" height="235" alt="" />
+              <img
+                className="product-container__img"
+                src={previewImg}
+                width="90"
+                height="235"
+                alt=""
+              />
 
               <ProductInfo
                 name={name}
@@ -58,40 +59,40 @@ export default function Product() {
 
               <Price price={price} setActionModal={setActionModal} />
 
-              {showActionModal &&
-              <ModalAction
-                setActionModal={setActionModal}
-                setIsAdded={setIsAdded}
-                guitars={data}
-                id={+uniq.id}
-              />}
+              {showActionModal && (
+                <ModalAction
+                  setActionModal={setActionModal}
+                  setIsAdded={setIsAdded}
+                  guitars={data}
+                  id={+uniq.id}
+                />
+              )}
 
-              {isAdded &&
-              <ModalSuccess
-                place={'product'}
-                setIsAdded={setIsAdded}
-              />}
-
+              {isAdded && (
+                <ModalSuccess place={'product'} setIsAdded={setIsAdded} />
+              )}
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
 
               <AddReviewBtn setReview={setReview} />
 
-              {showReview &&
-              <AddReview
-                id={+uniq.id}
-                setIsSended={setIsSended}
-                setReview={setReview}
-                name={name}
-              />}
+              {showReview && (
+                <AddReview
+                  id={+uniq.id}
+                  setIsSended={setIsSended}
+                  setReview={setReview}
+                  name={name}
+                />
+              )}
 
-              {isSended &&
-              <ModalSuccess setIsSended={setIsSended} />}
+              {isSended && (
+                <ModalSuccess setIsSended={setIsSended} />
+              )}
 
               <Reviews comments={comments} uniq={uniq.id} />
 
-              <UpBtn/>
+              <UpBtn />
             </section>
           </div>
         </main>
