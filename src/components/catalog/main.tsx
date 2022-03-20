@@ -13,8 +13,8 @@ import SortOrder from './sort/direction/direction-sort';
 import SortType from './sort/type/sort-type';
 import Svg from '../common/svg/svg';
 import ModalAction from '../common/modal/modal-action/modal-action';
-import ModalSuccess from '../common/modal/modal-success';
 import { errorHandler } from '../../utils/utils';
+import ModalSuccess from '../common/modal/modal-success/modal-success';
 
 export default function Main() {
   const [filterString, setFilterString] = useState('');
