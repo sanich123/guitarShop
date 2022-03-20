@@ -12,9 +12,9 @@ import MainPagination from './pagination/pagination';
 import SortOrder from './sort/direction/direction-sort';
 import SortType from './sort/type/sort-type';
 import Svg from '../common/svg/svg';
-import Page404 from '../common/page404/page404';
 import ModalAction from '../common/modal/modal-action/modal-action';
 import ModalSuccess from '../common/modal/modal-success';
+import { errorHandler } from '../../utils/utils';
 
 export default function Main() {
   const [filterString, setFilterString] = useState('');
@@ -31,10 +31,10 @@ export default function Main() {
 
   const finalRequest = [`_sort=${sortPopular}`,`_order=${direction}`,`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
 
-  const {data, isLoading, isError} = useGetGuitarsQuery(`?${finalRequest}`);
+  const {data, isLoading, error} = useGetGuitarsQuery(`?${finalRequest}`);
 
   if (isLoading) {return <Loader/>;}
-  if (isError) {return <Page404/>;}
+  if (error) {return errorHandler(error);}
 
   const cardsOnPage = 3;
   const endSlicing = pageNumber * cardsOnPage;

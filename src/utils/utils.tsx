@@ -1,3 +1,7 @@
+import { SerializedError } from '@reduxjs/toolkit';
+import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
+import { toast } from 'react-toastify';
+import Page404 from '../components/common/page404/page404';
 import { Cart, Comments, Guitar } from '../types/types';
 
 export const typeChanger = (type: string) => {
@@ -45,3 +49,14 @@ export const valueChecker = (arr1: Guitar[], arr2: Cart[]) => {
 
 export const sortReviews = (arr: Comments[]) => arr.slice().sort((dateA, dateB) =>
   Date.parse(dateB.createAt) - Date.parse(dateA.createAt));
+
+export const normalizedError = (error: SerializedError | FetchBaseQueryError) => JSON.parse(JSON.stringify(error));
+
+export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
+  const info = normalizedError(error);
+  if (info.status === 404) {
+    return <Page404/>;
+  }
+  toast.warn(`${info.status} ${info.error}`);
+  return <h1>{info.status} {info.error}</h1>;
+};
