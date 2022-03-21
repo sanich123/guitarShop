@@ -20,15 +20,12 @@ interface AddReviewProps {
 }
 
 export default function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
-  const [addComment, {isSuccess, isError, error, data}] = useAddCommentMutation();
+  const [addComment, {isSuccess, isError, error, data: response}] = useAddCommentMutation();
 
   useEffect(() => {
     if (isSuccess) {
       setReview(false);
       setIsSended(true);
-      const response = data;
-      // eslint-disable-next-line no-console
-      console.log(response);
     }
     if (isError) {
       setReview(true);
@@ -37,7 +34,7 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
         toast.warn(messages.failAddress) :
         toast.warn(messages.failedSending);
     }
-  }, [isSuccess, isError, setIsSended, setReview, error, data]);
+  }, [isSuccess, isError, setIsSended, setReview, error, response]);
 
   const [rating, setRating] = useState('');
   const [surName, setSurName] = useState('');
