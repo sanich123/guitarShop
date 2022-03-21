@@ -20,6 +20,9 @@ export const sortDirections = {'По возрастанию': 'up', 'По убы
 
 export const messages = {
   failedSending: 'Не удалось отправить ваш комментарий, неполадки с сетью',
+  failAddress: 'Не удалось отправить сообщение на указанный адрес',
   surnameRequired: 'Поле фамилии не может быть пусто',
   ratingRequired: 'Поле рейтинга не может быть равно нулю. Пожалуйста, введите значение от 1 до 5',
 };
+
+export const notFoundPage = 404;

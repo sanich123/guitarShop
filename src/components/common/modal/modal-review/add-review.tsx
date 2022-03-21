@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddCommentMutation } from '../../../../redux';
-import { messages } from '../../../../utils/const';
+import { messages, notFoundPage } from '../../../../utils/const';
 import {FocusOn} from 'react-focus-on';
 import Issue from './issue';
 import Advantage from './advantage';
@@ -10,6 +10,7 @@ import AddName from './add-name';
 import Rating from './rating';
 import CloseReviewBtn from './close-review-btn';
 import SendReviewBtn from './send-review-btn';
+import { normalizedError } from '../../../../utils/utils';
 
 interface AddReviewProps {
   setReview: (arg: boolean) => void,
@@ -19,19 +20,23 @@ interface AddReviewProps {
 }
 
 export default function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
-  const [addComment, {isSuccess, isError}] = useAddCommentMutation();
+  const [addComment, {isSuccess, isError, error, data}] = useAddCommentMutation();
 
   useEffect(() => {
     if (isSuccess) {
       setReview(false);
       setIsSended(true);
+      // eslint-disable-next-line no-console
+      console.log(data);
     }
     if (isError) {
       setReview(true);
       setIsSended(false);
-      toast.warn(messages.failedSending);
+      error && normalizedError(error).status === notFoundPage ?
+        toast.warn(messages.failAddress) :
+        toast.warn(messages.failedSending);
     }
-  }, [isSuccess, isError, setIsSended, setReview]);
+  }, [isSuccess, isError, setIsSended, setReview, error, data]);
 
   const [rating, setRating] = useState('');
   const [surName, setSurName] = useState('');

@@ -3,6 +3,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { toast } from 'react-toastify';
 import Page404 from '../components/common/page404/page404';
 import { Cart, Comments, Guitar } from '../types/types';
+import { notFoundPage } from './const';
 
 export const typeChanger = (type: string) => {
   if (type === 'acoustic') {
@@ -54,7 +55,7 @@ export const normalizedError = (error: SerializedError | FetchBaseQueryError) =>
 
 export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
   const info = normalizedError(error);
-  if (info.status === 404) {
+  if (info.status === notFoundPage) {
     return <Page404/>;
   }
   toast.warn(`${info.status} ${info.error}`);

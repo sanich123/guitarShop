@@ -21,6 +21,7 @@ export const guitarsApi = createApi({
         method: 'POST',
         body,
       }),
+      transformResponse: (_, meta) => meta,
       invalidatesTags: [{type: 'Guitars', id: 'LIST'}],
     }),
   }),

@@ -1,10 +1,9 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../redux';
 import { CartType, Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
-import { valueChecker } from '../../utils/utils';
+import { errorHandler, valueChecker } from '../../utils/utils';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Footer from '../common/footer/footer';
 import Header from '../common/header/header';
@@ -23,9 +22,10 @@ export default function Cart() {
   const forRequest = [...new Set(inCart.map(({id}) => id))];
 
   const request = forRequest.length ? forRequest.map((number) => `id=${number}`).join('&') : 'id=';
-  const {data, isLoading} = useGetGuitarsQuery(`?${request}`);
+  const {data, isLoading, error} = useGetGuitarsQuery(`?${request}`);
 
   if (isLoading) {return <Loader/>;}
+  if (error) {return errorHandler(error);}
 
   const totalPrice = valueChecker(data, inCart);
 

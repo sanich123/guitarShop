@@ -9,24 +9,24 @@ import Price from './price/price';
 import Reviews from './reviews/reviews';
 import AddReview from '../common/modal/modal-review/add-review';
 import Loader from '../common/loader/loader';
-import Page404 from '../common/page404/page404';
 import ModalAction from '../common/modal/modal-action/modal-action';
 import UpBtn from './up-button/up-button';
 import AddReviewBtn from './add-review-btn/add-review-btn';
 import ProductInfo from './product-info/product-info';
 import { appRoutes } from '../../utils/const';
 import ModalSuccess from '../common/modal/modal-success/modal-success';
+import { errorHandler } from '../../utils/utils';
 
 export default function Product() {
   const uniq: {id: string} = useParams();
-  const {data, isLoading, isError} = useGetGuitarsQuery(`?id=${uniq.id}`);
+  const {data, isLoading, error} = useGetGuitarsQuery(`?id=${uniq.id}`);
   const [showReview, setReview] = useState(false);
   const [showActionModal, setActionModal] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [isSended, setIsSended] = useState(false);
 
   if (isLoading) {return <Loader/>;}
-  if (isError) {return <Page404/>;}
+  if (error) {return errorHandler(error);}
 
   const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = data;
 
