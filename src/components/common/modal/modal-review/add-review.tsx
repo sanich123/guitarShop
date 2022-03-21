@@ -26,8 +26,9 @@ export default function AddReview({setIsSended, setReview, name, id}: AddReviewP
     if (isSuccess) {
       setReview(false);
       setIsSended(true);
+      const response = data;
       // eslint-disable-next-line no-console
-      console.log(data);
+      console.log(response);
     }
     if (isError) {
       setReview(true);

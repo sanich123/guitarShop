@@ -7,5 +7,7 @@ export const store = configureStore({
     [guitarsApi.reducerPath]: guitarsApi.reducer,
     cart: cartSlice,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(guitarsApi.middleware),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false,
+  }).concat(guitarsApi.middleware),
 });
