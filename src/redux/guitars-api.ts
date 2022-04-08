@@ -15,6 +15,15 @@ export const guitarsApi = createApi({
           ]
           : [{ type: 'Guitars', id: 'LIST' }],
     }),
+
+    getGuitar: builder.query({
+      query: (id = '') => `guitars/${id}`,
+    }),
+
+    getComments: builder.query({
+      query: () => '/comments',
+    }),
+
     addComment: builder.mutation({
       query: (body) => ({
         url: 'guitars/comments',
@@ -27,4 +36,9 @@ export const guitarsApi = createApi({
   }),
 });
 
-export const { useGetGuitarsQuery, useAddCommentMutation } = guitarsApi;
+export const {
+  useGetGuitarsQuery,
+  useAddCommentMutation,
+  useGetGuitarQuery,
+  useGetCommentsQuery,
+} = guitarsApi;

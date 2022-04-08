@@ -1,9 +1,10 @@
+import { memo } from 'react';
 import {Link} from 'react-router-dom';
 import { appRoutes } from '../../../utils/const';
 import NavLinks from './nav-links/nav-links';
 import Social from './social-links/social';
 
-export default function Footer() {
+function Footer() {
 
   return (
     <footer className="footer">
@@ -45,3 +46,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default memo(Footer);

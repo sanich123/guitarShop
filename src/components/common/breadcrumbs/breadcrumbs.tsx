@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import {appRoutes} from '../../../utils/const';
 
-export default function Breadcrumbs({place}: {place?: string}) {
+function Breadcrumbs({place}: {place?: string}) {
   const properRoute = place === appRoutes.product ? appRoutes.product : appRoutes.cart;
   const properName = place === appRoutes.product ? 'Товар' : 'Корзина';
   const cartModificator = place === appRoutes.cart ? 'page-content__breadcrumbs--on-cart-page' : '';
@@ -21,3 +22,5 @@ export default function Breadcrumbs({place}: {place?: string}) {
     </ul>
   );
 }
+
+export default memo(Breadcrumbs);

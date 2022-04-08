@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useGetGuitarsQuery } from '../../../../redux/guitars-api';
 import { guitarTypes } from '../../../../utils/const';
-import { stringMaker, typeChanger } from '../../../../utils/utils';
+import { errorHandler, stringMaker, typeChanger } from '../../../../utils/utils';
 import Loader from '../../../common/loader/loader';
 
 interface TypeFiltersProps {
@@ -9,14 +9,10 @@ interface TypeFiltersProps {
 }
 
 export default function TypeFilters({setFilterType}: TypeFiltersProps) {
-  const {data, isLoading} = useGetGuitarsQuery('');
+  const {data: guitars, isLoading, error} = useGetGuitarsQuery('');
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
-  if (isLoading) {
-    return <Loader/>;
-  }
-
-  const existingTypes = [...new Set(data.map(({type}: {type: string}) => type))];
+  const existingTypes = [...new Set(guitars?.map(({type}: {type: string}) => type))];
 
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
@@ -26,23 +22,34 @@ export default function TypeFilters({setFilterType}: TypeFiltersProps) {
   };
 
   return (
-    <fieldset className="catalog-filter__block">
-      <legend className="catalog-filter__block-title">Тип гитар</legend>
-      {guitarTypes.map((type, index) => (
-        <div className="form-checkbox catalog-filter__block-item" key={type}>
-          <input
-            className="visually-hidden"
-            type="checkbox"
-            id={type}
-            name={type}
-            checked={checkedState[index]}
-            onChange={() => handleChange(index)}
-            disabled={!existingTypes.includes(type)}
-            tabIndex={0}
-          />
-          <label htmlFor={type}>{typeChanger(type)}</label>
-        </div>
-      ))}
-    </fieldset>
+    <>
+      {isLoading && <Loader />}
+
+      {error && errorHandler(error)}
+
+      {guitars && (
+        <fieldset className="catalog-filter__block">
+          <legend className="catalog-filter__block-title">Тип гитар</legend>
+          {guitarTypes.map((type, index) => (
+            <div
+              className="form-checkbox catalog-filter__block-item"
+              key={type}
+            >
+              <input
+                className="visually-hidden"
+                type="checkbox"
+                id={type}
+                name={type}
+                checked={checkedState[index]}
+                onChange={() => handleChange(index)}
+                disabled={!existingTypes.includes(type)}
+                tabIndex={0}
+              />
+              <label htmlFor={type}>{typeChanger(type)}</label>
+            </div>
+          ))}
+        </fieldset>
+      )}
+    </>
   );
 }

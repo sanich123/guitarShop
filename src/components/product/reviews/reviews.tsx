@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useGetGuitarsQuery } from '../../../redux';
+import { memo, useMemo, useState } from 'react';
+import { useGetCommentsQuery } from '../../../redux';
 import { Comments } from '../../../types/types';
 import { sortReviews } from '../../../utils/utils';
 import Loader from '../../common/loader/loader';
@@ -10,26 +10,37 @@ interface ReviewsProps {
   uniq?: string,
 }
 
-export default function Reviews({comments, uniq}: ReviewsProps) {
-  const {data, isLoading} = useGetGuitarsQuery('/comments');
+function Reviews({comments, uniq}: ReviewsProps) {
+  const {data: reviews, isLoading} = useGetCommentsQuery('');
   const [sliceNumber, setSliceNumber] = useState(2);
 
-  if (isLoading) {
-    return <Loader/>;
-  }
-
-  const filtredComments = data.filter(({guitarId}: {guitarId: number}) => guitarId === Number(uniq));
-  const allComments = [...filtredComments, ...comments];
+  const filtredComments = useMemo(() => reviews?.filter(({guitarId}: {guitarId: number}) => guitarId === Number(uniq)), [reviews, uniq]);
+  const allComments = [...filtredComments || [], ...comments];
 
   return (
     <>
-      {sortReviews(allComments).slice(0, sliceNumber).map(({id, ...rest}) => <Review key={id} {...rest} />)}
-      {allComments.length >= 2 && sliceNumber < comments.length &&
-      <button
-        className="button button--medium reviews__more-button"
-        onClick={() => setSliceNumber(sliceNumber + 2)}
-      >Показать еще отзывы
-      </button>}
+      {isLoading && <Loader />}
+
+      {allComments.length === 0 && (
+        <h3>There are no comments to this product</h3>
+      )}
+
+      {sortReviews(allComments)
+        .slice(0, sliceNumber)
+        .map(({ id, ...rest }) => (
+          <Review key={id} {...rest} />
+        ))}
+
+      {allComments.length >= 2 && sliceNumber < comments.length && (
+        <button
+          className="button button--medium reviews__more-button"
+          onClick={() => setSliceNumber(sliceNumber + 2)}
+        >
+          Показать еще отзывы
+        </button>
+      )}
     </>
   );
 }
+
+export default memo(Reviews, (prev, next) => prev.comments === next.comments || prev.uniq === next.uniq);

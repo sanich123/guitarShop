@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
-import { useGetGuitarsQuery } from '../../redux';
+import { useGetGuitarQuery } from '../../redux';
 import Footer from '../common/footer/footer';
 import Header from '../common/header/header';
 import Svg from '../common/svg/svg';
@@ -19,7 +19,7 @@ import { errorHandler } from '../../utils/utils';
 
 export default function Product() {
   const {id} = useParams();
-  const {data, isLoading, error} = useGetGuitarsQuery(`?id=${id}`);
+  const {data, isLoading, error} = useGetGuitarQuery(id);
   const [showReview, setReview] = useState(false);
   const [showActionModal, setActionModal] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -28,7 +28,7 @@ export default function Product() {
   if (isLoading) {return <Loader/>;}
   if (error) {return errorHandler(error);}
 
-  const [{previewImg, name, stringCount, type, vendorCode, description, price, rating, comments}] = data;
+  const {previewImg, name, stringCount, type, vendorCode, description, price, rating, comments} = data;
 
   return (
     <>

@@ -33,88 +33,92 @@ export default function Main() {
 
   const {data, isLoading, error} = useGetGuitarsQuery(`?${finalRequest}`);
 
-  if (isLoading) {return <Loader/>;}
-  if (error) {return errorHandler(error);}
-
   const cardsOnPage = 3;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
-  const guitars = data.slice(beginSlicing, endSlicing);
+  const guitars = data?.slice(beginSlicing, endSlicing);
 
   return (
     <>
-      <Svg />
-      <div className="wrapper">
-        <Header />
-        <main className="page-content">
-          <div className="container">
-            <h1 className="page-content__title title title--bigger">
+      {isLoading && <Loader/>}
+
+      {error && errorHandler(error)}
+
+      {data &&
+      <>
+        <Svg />
+        <div className="wrapper">
+          <Header />
+          <main className="page-content">
+            <div className="container">
+              <h1 className="page-content__title title title--bigger">
               Каталог гитар
-            </h1>
-            <Breadcrumbs />
-            <div className="catalog">
-              <form className="catalog-filter">
-                <h2 className="title title--bigger catalog-filter__title">
+              </h1>
+              <Breadcrumbs />
+              <div className="catalog">
+                <form className="catalog-filter">
+                  <h2 className="title title--bigger catalog-filter__title">
                   Фильтр
-                </h2>
-                <PriceFilters
-                  setFilterMinPrice={setFilterMinPrice}
-                  setFilterMaxPrice={setFilterMaxPrice}
-                />
-                <TypeFilters setFilterType={setFilterType} />
-                <StringFilters setFilterString={setFilterString} />
-              </form>
-              <div className="catalog-sort">
-                <h2 className="catalog-sort__title">Сортировать:</h2>
-                <SortType
-                  setSortPopular={setSortPopular}
-                  sortPopular={sortPopular}
-                />
-                <SortOrder setDirection={setDirection} direction={direction} />
-              </div>
-              <div className="cards catalog__cards">
-                {showActionModal && (
-                  <ModalAction
-                    setActionModal={setActionModal}
-                    setIsAdded={setIsAdded}
-                    guitars={data}
-                    id={+guitarId}
+                  </h2>
+                  <PriceFilters
+                    setFilterMinPrice={setFilterMinPrice}
+                    setFilterMaxPrice={setFilterMaxPrice}
                   />
-                )}
-
-                {guitars.length > 0 ? (
-                  guitars.map(({ id, ...rest }: CardProps) => (
-                    <Card
-                      key={id}
-                      id={id}
-                      {...rest}
-                      setGuitarId={setGuitarId}
+                  <TypeFilters setFilterType={setFilterType} />
+                  <StringFilters setFilterString={setFilterString} />
+                </form>
+                <div className="catalog-sort">
+                  <h2 className="catalog-sort__title">Сортировать:</h2>
+                  <SortType
+                    setSortPopular={setSortPopular}
+                    sortPopular={sortPopular}
+                  />
+                  <SortOrder setDirection={setDirection} direction={direction} />
+                </div>
+                <div className="cards catalog__cards">
+                  {showActionModal && (
+                    <ModalAction
                       setActionModal={setActionModal}
+                      setIsAdded={setIsAdded}
+                      guitars={data}
+                      id={+guitarId}
                     />
-                  ))
-                ) : (
-                  <h2>Условиям фильтрации не соответствует не один товар</h2>
-                )}
+                  )}
 
-                {isAdded && (
-                  <ModalSuccess place={'main'} setIsAdded={setIsAdded} />
-                )}
-              </div>
-              <div className="pagination page-content__pagination">
-                {data.length > cardsOnPage && (
-                  <MainPagination
-                    setPageNumber={setPageNumber}
-                    pageNumber={pageNumber}
-                    cardsOnPage={cardsOnPage}
-                    count={data.length}
-                  />
-                )}
+                  {guitars.length > 0 ? (
+                    guitars.map(({ id, ...rest }: CardProps) => (
+                      <Card
+                        key={id}
+                        id={id}
+                        {...rest}
+                        setGuitarId={setGuitarId}
+                        setActionModal={setActionModal}
+                      />
+                    ))
+                  ) : (
+                    <h2>Условиям фильтрации не соответствует не один товар</h2>
+                  )}
+
+                  {isAdded && (
+                    <ModalSuccess place={'main'} setIsAdded={setIsAdded} />
+                  )}
+                </div>
+                <div className="pagination page-content__pagination">
+                  {data.length > cardsOnPage && (
+                    <MainPagination
+                      setPageNumber={setPageNumber}
+                      pageNumber={pageNumber}
+                      cardsOnPage={cardsOnPage}
+                      count={data.length}
+                    />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
+          </main>
+          <Footer />
+        </div>
+      </>}
     </>
   );
 }

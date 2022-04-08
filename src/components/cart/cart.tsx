@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../redux';
 import { CartType, Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
-import { errorHandler, valueChecker } from '../../utils/utils';
+import { errorHandler } from '../../utils/utils';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Footer from '../common/footer/footer';
 import Header from '../common/header/header';
@@ -13,67 +13,70 @@ import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
 import ModalAction from '../common/modal/modal-action/modal-action';
+import NoItems from './no-items/no-items';
 
 export default function Cart() {
   const [showActionModal, setActionModal] = useState(false);
   const [deleteId, setDeleteId] = useState('');
-  const discount = 3000;
   const inCart = useSelector(({cart}: CartType) => cart);
   const forRequest = [...new Set(inCart.map(({id}) => id))];
 
-  const request = forRequest.length ? forRequest.map((number) => `id=${number}`).join('&') : 'id=';
+  const request = forRequest?.map((number) => `id=${number}`).join('&');
   const {data, isLoading, error} = useGetGuitarsQuery(`?${request}`);
 
-  if (isLoading) {return <Loader/>;}
-  if (error) {return errorHandler(error);}
-
-  const totalPrice = valueChecker(data, inCart);
-
   return (
-    <div className="wrapper">
-      <Svg />
-      <Header />
-      <main className="page-content">
-        <div className="container">
-          <h1 className="title title--bigger page-content__title">Корзина</h1>
-          <Breadcrumbs place={appRoutes.cart} />
-          <div className="cart">
+    <>
+      {isLoading && <Loader />}
 
-            {showActionModal && (
-              <ModalAction
-                guitars={data}
-                deleteId={deleteId}
-                setActionModal={setActionModal}
-              />
-            )}
+      {error && errorHandler(error)}
 
-            {inCart.length > 0 ? (
-              data
-                .filter((guitar: Guitar) => forRequest.includes(guitar.id))
-                .map(({ id, ...rest }: Guitar) => (
-                  <CartItem
-                    key={id}
-                    id={id}
-                    {...rest}
+      {data && (
+        <div className="wrapper">
+          <Svg />
+          <Header />
+          <main className="page-content">
+            <div className="container">
+              <h1 className="title title--bigger page-content__title">
+                  Корзина
+              </h1>
+              <Breadcrumbs place={appRoutes.cart} />
+              <div className="cart">
+                {showActionModal && (
+                  <ModalAction
+                    guitars={data}
+                    deleteId={deleteId}
                     setActionModal={setActionModal}
-                    setDeleteId={setDeleteId}
-                    inCart={inCart}
                   />
-                ))
-            ) : (
-              <h1>В вашей корзине ничего нет:(</h1>
-            )}
+                )}
 
-            {inCart.length > 0 && (
-              <div className="cart__footer">
-                <Promocode />
-                <TotalInfo discount={discount} allGuitarsPrice={totalPrice} />
+                {inCart.length > 0 ?
+                  <>
+                    {data
+                      .filter((guitar: Guitar) =>
+                        forRequest.includes(guitar.id))
+                      .map(({ id, ...rest }: Guitar) => (
+                        <CartItem
+                          key={id}
+                          id={id}
+                          {...rest}
+                          setActionModal={setActionModal}
+                          setDeleteId={setDeleteId}
+                          inCart={inCart}
+                        />
+                      ))}
+
+                    <div className="cart__footer">
+                      <Promocode />
+                      <TotalInfo/>
+                    </div>
+                  </>
+                  : <NoItems/>}
               </div>
-            )}
-          </div>
+            </div>
+          </main>
+          <Footer />
         </div>
-      </main>
-      <Footer />
-    </div>
+      )}
+    </>
   );
 }

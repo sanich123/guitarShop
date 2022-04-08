@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { media } from '../../../../utils/const';
 
-export default function Social() {
+function Social() {
 
   return (
     <ul className="socials__list">
@@ -25,3 +26,5 @@ export default function Social() {
     </ul>
   );
 }
+
+export default memo(Social);

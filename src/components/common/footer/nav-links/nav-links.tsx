@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { navLinks } from '../../../../utils/const';
 
-export default function NavLinks() {
+function NavLinks() {
 
   return (
     <ul className="footer__nav-list">
@@ -12,3 +13,5 @@ export default function NavLinks() {
     </ul>
   );
 }
+
+export default memo(NavLinks);
