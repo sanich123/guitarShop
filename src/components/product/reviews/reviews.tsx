@@ -7,7 +7,7 @@ import Review from '../review/review';
 
 interface ReviewsProps {
   comments: Comments[],
-  uniq: string,
+  uniq?: string,
 }
 
 export default function Reviews({comments, uniq}: ReviewsProps) {
@@ -18,7 +18,7 @@ export default function Reviews({comments, uniq}: ReviewsProps) {
     return <Loader/>;
   }
 
-  const filtredComments = data.filter(({guitarId}: {guitarId: number}) => guitarId === +uniq);
+  const filtredComments = data.filter(({guitarId}: {guitarId: number}) => guitarId === Number(uniq));
   const allComments = [...filtredComments, ...comments];
 
   return (

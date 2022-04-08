@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { appRoutes } from '../../../../utils/const';
 
 interface CartContinueBtnProps {
@@ -6,12 +6,12 @@ interface CartContinueBtnProps {
   setIsAdded: (arg: boolean) => void
 }
 export default function CartContinueBtn({place, setIsAdded}: CartContinueBtnProps) {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <>
       <button
-        onClick={() => history.push(appRoutes.cart)}
+        onClick={() => navigate(appRoutes.cart)}
         className="button button--small modal__button"
       >
         Перейти в корзину
@@ -20,7 +20,7 @@ export default function CartContinueBtn({place, setIsAdded}: CartContinueBtnProp
         onClick={
           place === 'main'
             ? () => setIsAdded(false)
-            : () => history.push(appRoutes.main)
+            : () => navigate(appRoutes.main)
         }
         className="button button--black-border button--small modal__button modal__button--right"
       >

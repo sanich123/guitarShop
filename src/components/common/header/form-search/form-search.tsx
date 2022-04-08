@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useGetGuitarsQuery } from '../../../../redux';
 import { Guitar } from '../../../../types/types';
 import Loader from '../../loader/loader';
@@ -7,7 +7,7 @@ import Loader from '../../loader/loader';
 export default function FormSearch() {
   const [search, setSearch] = useState('');
   const {data, isLoading} = useGetGuitarsQuery(`?name_like=${search}`);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   if (isLoading) {return <Loader/>;}
 
@@ -34,7 +34,7 @@ export default function FormSearch() {
             <ul className='list-opened form-search__select-list' style={{zIndex: 999}}>
               {data.length > 0 ? data.map(({name, id}: Guitar) => (
                 <li
-                  onClick={() => history.push(`/${id}`)}
+                  onClick={() => navigate(`/main/${id}`)}
                   key={name}
                   className="form-search__select-item"
                   tabIndex={0}

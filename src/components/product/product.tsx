@@ -18,8 +18,8 @@ import ModalSuccess from '../common/modal/modal-success/modal-success';
 import { errorHandler } from '../../utils/utils';
 
 export default function Product() {
-  const uniq: {id: string} = useParams();
-  const {data, isLoading, error} = useGetGuitarsQuery(`?id=${uniq.id}`);
+  const {id} = useParams();
+  const {data, isLoading, error} = useGetGuitarsQuery(`?id=${id}`);
   const [showReview, setReview] = useState(false);
   const [showActionModal, setActionModal] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
@@ -64,7 +64,7 @@ export default function Product() {
                   setActionModal={setActionModal}
                   setIsAdded={setIsAdded}
                   guitars={data}
-                  id={+uniq.id}
+                  id={Number(id)}
                 />
               )}
 
@@ -79,7 +79,7 @@ export default function Product() {
 
               {showReview && (
                 <AddReview
-                  id={+uniq.id}
+                  id={Number(id)}
                   setIsSended={setIsSended}
                   setReview={setReview}
                   name={name}
@@ -90,7 +90,7 @@ export default function Product() {
                 <ModalSuccess setIsSended={setIsSended} />
               )}
 
-              <Reviews comments={comments} uniq={uniq.id} />
+              <Reviews comments={comments} uniq={id} />
 
               <UpBtn />
             </section>

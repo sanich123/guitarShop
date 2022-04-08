@@ -7,7 +7,7 @@
     "react-dom": "^18.0.0",
     "react-focus-on": "^3.5.4",
     "react-redux": "7.2.2",
-    "react-router-dom": "5.2.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
     "react-toastify": "^8.2.0"
   },

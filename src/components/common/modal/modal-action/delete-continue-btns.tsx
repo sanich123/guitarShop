@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { deleteFromCart } from '../../../../redux/cart-slice';
 import { appRoutes } from '../../../../utils/const';
 
@@ -10,7 +10,7 @@ interface DeleteContinueBtnsProps {
 
 export default function DeleteContinueBtns({deleteId, setActionModal}: DeleteContinueBtnsProps) {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const navigate = useNavigate();
 
   return (
     <>
@@ -26,7 +26,7 @@ export default function DeleteContinueBtns({deleteId, setActionModal}: DeleteCon
       </button>
       <button
         className="button button--black-border button--small modal__button modal__button--right"
-        onClick={() => history.push(appRoutes.main)}
+        onClick={() => navigate(appRoutes.main)}
       >
         Продолжить покупки
       </button>

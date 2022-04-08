@@ -33,7 +33,7 @@ export default function Card({previewImg, name, rating, price, id, setActionModa
         </p>
       </div>
       <div className="product-card__buttons">
-        <Link className="button button--mini" to={`/${id}`}>Подробнее</Link>
+        <Link className="button button--mini" to={`/guitar${id}`}>Подробнее</Link>
         {inCart.includes(id) ?
           <Link className="button button--red-border button--mini button--in-cart" to={appRoutes.cart}>В Корзине</Link> :
           <button className="button button--red button--mini button--add-to-cart"
