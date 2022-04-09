@@ -2,6 +2,7 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteFromCart } from '../../../../redux/cart-slice';
+import { Cart } from '../../../../types/types';
 import { appRoutes } from '../../../../utils/const';
 
 interface DeleteContinueBtnsProps {
@@ -21,11 +22,9 @@ export default function DeleteContinueBtns({deleteId, setActionModal}: DeleteCon
           const uniq = deleteId;
           console.log(localStorage);
           dispatch(deleteFromCart({ uniq }));
-          const arr = localStorage.getItem('cart') as string;
-          localStorage.setItem('cart', JSON.stringify(
-            JSON.parse(arr)?.filter((e: number) => e.toString() !== uniq),
-          ));
           setActionModal(false);
+
+          localStorage.setItem('cart', JSON.stringify(JSON.parse(localStorage.cart)?.filter(({ id }: Cart) => id.toString() !== uniq)));
         }}
       >
         Удалить товар

@@ -19,9 +19,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Catalog() {
   const navigate = useNavigate();
-  // localStorage.clear();
-  // eslint-disable-next-line no-console
-  console.log(localStorage);
   const [filterString, setFilterString] = useState('');
   const [filterType, setFilterType] = useState('');
   const [filterMinPrice, setFilterMinPrice] = useState('');
