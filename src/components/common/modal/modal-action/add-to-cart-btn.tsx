@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../../redux/cart-slice';
 import { Cart } from '../../../../types/types';
@@ -12,7 +11,6 @@ interface AddToCartBtnProps {
 
 export default function AddToCartBtn({price, id, setActionModal, setIsAdded}: AddToCartBtnProps) {
   const dispatch = useDispatch();
-  console.log(localStorage);
 
   return (
     <button
@@ -23,9 +21,8 @@ export default function AddToCartBtn({price, id, setActionModal, setIsAdded}: Ad
         setIsAdded(true);
 
         const cart = JSON.parse(localStorage.cart);
-        const isInCart = cart.some((e: Cart) => e.id === id);
+        const isInCart = cart.some((guitar: Cart) => guitar.id === id);
 
-        console.log(cart);
         if (localStorage.cart && !isInCart) {
           localStorage.setItem('cart', JSON.stringify([...cart, { id, quantity: 1, price }]));
         }
