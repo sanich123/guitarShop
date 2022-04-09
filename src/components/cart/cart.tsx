@@ -1,7 +1,6 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../redux';
-import { CartType, Guitar } from '../../types/types';
+import { Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
 import { errorHandler } from '../../utils/utils';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
@@ -18,7 +17,7 @@ import NoItems from './no-items/no-items';
 export default function Cart() {
   const [showActionModal, setActionModal] = useState(false);
   const [deleteId, setDeleteId] = useState('');
-  const inCart = useSelector(({cart}: CartType) => cart);
+  const inCart = [...JSON.parse(localStorage.cart)];
   const forRequest = [...new Set(inCart.map(({id}) => id))];
 
   const request = forRequest?.map((number) => `id=${number}`).join('&');

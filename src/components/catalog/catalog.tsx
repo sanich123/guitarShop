@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useGetGuitarsQuery } from '../../redux/guitars-api';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Card, { CardProps } from './card/card';
@@ -15,8 +15,13 @@ import Svg from '../common/svg/svg';
 import ModalAction from '../common/modal/modal-action/modal-action';
 import { errorHandler } from '../../utils/utils';
 import ModalSuccess from '../common/modal/modal-success/modal-success';
+import { useNavigate } from 'react-router-dom';
 
-export default function Main() {
+export default function Catalog() {
+  const navigate = useNavigate();
+  // localStorage.clear();
+  // eslint-disable-next-line no-console
+  console.log(localStorage);
   const [filterString, setFilterString] = useState('');
   const [filterType, setFilterType] = useState('');
   const [filterMinPrice, setFilterMinPrice] = useState('');
@@ -37,6 +42,10 @@ export default function Main() {
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
   const guitars = data?.slice(beginSlicing, endSlicing);
+
+  useEffect(() => {
+    navigate(`/catalog${finalRequest}`);
+  }, [finalRequest, navigate]);
 
   return (
     <>

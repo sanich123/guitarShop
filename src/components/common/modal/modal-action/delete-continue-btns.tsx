@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteFromCart } from '../../../../redux/cart-slice';
@@ -18,7 +19,12 @@ export default function DeleteContinueBtns({deleteId, setActionModal}: DeleteCon
         className="button button--small modal__button"
         onClick={() => {
           const uniq = deleteId;
+          console.log(localStorage);
           dispatch(deleteFromCart({ uniq }));
+          const arr = localStorage.getItem('cart') as string;
+          localStorage.setItem('cart', JSON.stringify(
+            JSON.parse(arr)?.filter((e: number) => e.toString() !== uniq),
+          ));
           setActionModal(false);
         }}
       >
