@@ -61,3 +61,16 @@ export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
   toast.warn(`${info.status} ${info.error}`);
   return <h1>{info.status} {info.error}</h1>;
 };
+
+export const localStorageChanger = (value: number, id: number) => {
+  const cart = [...JSON.parse(localStorage.cart)];
+
+  return localStorage.setItem(
+    'cart',
+    JSON.stringify(
+      cart.map((e) =>
+        e.id === id ? { ...e, quantity: value } : e,
+      ),
+    ),
+  );
+};

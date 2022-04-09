@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { amountQuantity } from '../../../redux/cart-slice';
 import { Cart } from '../../../types/types';
-import { typeChanger } from '../../../utils/utils';
+import { localStorageChanger, typeChanger } from '../../../utils/utils';
 
 interface CartItemProps {
   previewImg: string,
@@ -18,7 +18,7 @@ interface CartItemProps {
 
 export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id, setActionModal, setDeleteId, inCart}: CartItemProps) {
   const dispatch = useDispatch();
-  const [{ quantity }] = [...JSON.parse(localStorage.cart)].filter((cart) => cart.id === id);
+  const [{ quantity }] = inCart.filter((cart) => cart.id === id);
   const totalPrice = price * +quantity;
 
   return (
@@ -50,9 +50,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           onClick={() => {
             if (+quantity > 1) {
               const value = +quantity - 1;
-              const arr = localStorage.getItem('cart') as string;
-              // eslint-disable-next-line no-console
-              console.log([...JSON.parse(arr)]);
+              localStorageChanger(value, id);
               dispatch(amountQuantity(({id, value})));
             }}}
         >
@@ -70,7 +68,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           onChange={({target}) => {
             if (+target.value < 100) {
               const value = +target.value;
-
+              localStorageChanger(value, id);
               dispatch(amountQuantity({id, value}));
             }}}
         />
@@ -80,17 +78,7 @@ export default function CartItem({previewImg, name, price, stringCount, type, ve
           onClick={() => {
             if (+quantity < 100) {
               const value = quantity + 1;
-              const arr = localStorage.getItem('cart') as string;
-              // eslint-disable-next-line no-console
-              console.log([...JSON.parse(arr)].map((e) => e.id === id ? {...e, quantity: value} : e));
-              localStorage.setItem(
-                'cart',
-                JSON.stringify(
-                  [...JSON.parse(arr)].map((e) =>
-                    e.id === id ? { ...e, quantity: value } : e,
-                  ),
-                ),
-              );
+              localStorageChanger(value, id);
               dispatch(amountQuantity(({id, value})));
             }}}
         >

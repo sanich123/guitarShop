@@ -1,13 +1,21 @@
-import {configureStore} from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import { guitarsApi } from './guitars-api';
 import cartSlice from '../redux/cart-slice';
+import type { PreloadedState } from '@reduxjs/toolkit';
 
-export const store = configureStore({
-  reducer: {
-    [guitarsApi.reducerPath]: guitarsApi.reducer,
-    cart: cartSlice,
-  },
+const rootReducer = combineReducers({
+  [guitarsApi.reducerPath]: guitarsApi.reducer,
+  cart: cartSlice,
+});
+
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => configureStore({
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false,
   }).concat(guitarsApi.middleware),
+  preloadedState,
 });
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']
