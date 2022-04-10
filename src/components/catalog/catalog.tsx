@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useGetGuitarsQuery } from '../../redux/guitars-api';
+import { useNavigate } from 'react-router-dom';
+import useQueries from '../../hooks/useQueries';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Card, { CardProps } from './card/card';
 import PriceFilters from './filters/price-filters/price-filters';
@@ -15,30 +17,24 @@ import Svg from '../common/svg/svg';
 import ModalAction from '../common/modal/modal-action/modal-action';
 import { errorHandler } from '../../utils/utils';
 import ModalSuccess from '../common/modal/modal-success/modal-success';
-import { useNavigate } from 'react-router-dom';
 
 export default function Catalog() {
   const navigate = useNavigate();
-  const [filterString, setFilterString] = useState('');
-  const [filterType, setFilterType] = useState('');
-  const [filterMinPrice, setFilterMinPrice] = useState('');
-  const [filterMaxPrice, setFilterMaxPrice] = useState('');
-  const [sortPopular, setSortPopular] = useState('price');
-  const [direction, setDirection] = useState('asc');
+  const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, direction, finalRequest} = useQueries();
+
   const [pageNumber, setPageNumber] = useState(1);
 
   const [showActionModal, setActionModal] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [guitarId, setGuitarId] = useState('');
 
-  const finalRequest = [`_sort=${sortPopular}`,`_order=${direction}`,`${filterMinPrice}`, `${filterMaxPrice}`,`${filterString}`,`${filterType}`].filter(Boolean).join('&');
-
-  const {data, isLoading, error} = useGetGuitarsQuery(`?${finalRequest}`);
+  const {data: guitarsList, isLoading, error} = useGetGuitarsQuery(`?${finalRequest}`);
 
   const cardsOnPage = 3;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
-  const guitars = data?.slice(beginSlicing, endSlicing);
+  const guitars = guitarsList?.slice(beginSlicing, endSlicing);
+  error && errorHandler(error);
 
   useEffect(() => {
     navigate(`/catalog${finalRequest}`);
@@ -48,9 +44,7 @@ export default function Catalog() {
     <>
       {isLoading && <Loader/>}
 
-      {error && errorHandler(error)}
-
-      {data &&
+      {guitarsList &&
       <>
         <Svg />
         <div className="wrapper">
@@ -86,7 +80,7 @@ export default function Catalog() {
                     <ModalAction
                       setActionModal={setActionModal}
                       setIsAdded={setIsAdded}
-                      guitars={data}
+                      guitars={guitarsList}
                       id={+guitarId}
                     />
                   )}
@@ -110,12 +104,12 @@ export default function Catalog() {
                   )}
                 </div>
                 <div className="pagination page-content__pagination">
-                  {data.length > cardsOnPage && (
+                  {guitarsList.length > cardsOnPage && (
                     <MainPagination
                       setPageNumber={setPageNumber}
                       pageNumber={pageNumber}
                       cardsOnPage={cardsOnPage}
-                      count={data.length}
+                      count={guitarsList.length}
                     />
                   )}
                 </div>

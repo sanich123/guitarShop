@@ -6,7 +6,6 @@ interface SortOrderProps {
   setDirection: (arg: string) => void
 }
 
-
 export default function SortOrder({direction, setDirection}: SortOrderProps) {
 
   return (

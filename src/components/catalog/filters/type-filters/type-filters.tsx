@@ -21,11 +21,11 @@ export default function TypeFilters({setFilterType}: TypeFiltersProps) {
     setFilterType(stringMaker(currentStrings, 'type'));
   };
 
+  error && errorHandler(error);
+
   return (
     <>
       {isLoading && <Loader />}
-
-      {error && errorHandler(error)}
 
       {guitars && (
         <fieldset className="catalog-filter__block">

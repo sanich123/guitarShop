@@ -3,7 +3,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { toast } from 'react-toastify';
 import Page404 from '../components/common/page404/page404';
 import { Cart, Comments, Guitar } from '../types/types';
-import { notFoundPage } from './const';
+import { errors, warnings } from './const';
 
 export const typeChanger = (type: string) => {
   if (type === 'acoustic') {
@@ -53,15 +53,6 @@ export const sortReviews = (arr: Comments[]) => arr.slice().sort((dateA, dateB) 
 
 export const normalizedError = (error: SerializedError | FetchBaseQueryError) => JSON.parse(JSON.stringify(error));
 
-export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
-  const info = normalizedError(error);
-  if (info.status === notFoundPage) {
-    return <Page404/>;
-  }
-  toast.warn(`${info.status} ${info.error}`);
-  return <h1>{info.status} {info.error}</h1>;
-};
-
 export const localStorageChanger = (value: number, id: number) => {
   const cart = [...JSON.parse(localStorage.cart)];
 
@@ -73,4 +64,23 @@ export const localStorageChanger = (value: number, id: number) => {
       ),
     ),
   );
+};
+
+
+export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
+  const info = normalizedError(error);
+  if (info.status === errors.wrongAddress) {
+    toast.warn(warnings.server404);
+    return <Page404 />;
+  } else if (info.status === errors.wrongData) {
+    toast.warn(`${info.status} ${info.error}`);
+    return <h1>Неправильные данные</h1>;
+  } else {
+    toast.warn(`${info.status} ${info.error} ${warnings.network}`);
+    return (
+      <h1>
+        `${info.status} ${info.error} ${warnings.network}`
+      </h1>
+    );
+  }
 };

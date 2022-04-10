@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useGetGuitarsQuery } from '../../../../redux';
+import { Guitar } from '../../../../types/types';
 import { stringsTypes } from '../../../../utils/const';
 import { errorHandler, stringMaker } from '../../../../utils/utils';
 import Loader from '../../../common/loader/loader';
@@ -12,7 +13,7 @@ export default function StringFilters({setFilterString}: StringFiltersProps) {
   const {data: guitars, isLoading, error} = useGetGuitarsQuery('');
   const [checkedState, setCheckedState] = useState(new Array(4).fill(false));
 
-  const allExistingStrings = [...new Set(guitars?.map(({stringCount}: {stringCount: string}) => stringCount))];
+  const allExistingStrings = [...new Set(guitars?.map(({stringCount}: Guitar) => stringCount))];
 
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
@@ -22,11 +23,11 @@ export default function StringFilters({setFilterString}: StringFiltersProps) {
     setFilterString(stringMaker(currentStrings, 'stringCount'));
   };
 
+  error && errorHandler(error);
+
   return (
     <>
       {isLoading && <Loader />}
-
-      {error && errorHandler(error)}
 
       {guitars && (
         <fieldset className="catalog-filter__block">

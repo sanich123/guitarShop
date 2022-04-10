@@ -22,7 +22,7 @@ export default function MainPagination({setPageNumber, pageNumber, cardsOnPage, 
         >Назад
         </a>
       </li>
-      {[...Array(counter).keys()].map((e) => e + 1).map((number) => (
+      {[...Array(counter).keys()].map((e) => e++).map((number) => (
         <li
           key={number}
           className={`pagination__page ${number === pageNumber ? 'pagination__page--active' : ''}`}
