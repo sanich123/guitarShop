@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useGetGuitarsQuery } from '../../redux/guitars-api';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useQueries from '../../hooks/useQueries';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Card, { CardProps } from './card/card';
@@ -29,7 +29,8 @@ export default function Catalog() {
   const [guitarId, setGuitarId] = useState('');
 
   const {data: guitarsList, isLoading, error} = useGetGuitarsQuery(`?${finalRequest}`);
-
+  // eslint-disable-next-line no-console
+  console.log(useLocation());
   const cardsOnPage = 3;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;

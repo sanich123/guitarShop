@@ -7,6 +7,7 @@ export default function useQueries() {
   const [filterMaxPrice, setFilterMaxPrice] = useState('');
   const [sortPopular, setSortPopular] = useState('price');
   const [direction, setDirection] = useState('asc');
+
   const finalRequest = [
     `_sort=${sortPopular}`,
     `_order=${direction}`,
