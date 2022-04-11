@@ -3,20 +3,17 @@ import { useGetGuitarsQuery } from '../../redux/guitars-api';
 import { useNavigate } from 'react-router-dom';
 import useQueries from '../../hooks/useQueries';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
-import Card, { CardProps } from './card/card';
-import PriceFilters from './filters/price-filters/price-filters';
-import StringFilters from './filters/strings-filters/string-filters';
-import TypeFilters from './filters/type-filters/type-filters';
 import Footer from '../common/footer/footer';
 import Header from '../common/header/header';
 import Loader from '../common/loader/loader';
 import MainPagination from './pagination/pagination';
-import SortOrder from './sort/direction/direction-sort';
-import SortType from './sort/type/sort-type';
 import Icons from '../common/icons/icons';
 import ModalAction from '../common/modal/modal-action/modal-action';
 import { errorHandler } from '../../utils/utils';
 import ModalSuccess from '../common/modal/modal-success/modal-success';
+import Filters from './filters/filters';
+import Sort from './sort/sort';
+import CardsList from './cards-list/cards-list';
 
 export default function Catalog() {
   const navigate = useNavigate();
@@ -34,6 +31,7 @@ export default function Catalog() {
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
   const guitars = guitarsList?.slice(beginSlicing, endSlicing);
+
   error && errorHandler(error);
 
   useEffect(() => {
@@ -42,8 +40,6 @@ export default function Catalog() {
 
   return (
     <>
-      {isLoading && <Loader />}
-
       <Icons />
       <div className="wrapper">
         <Header />
@@ -54,25 +50,18 @@ export default function Catalog() {
             </h1>
             <Breadcrumbs />
             <div className="catalog">
-              <form className="catalog-filter">
-                <h2 className="title title--bigger catalog-filter__title">
-                  Фильтр
-                </h2>
-                <PriceFilters
-                  setFilterMinPrice={setFilterMinPrice}
-                  setFilterMaxPrice={setFilterMaxPrice}
-                />
-                <TypeFilters setFilterType={setFilterType} />
-                <StringFilters setFilterString={setFilterString} />
-              </form>
-              <div className="catalog-sort">
-                <h2 className="catalog-sort__title">Сортировать:</h2>
-                <SortType
-                  setSortPopular={setSortPopular}
-                  sortPopular={sortPopular}
-                />
-                <SortOrder setDirection={setDirection} direction={direction} />
-              </div>
+              <Filters
+                setFilterMinPrice={setFilterMinPrice}
+                setFilterMaxPrice={setFilterMaxPrice}
+                setFilterType={setFilterType}
+                setFilterString={setFilterString}
+              />
+              <Sort
+                setSortPopular={setSortPopular}
+                sortPopular={sortPopular}
+                setDirection={setDirection}
+                direction={direction}
+              />
               <div className="cards catalog__cards">
                 {showActionModal && (
                   <ModalAction
@@ -82,42 +71,32 @@ export default function Catalog() {
                     id={+guitarId}
                   />
                 )}
-
-                {guitars?.length > 0 ? (
-                  guitars.map(({ id, ...rest }: CardProps) => (
-                    <Card
-                      key={id}
-                      id={id}
-                      {...rest}
-                      setGuitarId={setGuitarId}
-                      setActionModal={setActionModal}
-                    />
-                  ))
-                ) : (
-                  <>
-                    {isError && <h2>Не удалось загрузить данные с сервера</h2>}
-                    {guitarsList && (
-                      <h2>
-                        Условиям фильтрации не соответствует не один товар
-                      </h2>
-                    )}
-                  </>
+                {isLoading && <Loader />}
+                {guitars?.length > 0 && (
+                  <CardsList
+                    setGuitarId={setGuitarId}
+                    setActionModal={setActionModal}
+                    guitars={guitars}
+                  />
                 )}
+                {guitars?.length === 0 &&
+                <h2>Условиям фильтрации не соответствует не один товар</h2>}
+
+                {isError &&
+                <h2>Не удалось загрузить данные с сервера</h2>}
 
                 {isAdded && (
                   <ModalSuccess place={'main'} setIsAdded={setIsAdded} />
                 )}
               </div>
-              <div className="pagination page-content__pagination">
-                {guitarsList?.length > cardsOnPage && (
-                  <MainPagination
-                    setPageNumber={setPageNumber}
-                    pageNumber={pageNumber}
-                    cardsOnPage={cardsOnPage}
-                    count={guitarsList.length}
-                  />
-                )}
-              </div>
+              {guitarsList?.length > cardsOnPage && (
+                <MainPagination
+                  setPageNumber={setPageNumber}
+                  pageNumber={pageNumber}
+                  cardsOnPage={cardsOnPage}
+                  count={guitarsList.length}
+                />
+              )}
             </div>
           </div>
         </main>
