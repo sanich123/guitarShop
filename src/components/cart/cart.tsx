@@ -7,7 +7,7 @@ import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Footer from '../common/footer/footer';
 import Header from '../common/header/header';
 import Loader from '../common/loader/loader';
-import Svg from '../common/svg/svg';
+import Icons from '../common/icons/icons';
 import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
@@ -19,9 +19,7 @@ export default function Cart() {
   const [showActionModal, setActionModal] = useState(false);
   const [deleteId, setDeleteId] = useState('');
   const inCart = useSelector(({cart}: CartType) => cart);
-  const localCart = [...JSON.parse(localStorage.cart)];
-  // eslint-disable-next-line no-console
-  console.log(localCart,inCart);
+
   const forRequest = [...new Set(inCart.map(({id}) => id))];
 
   const request = forRequest?.map((number) => `id=${number}`).join('&');
@@ -35,7 +33,7 @@ export default function Cart() {
 
       {data && (
         <div className="wrapper">
-          <Svg />
+          <Icons />
           <Header />
           <main className="page-content">
             <div className="container">
@@ -52,7 +50,7 @@ export default function Cart() {
                   />
                 )}
 
-                {inCart.length > 0 ?
+                {inCart?.length > 0 ?
                   <>
                     {data
                       .filter((guitar: Guitar) =>

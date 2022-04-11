@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useGetGuitarsQuery } from '../../redux/guitars-api';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useQueries from '../../hooks/useQueries';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Card, { CardProps } from './card/card';
@@ -13,7 +13,7 @@ import Loader from '../common/loader/loader';
 import MainPagination from './pagination/pagination';
 import SortOrder from './sort/direction/direction-sort';
 import SortType from './sort/type/sort-type';
-import Svg from '../common/svg/svg';
+import Icons from '../common/icons/icons';
 import ModalAction from '../common/modal/modal-action/modal-action';
 import { errorHandler } from '../../utils/utils';
 import ModalSuccess from '../common/modal/modal-success/modal-success';
@@ -28,9 +28,8 @@ export default function Catalog() {
   const [isAdded, setIsAdded] = useState(false);
   const [guitarId, setGuitarId] = useState('');
 
-  const {data: guitarsList, isLoading, error} = useGetGuitarsQuery(`?${finalRequest}`);
-  // eslint-disable-next-line no-console
-  console.log(useLocation());
+  const {data: guitarsList, isLoading, isError, error} = useGetGuitarsQuery(`?${finalRequest}`);
+
   const cardsOnPage = 3;
   const endSlicing = pageNumber * cardsOnPage;
   const beginSlicing = endSlicing - cardsOnPage;
@@ -43,83 +42,87 @@ export default function Catalog() {
 
   return (
     <>
-      {isLoading && <Loader/>}
+      {isLoading && <Loader />}
 
-      {guitarsList &&
-      <>
-        <Svg />
-        <div className="wrapper">
-          <Header />
-          <main className="page-content">
-            <div className="container">
-              <h1 className="page-content__title title title--bigger">
+      <Icons />
+      <div className="wrapper">
+        <Header />
+        <main className="page-content">
+          <div className="container">
+            <h1 className="page-content__title title title--bigger">
               Каталог гитар
-              </h1>
-              <Breadcrumbs />
-              <div className="catalog">
-                <form className="catalog-filter">
-                  <h2 className="title title--bigger catalog-filter__title">
+            </h1>
+            <Breadcrumbs />
+            <div className="catalog">
+              <form className="catalog-filter">
+                <h2 className="title title--bigger catalog-filter__title">
                   Фильтр
-                  </h2>
-                  <PriceFilters
-                    setFilterMinPrice={setFilterMinPrice}
-                    setFilterMaxPrice={setFilterMaxPrice}
+                </h2>
+                <PriceFilters
+                  setFilterMinPrice={setFilterMinPrice}
+                  setFilterMaxPrice={setFilterMaxPrice}
+                />
+                <TypeFilters setFilterType={setFilterType} />
+                <StringFilters setFilterString={setFilterString} />
+              </form>
+              <div className="catalog-sort">
+                <h2 className="catalog-sort__title">Сортировать:</h2>
+                <SortType
+                  setSortPopular={setSortPopular}
+                  sortPopular={sortPopular}
+                />
+                <SortOrder setDirection={setDirection} direction={direction} />
+              </div>
+              <div className="cards catalog__cards">
+                {showActionModal && (
+                  <ModalAction
+                    setActionModal={setActionModal}
+                    setIsAdded={setIsAdded}
+                    guitars={guitarsList}
+                    id={+guitarId}
                   />
-                  <TypeFilters setFilterType={setFilterType} />
-                  <StringFilters setFilterString={setFilterString} />
-                </form>
-                <div className="catalog-sort">
-                  <h2 className="catalog-sort__title">Сортировать:</h2>
-                  <SortType
-                    setSortPopular={setSortPopular}
-                    sortPopular={sortPopular}
-                  />
-                  <SortOrder setDirection={setDirection} direction={direction} />
-                </div>
-                <div className="cards catalog__cards">
-                  {showActionModal && (
-                    <ModalAction
+                )}
+
+                {guitars?.length > 0 ? (
+                  guitars.map(({ id, ...rest }: CardProps) => (
+                    <Card
+                      key={id}
+                      id={id}
+                      {...rest}
+                      setGuitarId={setGuitarId}
                       setActionModal={setActionModal}
-                      setIsAdded={setIsAdded}
-                      guitars={guitarsList}
-                      id={+guitarId}
                     />
-                  )}
+                  ))
+                ) : (
+                  <>
+                    {isError && <h2>Не удалось загрузить данные с сервера</h2>}
+                    {guitarsList && (
+                      <h2>
+                        Условиям фильтрации не соответствует не один товар
+                      </h2>
+                    )}
+                  </>
+                )}
 
-                  {guitars.length > 0 ? (
-                    guitars.map(({ id, ...rest }: CardProps) => (
-                      <Card
-                        key={id}
-                        id={id}
-                        {...rest}
-                        setGuitarId={setGuitarId}
-                        setActionModal={setActionModal}
-                      />
-                    ))
-                  ) : (
-                    <h2>Условиям фильтрации не соответствует не один товар</h2>
-                  )}
-
-                  {isAdded && (
-                    <ModalSuccess place={'main'} setIsAdded={setIsAdded} />
-                  )}
-                </div>
-                <div className="pagination page-content__pagination">
-                  {guitarsList.length > cardsOnPage && (
-                    <MainPagination
-                      setPageNumber={setPageNumber}
-                      pageNumber={pageNumber}
-                      cardsOnPage={cardsOnPage}
-                      count={guitarsList.length}
-                    />
-                  )}
-                </div>
+                {isAdded && (
+                  <ModalSuccess place={'main'} setIsAdded={setIsAdded} />
+                )}
+              </div>
+              <div className="pagination page-content__pagination">
+                {guitarsList?.length > cardsOnPage && (
+                  <MainPagination
+                    setPageNumber={setPageNumber}
+                    pageNumber={pageNumber}
+                    cardsOnPage={cardsOnPage}
+                    count={guitarsList.length}
+                  />
+                )}
               </div>
             </div>
-          </main>
-          <Footer />
-        </div>
-      </>}
+          </div>
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }

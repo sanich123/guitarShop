@@ -41,3 +41,5 @@ export const warnings = {
   wrongAddedFavorites: 'Не удалось добавить в избранное',
   wrongAccess: 'Добавлять в избранное могут только авторизованные пользователи',
 };
+
+export const defaultGuitar = {previewImg: 'previewImg', name: 'defaultName', stringCount: 0, type: 'guitar', vendorCode: 0, description: 'description', price: 0, rating: 0, comments: []};

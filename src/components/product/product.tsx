@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useGetGuitarQuery } from '../../redux';
 import Footer from '../common/footer/footer';
 import Header from '../common/header/header';
-import Svg from '../common/svg/svg';
+import Icons from '../common/icons/icons';
 import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
@@ -13,26 +13,26 @@ import ModalAction from '../common/modal/modal-action/modal-action';
 import UpBtn from './up-button/up-button';
 import AddReviewBtn from './add-review-btn/add-review-btn';
 import ProductInfo from './product-info/product-info';
-import { appRoutes } from '../../utils/const';
+import { appRoutes, defaultGuitar } from '../../utils/const';
 import ModalSuccess from '../common/modal/modal-success/modal-success';
 import { errorHandler } from '../../utils/utils';
 
 export default function Product() {
   const {id} = useParams();
-  const {data, isLoading, error} = useGetGuitarQuery(id);
+  const {data: guitar, isLoading, isError, error} = useGetGuitarQuery(id);
   const [showReview, setReview] = useState(false);
   const [showActionModal, setActionModal] = useState(false);
   const [isAdded, setIsAdded] = useState(false);
   const [isSended, setIsSended] = useState(false);
 
-  if (isLoading) {return <Loader/>;}
-  if (error) {return errorHandler(error);}
+  error && errorHandler(error);
 
-  const {previewImg, name, stringCount, type, vendorCode, description, price, rating, comments} = data;
+  const {previewImg, name, stringCount, type, vendorCode, description, price, rating, comments} = guitar || defaultGuitar;
 
   return (
     <>
-      <Svg />
+      {isLoading && <Loader />}
+      <Icons />
       <div className="wrapper">
         <Header />
         <main className="page-content">
@@ -57,13 +57,17 @@ export default function Product() {
                 rating={rating}
               />
 
-              <Price price={price} setActionModal={setActionModal} />
+              <Price
+                price={price}
+                setActionModal={setActionModal}
+                isError={isError}
+              />
 
               {showActionModal && (
                 <ModalAction
                   setActionModal={setActionModal}
                   setIsAdded={setIsAdded}
-                  guitars={data}
+                  guitars={guitar}
                   id={Number(id)}
                 />
               )}
@@ -75,7 +79,7 @@ export default function Product() {
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
 
-              <AddReviewBtn setReview={setReview} />
+              <AddReviewBtn setReview={setReview} isError={isError} />
 
               {showReview && (
                 <AddReview
@@ -86,10 +90,13 @@ export default function Product() {
                 />
               )}
 
-              {isSended && (
-                <ModalSuccess setIsSended={setIsSended} />
+              {isSended && <ModalSuccess setIsSended={setIsSended} />}
+              {isError && (
+                <h2>
+                  Не удалось получить данные о товаре, проверьте ваше сетевое
+                  соединение
+                </h2>
               )}
-
               <Reviews comments={comments} uniq={id} />
 
               <UpBtn />

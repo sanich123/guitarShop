@@ -1,7 +1,8 @@
 import cn from 'classnames';
 
 interface AddReviewBtnProps {
-  setReview: (arg: boolean) => void
+  setReview: (arg: boolean) => void,
+  isError: boolean
 }
 
 const btnClass = cn(
@@ -11,12 +12,13 @@ const btnClass = cn(
   'reviews__submit-button',
 );
 
-export default function AddReviewBtn({setReview}: AddReviewBtnProps) {
+export default function AddReviewBtn({setReview, isError}: AddReviewBtnProps) {
 
   return (
     <button
       onClick={() => setReview(true)}
       className={btnClass}
+      disabled={isError}
     >
       Оставить отзыв
     </button>
