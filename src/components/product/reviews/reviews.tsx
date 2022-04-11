@@ -2,7 +2,7 @@ import { memo, useMemo, useState } from 'react';
 import { useGetCommentsQuery } from '../../../redux';
 import { Comments } from '../../../types/types';
 import { sortReviews } from '../../../utils/utils';
-import Loader from '../../common/loader/loader';
+import {Loader} from '../../common/loader/loader';
 import Review from '../review/review';
 
 interface ReviewsProps {

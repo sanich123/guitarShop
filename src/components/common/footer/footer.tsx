@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import {Link} from 'react-router-dom';
 import { appRoutes } from '../../../utils/const';
 import NavLinks from './nav-links/nav-links';
@@ -47,4 +46,4 @@ function Footer() {
   );
 }
 
-export default memo(Footer);
+export {Footer};

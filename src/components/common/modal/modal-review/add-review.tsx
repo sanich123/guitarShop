@@ -19,7 +19,7 @@ interface AddReviewProps {
   id: number,
 }
 
-export default function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
+export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
   const [addComment, {isSuccess, isError, error, data: response}] = useAddCommentMutation();
 
   useEffect(() => {

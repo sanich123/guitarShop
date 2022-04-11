@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { useGetGuitarsQuery } from '../../../../redux/guitars-api';
 import { errorHandler } from '../../../../utils/utils';
-import Loader from '../../../common/loader/loader';
+import { Loader } from '../../../common/loader/loader';
 
 interface PriceFiltersProps {
   setFilterMinPrice: (arg: string) => void,

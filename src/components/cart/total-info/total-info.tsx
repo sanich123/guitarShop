@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
+import { Loader } from '../..';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { CartType } from '../../../types/types';
 import { errorHandler, valueChecker } from '../../../utils/utils';
-import Loader from '../../common/loader/loader';
 
 const discount = 3000;
 

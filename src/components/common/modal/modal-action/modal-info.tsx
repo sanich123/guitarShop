@@ -6,7 +6,7 @@ interface ModalInfoProps {
   price: number
 }
 
-export default function ModalInfo({previewImg, name, vendorCode, stringCount, price}: ModalInfoProps) {
+export function ModalInfo({previewImg, name, vendorCode, stringCount, price}: ModalInfoProps) {
   return (
     <div className="modal__info">
       <img className="modal__img" src={previewImg} width="67" height="137" alt={name} />

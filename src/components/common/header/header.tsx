@@ -1,4 +1,3 @@
-import { memo } from 'react';
 import { useSelector } from 'react-redux';
 import CartLogo from './cart-logo/cart-logo';
 import FormSearch from './form-search/form-search';
@@ -22,4 +21,4 @@ function Header() {
   );
 }
 
-export default memo(Header);
+export {Header};

@@ -3,7 +3,7 @@ import { useGetGuitarsQuery } from '../../../../redux';
 import { Guitar } from '../../../../types/types';
 import { stringsTypes } from '../../../../utils/const';
 import { errorHandler, stringMaker } from '../../../../utils/utils';
-import Loader from '../../../common/loader/loader';
+import { Loader } from '../../../common/loader/loader';
 
 interface StringFiltersProps {
   setFilterString: (arg: string) => void,

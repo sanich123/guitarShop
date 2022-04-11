@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetGuitarsQuery } from '../../../../redux';
 import { Guitar } from '../../../../types/types';
-import Loader from '../../loader/loader';
+import {Loader} from '../../loader/loader';
 
 export default function FormSearch() {
   const [search, setSearch] = useState('');

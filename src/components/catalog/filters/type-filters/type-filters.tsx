@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useGetGuitarsQuery } from '../../../../redux/guitars-api';
 import { guitarTypes } from '../../../../utils/const';
 import { errorHandler, stringMaker, typeChanger } from '../../../../utils/utils';
-import Loader from '../../../common/loader/loader';
+import { Loader } from '../../../common/loader/loader';
 
 interface TypeFiltersProps {
   setFilterType: (arg: string) => void

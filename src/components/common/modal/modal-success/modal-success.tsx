@@ -12,7 +12,7 @@ interface SuccessCartProps {
   setIsSended?: (arg: boolean) => void;
 }
 
-export default function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProps) {
+export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProps) {
   const modalMessage = setIsAdded
     ? 'Товар успешно добавлен в корзину'
     : 'Спасибо за ваш отзыв!';

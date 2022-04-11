@@ -7,7 +7,7 @@ interface MainPaginationProps {
   count: number
 }
 
-export default function MainPagination({setPageNumber, pageNumber, cardsOnPage, count}: MainPaginationProps) {
+export function MainPagination({setPageNumber, pageNumber, cardsOnPage, count}: MainPaginationProps) {
   const counter = Math.ceil(count / cardsOnPage);
   const isVisibleStart = cn('pagination__page', 'pagination__page--next', {'visually-hidden' : pageNumber === 1});
   const isVisibleEnd = cn('pagination__page', 'pagination__page--next', {'visually-hidden' : pageNumber === counter});

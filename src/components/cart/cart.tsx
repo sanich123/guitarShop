@@ -3,15 +3,17 @@ import { useGetGuitarsQuery } from '../../redux';
 import { CartType, Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
 import { errorHandler } from '../../utils/utils';
-import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
-import Footer from '../common/footer/footer';
-import Header from '../common/header/header';
-import Loader from '../common/loader/loader';
-import Icons from '../common/icons/icons';
+import {
+  Breadcrumbs,
+  Footer,
+  Header,
+  Loader,
+  Icons,
+  ModalAction
+} from '../index';
 import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
-import ModalAction from '../common/modal/modal-action/modal-action';
 import NoItems from './no-items/no-items';
 import { useSelector } from 'react-redux';
 

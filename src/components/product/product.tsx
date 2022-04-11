@@ -1,20 +1,22 @@
 import { useParams } from 'react-router-dom';
 import { useState } from 'react';
 import { useGetGuitarQuery } from '../../redux';
-import Footer from '../common/footer/footer';
-import Header from '../common/header/header';
-import Icons from '../common/icons/icons';
-import Breadcrumbs from '../common/breadcrumbs/breadcrumbs';
+import {
+  Breadcrumbs,
+  Footer,
+  Header,
+  Loader,
+  Icons,
+  ModalAction,
+  ModalSuccess,
+  AddReview
+} from '../index';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
-import AddReview from '../common/modal/modal-review/add-review';
-import Loader from '../common/loader/loader';
-import ModalAction from '../common/modal/modal-action/modal-action';
 import UpBtn from './up-button/up-button';
 import AddReviewBtn from './add-review-btn/add-review-btn';
 import ProductInfo from './product-info/product-info';
 import { appRoutes, defaultGuitar } from '../../utils/const';
-import ModalSuccess from '../common/modal/modal-success/modal-success';
 import { errorHandler } from '../../utils/utils';
 
 export default function Product() {
