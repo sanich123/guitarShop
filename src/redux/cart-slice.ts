@@ -3,7 +3,7 @@ import { Cart } from '../types/types';
 
 const cartSlice = createSlice({
   name: 'cart',
-  initialState: [...JSON.parse(localStorage.cart)] as Cart[] || [],
+  initialState: localStorage.cart ? [...JSON.parse(localStorage.cart)] as Cart[] : [],
   reducers: {
     addToCart: (state, action) => {
       const {id, price} = action.payload;
