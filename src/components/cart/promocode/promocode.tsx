@@ -1,4 +1,4 @@
-export default function Promocode() {
+export function Promocode() {
 
   return (
     <div className="cart__coupon coupon">

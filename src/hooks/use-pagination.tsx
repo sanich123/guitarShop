@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Guitar } from '../types/types';
 
-
 export function usePagination(guitarsList: Guitar[]) {
   const [pageNumber, setPageNumber] = useState(1);
   const cardsOnPage = 3;

@@ -7,7 +7,7 @@ interface CardsListProps {
   setGuitarId: (arg: string) => void
 }
 
-export default function CardsList({guitars, setActionModal, setGuitarId}: CardsListProps) {
+export function CardsList({guitars, setActionModal, setGuitarId}: CardsListProps) {
 
   return (
     <>

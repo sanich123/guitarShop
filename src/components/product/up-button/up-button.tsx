@@ -1,4 +1,4 @@
-export default function UpBtn() {
+export function UpBtn() {
 
   return (
     <a

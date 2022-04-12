@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useGetCommentsQuery } from '../../../redux';
 import { Comments } from '../../../types/types';
 import { sortReviews } from '../../../utils/utils';
@@ -10,7 +10,7 @@ interface ReviewsProps {
   uniq?: string,
 }
 
-function Reviews({comments, uniq}: ReviewsProps) {
+export function Reviews({comments, uniq}: ReviewsProps) {
   const {data: reviews, isLoading} = useGetCommentsQuery('');
   const [sliceNumber, setSliceNumber] = useState(2);
 
@@ -43,4 +43,3 @@ function Reviews({comments, uniq}: ReviewsProps) {
   );
 }
 
-export default memo(Reviews, (prev, next) => prev.comments === next.comments || prev.uniq === next.uniq);

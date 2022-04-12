@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { appRoutes } from '../../../utils/const';
 
-export default function NoItems() {
+export function NoItems() {
 
   return (
     <>

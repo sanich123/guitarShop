@@ -5,7 +5,7 @@ interface PriceProps {
 }
 
 
-export default function Price({price, setActionModal, isError}: PriceProps) {
+export function Price({price, setActionModal, isError}: PriceProps) {
 
   return (
     <div className="product-container__price-wrapper">

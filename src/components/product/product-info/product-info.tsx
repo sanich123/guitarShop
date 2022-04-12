@@ -10,7 +10,7 @@ interface ProductInfoProps {
   description: string
 }
 
-export default function ProductInfo({rating, name, vendorCode,stringCount, type, description}: ProductInfoProps) {
+export function ProductInfo({rating, name, vendorCode,stringCount, type, description}: ProductInfoProps) {
   return (
     <div className="product-container__info-wrapper">
       <h2 className="product-container__title title title--big title--uppercase">

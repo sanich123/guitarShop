@@ -6,7 +6,7 @@ import { errorHandler, valueChecker } from '../../../utils/utils';
 
 const discount = 3000;
 
-export default function TotalInfo() {
+export function TotalInfo() {
   const inCart = useSelector(({ cart }: CartType) => cart);
   const forRequest = [...new Set(inCart.map(({ id }) => id))];
 

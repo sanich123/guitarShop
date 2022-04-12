@@ -12,7 +12,7 @@ const btnClass = cn(
   'reviews__submit-button',
 );
 
-export default function AddReviewBtn({setReview, isError}: AddReviewBtnProps) {
+export function AddReviewBtn({setReview, isError}: AddReviewBtnProps) {
 
   return (
     <button

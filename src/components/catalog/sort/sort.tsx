@@ -8,7 +8,7 @@ interface SortProps {
   direction: string,
 }
 
-export default function Sort({setSortPopular, setDirection, sortPopular, direction}: SortProps) {
+export function Sort({setSortPopular, setDirection, sortPopular, direction}: SortProps) {
 
   return (
     <div className="catalog-sort">

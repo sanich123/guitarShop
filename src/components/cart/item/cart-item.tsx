@@ -16,7 +16,7 @@ interface CartItemProps {
   inCart: Cart[]
 }
 
-export default function CartItem({previewImg, name, price, stringCount, type, vendorCode, id, setActionModal, setDeleteId, inCart}: CartItemProps) {
+export function CartItem({previewImg, name, price, stringCount, type, vendorCode, id, setActionModal, setDeleteId, inCart}: CartItemProps) {
   const dispatch = useDispatch();
   const [{ quantity }] = inCart.filter((cart) => cart.id === id);
   const totalPrice = price * +quantity;

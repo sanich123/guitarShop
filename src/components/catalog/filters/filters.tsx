@@ -9,7 +9,8 @@ interface FiltersProps {
   setFilterString: (arg: string) => void,
 }
 
-export default function Filters({setFilterMinPrice, setFilterMaxPrice, setFilterType, setFilterString}: FiltersProps) {
+export function Filters({setFilterMinPrice, setFilterMaxPrice, setFilterType, setFilterString}: FiltersProps) {
+
   return (
     <form className="catalog-filter">
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>

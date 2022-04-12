@@ -14,7 +14,7 @@ function Header() {
         <NavList/>
         <FormSearch/>
 
-        {inCart.length > 0 && <CartLogo />}
+        {inCart?.length > 0 && <CartLogo />}
 
       </div>
     </header>
