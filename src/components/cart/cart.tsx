@@ -12,67 +12,55 @@ import { useModal } from '../../hooks/use-modal';
 
 export default function Cart() {
   const { showActionModal, setActionModal, setGuitarId, guitarId} = useModal();
-
   const inCart = useSelector(({cart}: CartType) => cart);
-
   const forRequest = [...new Set(inCart.map(({id}) => id))];
-
   const request = forRequest?.map((number) => `id=${number}`).join('&');
-  const {data, isLoading, error} = useGetGuitarsQuery(`?${request}`);
+  const {data: guitarsInCart, isLoading, error} = useGetGuitarsQuery(`?${request}`);
 
   return (
-    <>
-      {isLoading && <Loader />}
+    <div className="wrapper">
+      <Icons />
+      <Header />
+      <main className="page-content">
+        <div className="container">
+          <h1 className="title title--bigger page-content__title">Корзина</h1>
+          <Breadcrumbs place={appRoutes.cart} />
+          <div className="cart">
+            {isLoading && <Loader />}
+            {error && errorHandler(error)}
 
-      {error && errorHandler(error)}
+            {showActionModal && (
+              <ModalAction
+                guitars={guitarsInCart}
+                deleteId={guitarId}
+                setActionModal={setActionModal}
+              />
+            )}
 
-      {data && (
-        <div className="wrapper">
-          <Icons />
-          <Header />
-          <main className="page-content">
-            <div className="container">
-              <h1 className="title title--bigger page-content__title">
-                  Корзина
-              </h1>
-              <Breadcrumbs place={appRoutes.cart} />
-              <div className="cart">
-                {showActionModal && (
-                  <ModalAction
-                    guitars={data}
-                    deleteId={guitarId}
+            {inCart?.length > 0 ? (
+              <>
+                {guitarsInCart?.map(({ id, ...rest }: Guitar) => (
+                  <CartItem
+                    key={id}
+                    id={id}
+                    {...rest}
                     setActionModal={setActionModal}
+                    setDeleteId={setGuitarId}
+                    inCart={inCart}
                   />
-                )}
-
-                {inCart?.length > 0 ?
-                  <>
-                    {data
-                      .filter((guitar: Guitar) =>
-                        forRequest.includes(guitar.id))
-                      .map(({ id, ...rest }: Guitar) => (
-                        <CartItem
-                          key={id}
-                          id={id}
-                          {...rest}
-                          setActionModal={setActionModal}
-                          setDeleteId={setGuitarId}
-                          inCart={inCart}
-                        />
-                      ))}
-
-                    <div className="cart__footer">
-                      <Promocode />
-                      <TotalInfo/>
-                    </div>
-                  </>
-                  : <NoItems/>}
-              </div>
-            </div>
-          </main>
-          <Footer />
+                ))}
+                <div className="cart__footer">
+                  <Promocode />
+                  <TotalInfo />
+                </div>
+              </>
+            ) : (
+              <NoItems />
+            )}
+          </div>
         </div>
-      )}
-    </>
+      </main>
+      <Footer />
+    </div>
   );
 }

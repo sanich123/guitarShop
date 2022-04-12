@@ -13,11 +13,11 @@ export default function TotalInfo() {
   const request = forRequest?.map((number) => `id=${number}`).join('&');
 
   const { data: guitars, isLoading, error } = useGetGuitarsQuery(`?${request}`);
-
+  if (isLoading) {
+    return <Loader/>;
+  }
   return (
     <>
-      {isLoading && <Loader />}
-
       {error && errorHandler(error)}
 
       {guitars && (
