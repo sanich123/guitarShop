@@ -4,7 +4,7 @@ import FormSearch from './form-search/form-search';
 import Logo from './logo/logo';
 import NavList from './nav-list/nav-list';
 
-function Header() {
+export function Header() {
   const inCart = [...new Set(useSelector(({cart}: {cart: number[]}) => cart))];
 
   return (
@@ -21,4 +21,3 @@ function Header() {
   );
 }
 
-export {Header};

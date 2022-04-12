@@ -14,9 +14,7 @@ export default function Catalog() {
               Каталог гитар
             </h1>
             <Breadcrumbs />
-
             <Main/>
-
           </div>
         </main>
         <Footer />
