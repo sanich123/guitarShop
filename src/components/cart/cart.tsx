@@ -1,25 +1,18 @@
-import { useState } from 'react';
 import { useGetGuitarsQuery } from '../../redux';
 import { CartType, Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
 import { errorHandler } from '../../utils/utils';
-import {
-  Breadcrumbs,
-  Footer,
-  Header,
-  Loader,
-  Icons,
-  ModalAction
-} from '../index';
+import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction } from '../index';
 import CartItem from './item/cart-item';
 import Promocode from './promocode/promocode';
 import TotalInfo from './total-info/total-info';
 import NoItems from './no-items/no-items';
 import { useSelector } from 'react-redux';
+import { useModal } from '../../hooks/use-modal';
 
 export default function Cart() {
-  const [showActionModal, setActionModal] = useState(false);
-  const [deleteId, setDeleteId] = useState('');
+  const { showActionModal, setActionModal, setGuitarId, guitarId} = useModal();
+
   const inCart = useSelector(({cart}: CartType) => cart);
 
   const forRequest = [...new Set(inCart.map(({id}) => id))];
@@ -47,7 +40,7 @@ export default function Cart() {
                 {showActionModal && (
                   <ModalAction
                     guitars={data}
-                    deleteId={deleteId}
+                    deleteId={guitarId}
                     setActionModal={setActionModal}
                   />
                 )}
@@ -63,7 +56,7 @@ export default function Cart() {
                           id={id}
                           {...rest}
                           setActionModal={setActionModal}
-                          setDeleteId={setDeleteId}
+                          setDeleteId={setGuitarId}
                           inCart={inCart}
                         />
                       ))}

@@ -1,29 +1,22 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useGetGuitarsQuery } from '../../redux/guitars-api';
 import { useNavigate } from 'react-router-dom';
-import useQueries from '../../hooks/useQueries';
-import {Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, ModalSuccess, MainPagination} from '../index';
-import { errorHandler } from '../../utils/utils';
+import useQueries from '../../hooks/use-queries';
 import Filters from './filters/filters';
 import Sort from './sort/sort';
 import CardsList from './cards-list/cards-list';
+import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, ModalSuccess, MainPagination } from '../index';
+import { errorHandler } from '../../utils/utils';
+import { usePagination } from '../../hooks/use-pagination';
+import { useModal } from '../../hooks/use-modal';
 
 export default function Catalog() {
   const navigate = useNavigate();
   const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, direction, finalRequest} = useQueries();
-
-  const [pageNumber, setPageNumber] = useState(1);
-
-  const [showActionModal, setActionModal] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
-  const [guitarId, setGuitarId] = useState('');
+  const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
 
   const {data: guitarsList, isLoading, isError, error} = useGetGuitarsQuery(`?${finalRequest}`);
-
-  const cardsOnPage = 3;
-  const endSlicing = pageNumber * cardsOnPage;
-  const beginSlicing = endSlicing - cardsOnPage;
-  const guitars = guitarsList?.slice(beginSlicing, endSlicing);
+  const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(guitarsList);
 
   error && errorHandler(error);
 

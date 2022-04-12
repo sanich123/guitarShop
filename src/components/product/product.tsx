@@ -1,16 +1,6 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
 import { useGetGuitarQuery } from '../../redux';
-import {
-  Breadcrumbs,
-  Footer,
-  Header,
-  Loader,
-  Icons,
-  ModalAction,
-  ModalSuccess,
-  AddReview
-} from '../index';
+import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview } from '../index';
 import Price from './price/price';
 import Reviews from './reviews/reviews';
 import UpBtn from './up-button/up-button';
@@ -18,14 +8,13 @@ import AddReviewBtn from './add-review-btn/add-review-btn';
 import ProductInfo from './product-info/product-info';
 import { appRoutes, defaultGuitar } from '../../utils/const';
 import { errorHandler } from '../../utils/utils';
+import { useModal } from '../../hooks/use-modal';
 
 export default function Product() {
   const {id} = useParams();
   const {data: guitar, isLoading, isError, error} = useGetGuitarQuery(id);
-  const [showReview, setReview] = useState(false);
-  const [showActionModal, setActionModal] = useState(false);
-  const [isAdded, setIsAdded] = useState(false);
-  const [isSended, setIsSended] = useState(false);
+
+  const { setIsAdded, setActionModal, showActionModal, isAdded, showReview, setReview, isSended, setIsSended} = useModal();
 
   error && errorHandler(error);
 
@@ -69,7 +58,7 @@ export default function Product() {
                 <ModalAction
                   setActionModal={setActionModal}
                   setIsAdded={setIsAdded}
-                  guitars={guitar}
+                  guitars={[guitar]}
                   id={Number(id)}
                 />
               )}
