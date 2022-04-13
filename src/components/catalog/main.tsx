@@ -33,50 +33,59 @@ export function Main() {
   }, [finalRequest, navigate]);
 
   return (
-    <div className="catalog">
-      <Filters
-        setFilterMinPrice={setFilterMinPrice}
-        setFilterMaxPrice={setFilterMaxPrice}
-        setFilterType={setFilterType}
-        setFilterString={setFilterString}
-      />
-      <Sort
-        setSortPopular={setSortPopular}
-        sortPopular={sortPopular}
-        setDirection={setDirection}
-        direction={direction}
-      />
-      <div className="cards catalog__cards">
-        {showActionModal && (
-          <ModalAction
-            setActionModal={setActionModal}
-            setIsAdded={setIsAdded}
+    <>
+      {isLoading && <Loader />}
+
+      {guitars && (
+        <div className="catalog">
+          <Filters
             guitars={guitarsList}
-            id={+guitarId}
+            setFilterMinPrice={setFilterMinPrice}
+            setFilterMaxPrice={setFilterMaxPrice}
+            setFilterType={setFilterType}
+            setFilterString={setFilterString}
           />
-        )}
-        {isLoading && <Loader />}
-        {guitars?.length > 0 && (
-          <CardsList
-            setGuitarId={setGuitarId}
-            setActionModal={setActionModal}
-            guitars={guitars}
+          <Sort
+            guitars={guitarsList}
+            setSortPopular={setSortPopular}
+            sortPopular={sortPopular}
+            setDirection={setDirection}
+            direction={direction}
           />
-        )}
-        {guitars?.length === 0 && (
-          <h2>Условиям фильтрации не соответствует не один товар</h2>
-        )}
-        {isError && <h2>Не удалось загрузить данные с сервера</h2>}
-        {isAdded && <ModalSuccess place={'main'} setIsAdded={setIsAdded} />}
-      </div>
-      {guitarsList?.length > cardsOnPage && (
-        <MainPagination
-          setPageNumber={setPageNumber}
-          pageNumber={pageNumber}
-          cardsOnPage={cardsOnPage}
-          count={guitarsList.length}
-        />
+
+          <div className="cards catalog__cards">
+            {showActionModal && (
+              <ModalAction
+                setActionModal={setActionModal}
+                setIsAdded={setIsAdded}
+                guitars={guitarsList}
+                id={+guitarId}
+              />
+            )}
+            {isLoading && <Loader />}
+            {guitars?.length > 0 && (
+              <CardsList
+                setGuitarId={setGuitarId}
+                setActionModal={setActionModal}
+                guitars={guitars}
+              />
+            )}
+            {guitars?.length === 0 && (
+              <h2>Условиям фильтрации не соответствует не один товар</h2>
+            )}
+            {isError && <h2>Не удалось загрузить данные с сервера</h2>}
+            {isAdded && <ModalSuccess place={'main'} setIsAdded={setIsAdded} />}
+          </div>
+          {guitarsList?.length > cardsOnPage && (
+            <MainPagination
+              setPageNumber={setPageNumber}
+              pageNumber={pageNumber}
+              cardsOnPage={cardsOnPage}
+              count={guitarsList.length}
+            />
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 }

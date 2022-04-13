@@ -3,7 +3,7 @@ import { stringChanger, stringChangerBack } from '../../../../utils/utils';
 
 interface SortOrderProps {
   direction: string,
-  setDirection: (arg: string) => void
+  setDirection: (arg: string) => void,
 }
 
 export default function SortOrder({direction, setDirection}: SortOrderProps) {

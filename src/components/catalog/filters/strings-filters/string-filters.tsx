@@ -1,16 +1,14 @@
 import { useState } from 'react';
-import { useGetGuitarsQuery } from '../../../../redux';
 import { Guitar } from '../../../../types/types';
 import { stringsTypes } from '../../../../utils/const';
-import { errorHandler, stringMaker } from '../../../../utils/utils';
-import { Loader } from '../../../common/loader/loader';
+import { stringMaker } from '../../../../utils/utils';
 
 interface StringFiltersProps {
   setFilterString: (arg: string) => void,
+  guitars: Guitar[]
 }
 
-export default function StringFilters({setFilterString}: StringFiltersProps) {
-  const {data: guitars, isLoading, error} = useGetGuitarsQuery('');
+export default function StringFilters({setFilterString, guitars}: StringFiltersProps) {
   const [checkedState, setCheckedState] = useState(new Array(4).fill(false));
 
   const allExistingStrings = [...new Set(guitars?.map(({stringCount}: Guitar) => stringCount))];
@@ -23,37 +21,29 @@ export default function StringFilters({setFilterString}: StringFiltersProps) {
     setFilterString(stringMaker(currentStrings, 'stringCount'));
   };
 
-  error && errorHandler(error);
-
   return (
-    <>
-      {isLoading && <Loader />}
-
-      {guitars && (
-        <fieldset className="catalog-filter__block">
-          <legend className="catalog-filter__block-title">
+    <fieldset className="catalog-filter__block">
+      <legend className="catalog-filter__block-title">
             Количество струн
-          </legend>
-          {stringsTypes.map((number, index) => (
-            <div
-              key={number}
-              className="form-checkbox catalog-filter__block-item"
-            >
-              <input
-                className="visually-hidden"
-                type="checkbox"
-                id={`${number}-strings`}
-                name={`${number}-strings`}
-                disabled={!allExistingStrings.includes(number)}
-                checked={checkedState[index]}
-                onChange={() => handleChange(index)}
-                tabIndex={0}
-              />
-              <label htmlFor={`${number}-strings`}>{number}</label>
-            </div>
-          ))}
-        </fieldset>
-      )}
-    </>
+      </legend>
+      {stringsTypes.map((number, index) => (
+        <div
+          key={number}
+          className="form-checkbox catalog-filter__block-item"
+        >
+          <input
+            className="visually-hidden"
+            type="checkbox"
+            id={`${number}-strings`}
+            name={`${number}-strings`}
+            disabled={!allExistingStrings.includes(number)}
+            checked={checkedState[index]}
+            onChange={() => handleChange(index)}
+            tabIndex={0}
+          />
+          <label htmlFor={`${number}-strings`}>{number}</label>
+        </div>
+      ))}
+    </fieldset>
   );
 }
