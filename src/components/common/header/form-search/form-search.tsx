@@ -36,7 +36,7 @@ export default function FormSearch() {
             <ul className='list-opened form-search__select-list' style={{zIndex: 999}}>
               {similarGuitars?.length > 0 ? similarGuitars?.map(({name, id}: Guitar) => (
                 <li
-                  onClick={() => navigate(`/guitar${id}`)}
+                  onClick={() => navigate(`/guitar/${id}`)}
                   key={name}
                   className="form-search__select-item"
                   tabIndex={0}
