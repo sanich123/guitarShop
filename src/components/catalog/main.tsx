@@ -15,7 +15,13 @@ import { Sort } from './sort/sort';
 
 export function Main() {
   const navigate = useNavigate();
+
   const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, direction, finalRequest} = useQueries();
+  const search = new URLSearchParams(finalRequest);
+
+  // eslint-disable-next-line no-console
+  console.log(search.get('_sort'), search.get('_order'), search.get('type'));
+
   const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId} = useModal();
   const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(`?${finalRequest}`);
   const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(guitarsList);

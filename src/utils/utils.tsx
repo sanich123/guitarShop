@@ -84,3 +84,5 @@ export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
     );
   }
 };
+
+export const normalizeImg = (img: string) => `../${img}`;

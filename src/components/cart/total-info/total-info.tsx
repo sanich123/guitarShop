@@ -1,23 +1,19 @@
-import { useSelector } from 'react-redux';
 import { Loader } from '../..';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
-import { CartType } from '../../../types/types';
+import { Cart } from '../../../types/types';
 import { errorHandler, valueChecker } from '../../../utils/utils';
 
 const discount = 3000;
 
-export function TotalInfo() {
-  const inCart = useSelector(({ cart }: CartType) => cart);
+export function TotalInfo({inCart}: {inCart: Cart[]}) {
   const forRequest = [...new Set(inCart.map(({ id }) => id))];
-
   const request = forRequest?.map((number) => `id=${number}`).join('&');
-
   const { data: guitars, isLoading, error } = useGetGuitarsQuery(`?${request}`);
-  if (isLoading) {
-    return <Loader/>;
-  }
+
   return (
     <>
+      {isLoading && <Loader/>}
+
       {error && errorHandler(error)}
 
       {guitars && (

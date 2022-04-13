@@ -1,7 +1,7 @@
 export const appRoutes = {
   main: '/',
-  catalog: 'catalog:filter',
-  product: '/guitar:id',
+  catalog: '/catalog:filter',
+  product: '/guitar/:id',
   cart: '/cart',
 };
 
