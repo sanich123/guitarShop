@@ -48,7 +48,7 @@ export default function Cart() {
                   ))}
                 <div className="cart__footer">
                   <Promocode />
-                  <TotalInfo inCart={inCart}/>
+                  <TotalInfo inCart={inCart} />
                 </div>
               </>
             ) : (
