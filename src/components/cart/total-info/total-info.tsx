@@ -16,7 +16,7 @@ export function TotalInfo({inCart}: {inCart: Cart[]}) {
 
       {error && errorHandler(error)}
 
-      {guitars && (
+      {guitars && inCart && (
         <div className="cart__total-info">
           <p className="cart__total-item">
             <span className="cart__total-value-name">Всего:</span>

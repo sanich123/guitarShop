@@ -2,7 +2,6 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
-    "history": "4.10.1",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-focus-on": "^3.5.4",
