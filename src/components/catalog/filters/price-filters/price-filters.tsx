@@ -5,9 +5,10 @@ interface PriceFiltersProps {
   setFilterMinPrice: (arg: string) => void,
   setFilterMaxPrice: (arg: string) => void,
   guitars: Guitar[],
+  isError: boolean
 }
 
-export default function PriceFilters({setFilterMinPrice, setFilterMaxPrice, guitars}: PriceFiltersProps) {
+export default function PriceFilters({setFilterMinPrice, setFilterMaxPrice, guitars, isError}: PriceFiltersProps) {
   const sortPrices = useMemo(() => guitars?.map(({price}: {price: number}) => price), [guitars]);
   const minPrice = Math.min(...sortPrices).toLocaleString('ru-Ru');
   const maxPrice = Math.max(...sortPrices).toLocaleString('ru-Ru');
@@ -27,6 +28,7 @@ export default function PriceFilters({setFilterMinPrice, setFilterMaxPrice, guit
               setFilterMinPrice(
                 target.value !== '' ? `price_gte=${target.value}` : '',
               )}
+            disabled={isError}
           />
         </div>
         <div className="form-input">
@@ -40,6 +42,7 @@ export default function PriceFilters({setFilterMinPrice, setFilterMaxPrice, guit
               setFilterMaxPrice(
                 target.value !== '' ? `price_lte=${target.value}` : '',
               )}
+            disabled={isError}
           />
         </div>
       </div>

@@ -3,9 +3,10 @@ import { sortTypes } from '../../../../utils/const';
 interface SortTypeProps {
   setSortPopular: (arg: string) => void,
   sortPopular: string,
+  isError: boolean
 }
 
-export default function SortType({setSortPopular, sortPopular}: SortTypeProps) {
+export default function SortType({setSortPopular, sortPopular, isError}: SortTypeProps) {
 
   return (
     <div className="catalog-sort__type">
@@ -18,6 +19,7 @@ export default function SortType({setSortPopular, sortPopular}: SortTypeProps) {
           value={eng}
           tabIndex={sortPopular === eng ? -1 : 0}
           onClick={() => setSortPopular(eng)}
+          disabled={isError}
         >{rus}
         </button>
       ))}

@@ -5,10 +5,11 @@ import { stringMaker, typeChanger } from '../../../../utils/utils';
 
 interface TypeFiltersProps {
   setFilterType: (arg: string) => void,
-  guitars: Guitar[]
+  guitars: Guitar[],
+  isError: boolean
 }
 
-export default function TypeFilters({setFilterType, guitars}: TypeFiltersProps) {
+export default function TypeFilters({setFilterType, guitars, isError}: TypeFiltersProps) {
   const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
 
   const existingTypes = [...new Set(guitars?.map(({type}: {type: string}) => type))];
@@ -35,7 +36,7 @@ export default function TypeFilters({setFilterType, guitars}: TypeFiltersProps) 
             name={type}
             checked={checkedState[index]}
             onChange={() => handleChange(index)}
-            disabled={!existingTypes.includes(type)}
+            disabled={!existingTypes.includes(type) || isError}
             tabIndex={0}
           />
           <label htmlFor={type}>{typeChanger(type)}</label>

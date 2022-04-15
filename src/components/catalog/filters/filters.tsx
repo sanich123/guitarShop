@@ -8,21 +8,31 @@ interface FiltersProps {
   setFilterMaxPrice: (arg: string) => void,
   setFilterType: (arg: string) => void,
   setFilterString: (arg: string) => void,
-  guitars: Guitar[]
+  guitars: Guitar[],
+  isError: boolean
 }
 
-export function Filters({setFilterMinPrice, setFilterMaxPrice, setFilterType, setFilterString, guitars}: FiltersProps) {
+export function Filters({setFilterMinPrice, setFilterMaxPrice, setFilterType, setFilterString, guitars, isError}: FiltersProps) {
 
   return (
     <form className="catalog-filter">
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
       <PriceFilters
+        isError={isError}
         guitars={guitars}
         setFilterMinPrice={setFilterMinPrice}
         setFilterMaxPrice={setFilterMaxPrice}
       />
-      <TypeFilters setFilterType={setFilterType} guitars={guitars}/>
-      <StringFilters setFilterString={setFilterString} guitars={guitars}/>
+      <TypeFilters
+        setFilterType={setFilterType}
+        guitars={guitars}
+        isError={isError}
+      />
+      <StringFilters
+        setFilterString={setFilterString}
+        guitars={guitars}
+        isError={isError}
+      />
     </form>
   );
 }

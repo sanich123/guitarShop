@@ -29,9 +29,11 @@ export function Main() {
   return (
     <>
       {isLoading && <Loader />}
+
       {guitars && (
         <div className="catalog">
           <Filters
+            isError={isError}
             guitars={guitarsList}
             setFilterMinPrice={setFilterMinPrice}
             setFilterMaxPrice={setFilterMaxPrice}
@@ -39,6 +41,7 @@ export function Main() {
             setFilterString={setFilterString}
           />
           <Sort
+            isError={isError}
             guitars={guitarsList}
             setSortPopular={setSortPopular}
             sortPopular={sortPopular}

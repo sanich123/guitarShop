@@ -5,10 +5,11 @@ import { stringMaker } from '../../../../utils/utils';
 
 interface StringFiltersProps {
   setFilterString: (arg: string) => void,
-  guitars: Guitar[]
+  guitars: Guitar[],
+  isError: boolean
 }
 
-export default function StringFilters({setFilterString, guitars}: StringFiltersProps) {
+export default function StringFilters({setFilterString, guitars, isError}: StringFiltersProps) {
   const [checkedState, setCheckedState] = useState(new Array(4).fill(false));
 
   const allExistingStrings = [...new Set(guitars?.map(({stringCount}: Guitar) => stringCount))];
@@ -36,7 +37,7 @@ export default function StringFilters({setFilterString, guitars}: StringFiltersP
             type="checkbox"
             id={`${number}-strings`}
             name={`${number}-strings`}
-            disabled={!allExistingStrings.includes(number)}
+            disabled={!allExistingStrings.includes(number) || isError}
             checked={checkedState[index]}
             onChange={() => handleChange(index)}
             tabIndex={0}
