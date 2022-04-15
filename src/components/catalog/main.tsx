@@ -1,30 +1,30 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+/* eslint-disable no-console */
+import { useLocation } from 'react-router-dom';
 import { useModal } from '../../hooks/use-modal';
 import { usePagination } from '../../hooks/use-pagination';
-import useQueries from '../../hooks/use-queries';
 import { useGetGuitarsQuery } from '../../redux';
 import { errorHandler } from '../../utils/utils';
 import { Loader } from '../common/loader/loader';
 import { ModalAction } from '../common/modal/modal-action/modal-action';
 import { ModalSuccess } from '../common/modal/modal-success/modal-success';
 import { CardsList } from './cards-list/cards-list';
-import { Filters } from './filters/filters';
+
+import { FiltersSort } from './filtersSort';
 import { MainPagination } from './pagination/pagination';
-import { Sort } from './sort/sort';
+
 
 export function Main() {
-  const navigate = useNavigate();
-  const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, direction, finalRequest} = useQueries();
+  // const navigate = useNavigate();
+  const {pathname} = useLocation();
+  const search = new URLSearchParams(pathname.slice(8));
+  console.log(search.get('_sort'), search.get('_order'), search.get('type'), search.get('stringCount'), search.get('price_gte'), search.get('price_lte'));
+
   const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
-  const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(`?${finalRequest}`);
+
+  const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(`?${pathname.slice(8)}`);
   const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(guitarsList);
 
   error && errorHandler(error);
-
-  useEffect(() => {
-    navigate(`/catalog${finalRequest}`);
-  }, [finalRequest, navigate]);
 
   return (
     <>
@@ -32,22 +32,7 @@ export function Main() {
 
       {guitars && (
         <div className="catalog">
-          <Filters
-            isError={isError}
-            guitars={guitarsList}
-            setFilterMinPrice={setFilterMinPrice}
-            setFilterMaxPrice={setFilterMaxPrice}
-            setFilterType={setFilterType}
-            setFilterString={setFilterString}
-          />
-          <Sort
-            isError={isError}
-            guitars={guitarsList}
-            setSortPopular={setSortPopular}
-            sortPopular={sortPopular}
-            setDirection={setDirection}
-            direction={direction}
-          />
+          <FiltersSort guitarsList={guitarsList} isError={isError}/>
 
           <div className="cards catalog__cards">
             {showActionModal && (

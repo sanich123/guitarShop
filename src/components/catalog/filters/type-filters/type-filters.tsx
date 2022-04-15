@@ -6,11 +6,13 @@ import { stringMaker, typeChanger } from '../../../../utils/utils';
 interface TypeFiltersProps {
   setFilterType: (arg: string) => void,
   guitars: Guitar[],
-  isError: boolean
+  isError: boolean,
+  filterType: string,
 }
 
-export default function TypeFilters({setFilterType, guitars, isError}: TypeFiltersProps) {
-  const [checkedState, setCheckedState] = useState(new Array(3).fill(false));
+export default function TypeFilters({setFilterType, guitars, isError, filterType}: TypeFiltersProps) {
+  const stateFromUrl = guitarTypes.map((type) => type === filterType.slice(5));
+  const [checkedState, setCheckedState] = useState(stateFromUrl);
 
   const existingTypes = [...new Set(guitars?.map(({type}: {type: string}) => type))];
 
@@ -18,7 +20,8 @@ export default function TypeFilters({setFilterType, guitars, isError}: TypeFilte
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
     setCheckedState(updatedCheckedState);
     const currentStrings = updatedCheckedState.map((string, index) => string === true && guitarTypes[index]).filter(Boolean);
-    setFilterType(stringMaker(currentStrings, 'type'));
+    const resultString = stringMaker(currentStrings, 'type');
+    setFilterType(resultString);
   };
 
   return (
