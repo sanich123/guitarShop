@@ -18,7 +18,6 @@ export default function Product() {
 
   return (
     <>
-      {isLoading && <Loader />}
       <Icons />
       <div className="wrapper">
         <Header />
@@ -34,7 +33,7 @@ export default function Product() {
                 height="235"
                 alt=""
               />
-
+              {isLoading && <Loader />}
               <ProductInfo
                 name={name}
                 vendorCode={vendorCode}
@@ -65,9 +64,13 @@ export default function Product() {
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
-
+              {isError && (
+                <h2>
+                  Не удалось получить данные о товаре, проверьте ваше сетевое
+                  соединение
+                </h2>
+              )}
               <AddReviewBtn setReview={setReview} isError={isError} />
-
               {showReview && (
                 <AddReview
                   id={Number(id)}
@@ -76,16 +79,8 @@ export default function Product() {
                   name={name}
                 />
               )}
-
               {isSended && <ModalSuccess setIsSended={setIsSended} />}
-              {isError && (
-                <h2>
-                  Не удалось получить данные о товаре, проверьте ваше сетевое
-                  соединение
-                </h2>
-              )}
               <Reviews comments={comments} uniq={id} />
-
               <UpBtn />
             </section>
           </div>
