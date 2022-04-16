@@ -65,6 +65,11 @@ export function CartItem({previewImg, name, price, stringCount, type, vendorCode
           name="2-count"
           max="99"
           value={quantity.toString()[0] === '0' ? quantity.toString().slice(1) : quantity.toString()}
+          onBlur={() => {
+            if (!quantity) {
+              localStorageChanger(1, id);
+              dispatch(amountQuantity(({id, value: 1})));
+            }}}
           onChange={({target}) => {
             if (+target.value < 100) {
               const value = +target.value;

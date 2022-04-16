@@ -4,21 +4,21 @@ import { useLocation } from 'react-router-dom';
 
 export default function useQueries() {
   const {pathname} = useLocation();
-  // eslint-disable-next-line no-console
   const search = new URLSearchParams(pathname.slice(8));
 
   const strings = search.get('stringCount');
   const types = search.get('type');
   const minPrice = search.get('price_gte');
   const maxPrice = search.get('price_lte');
-
+  const popular = search.get('_sort');
+  const direction = search.get('_order');
 
   const [filterString, setFilterString] = useState(strings ? `stringCount=${strings}` : '');
   const [filterType, setFilterType] = useState(types ? `type=${types}` : '');
   const [filterMinPrice, setFilterMinPrice] = useState(minPrice ? `price_gte=${minPrice}` : '');
   const [filterMaxPrice, setFilterMaxPrice] = useState(maxPrice ? `price_lte=${maxPrice}` : '');
-  const [sortPopular, setSortPopular] = useState('price');
-  const [sortDirection, setDirection] = useState('asc');
+  const [sortPopular, setSortPopular] = useState(popular ? popular : 'price');
+  const [sortDirection, setDirection] = useState(direction ? direction : 'asc');
 
   const finalRequest = [
     `_sort=${sortPopular}`,
@@ -45,6 +45,5 @@ export default function useQueries() {
     filterType,
     filterMinPrice,
     filterMaxPrice,
-
   };
 }
