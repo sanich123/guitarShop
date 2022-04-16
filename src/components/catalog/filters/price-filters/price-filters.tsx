@@ -22,13 +22,11 @@ export default function PriceFilters({setFilterMinPrice, setFilterMaxPrice, guit
           <label className="visually-hidden">Минимальная цена</label>
           <input
             type="number"
-            placeholder={minPrice ? minPrice : '0'}
+            placeholder={minPrice ?? '0'}
             id="priceMin"
             name="от"
-            onChange={({ target }) =>
-              setFilterMinPrice(
-                target.value !== '' ? `price_gte=${target.value}` : '',
-              )}
+            value={filterMinPrice.slice(10)}
+            onChange={({ target }) => setFilterMinPrice(target.value ? `price_gte=${target.value}` : '')}
             disabled={isError}
           />
         </div>
@@ -36,13 +34,11 @@ export default function PriceFilters({setFilterMinPrice, setFilterMaxPrice, guit
           <label className="visually-hidden">Максимальная цена</label>
           <input
             type="number"
-            placeholder={maxPrice ? maxPrice : '0'}
+            placeholder={maxPrice ?? '0'}
             id="priceMax"
             name="до"
-            onChange={({ target }) =>
-              setFilterMaxPrice(
-                target.value !== '' ? `price_lte=${target.value}` : '',
-              )}
+            onChange={({ target }) => setFilterMaxPrice(target.value ? `price_lte=${target.value}` : '')}
+            value={filterMaxPrice.slice(10)}
             disabled={isError}
           />
         </div>

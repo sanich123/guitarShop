@@ -19,7 +19,7 @@ export function FiltersSort({guitarsList, isError}: filtersSortProps) {
     setSortPopular,
     setDirection,
     sortPopular,
-    direction,
+    sortDirection,
     finalRequest,
     filterString,
     filterType,
@@ -51,7 +51,7 @@ export function FiltersSort({guitarsList, isError}: filtersSortProps) {
         setSortPopular={setSortPopular}
         sortPopular={sortPopular}
         setDirection={setDirection}
-        direction={direction}
+        direction={sortDirection}
       />
     </>
   );

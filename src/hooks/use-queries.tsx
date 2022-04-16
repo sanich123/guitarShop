@@ -18,11 +18,11 @@ export default function useQueries() {
   const [filterMinPrice, setFilterMinPrice] = useState(minPrice ? `price_gte=${minPrice}` : '');
   const [filterMaxPrice, setFilterMaxPrice] = useState(maxPrice ? `price_lte=${maxPrice}` : '');
   const [sortPopular, setSortPopular] = useState('price');
-  const [direction, setDirection] = useState('asc');
+  const [sortDirection, setDirection] = useState('asc');
 
   const finalRequest = [
     `_sort=${sortPopular}`,
-    `_order=${direction}`,
+    `_order=${sortDirection}`,
     `${filterMinPrice}`,
     `${filterMaxPrice}`,
     `${filterString}`,
@@ -40,10 +40,11 @@ export default function useQueries() {
     setSortPopular,
     setDirection,
     sortPopular,
-    direction,
+    sortDirection,
     filterString,
     filterType,
     filterMinPrice,
     filterMaxPrice,
+
   };
 }
