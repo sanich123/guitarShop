@@ -1,6 +1,6 @@
 export const appRoutes = {
   main: '/',
-  catalog: '/catalog:filter',
+  catalog: '/catalog/:request',
   product: '/guitar/:id',
   cart: '/cart',
 };
@@ -43,3 +43,14 @@ export const warnings = {
 };
 
 export const defaultGuitar = {previewImg: 'previewImg', name: 'defaultName', stringCount: 0, type: 'guitar', vendorCode: 0, description: 'description', price: 0, rating: 0, comments: []};
+
+export const searchParams = {
+  stringCount: 'stringCount',
+  type: 'type',
+  minPrice: 'price_gte',
+  maxPrice: 'price_lte',
+  sort: '_sort',
+  direction: '_order',
+  defaultSort: 'price',
+  defaultDirection: 'asc',
+};

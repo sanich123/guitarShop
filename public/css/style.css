@@ -1796,6 +1796,15 @@ button,
           transform: translate(-50%, -50%);
 }
 
+.catalog-sort__order-button:hover {
+  border-top-color: #c90606;
+}
+
+.catalog-sort__order-button:focus {
+  outline: 1px solid #c90606;
+  outline-offset: 1px;
+}
+
 .catalog-sort__order-button--up {
   border-width: 0 7px 12px;
   border-top-color: transparent;
@@ -1820,15 +1829,6 @@ button,
   border-top-color: #131212;
 
   pointer-events: none;
-}
-
-.catalog-sort__order-button:hover {
-  border-top-color: #c90606;
-}
-
-.catalog-sort__order-button:focus {
-  outline: 1px solid #c90606;
-  outline-offset: 1px;
 }
 
 .form-checkbox {

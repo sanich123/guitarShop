@@ -1,28 +1,28 @@
-/* eslint-disable no-console */
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { searchParams } from '../utils/const';
 
 export default function useQueries() {
-  const {pathname} = useLocation();
-  const search = new URLSearchParams(pathname.slice(8));
+  const {search} = useLocation();
+  const params = new URLSearchParams(search);
 
-  const strings = search.get('stringCount');
-  const types = search.get('type');
-  const minPrice = search.get('price_gte');
-  const maxPrice = search.get('price_lte');
-  const popular = search.get('_sort');
-  const direction = search.get('_order');
+  const strings = params.get(searchParams.stringCount);
+  const types = params.get(searchParams.type);
+  const minPrice = params.get(searchParams.minPrice);
+  const maxPrice = params.get(searchParams.maxPrice);
+  const popular = params.get(searchParams.sort);
+  const direction = params.get(searchParams.direction);
 
-  const [filterString, setFilterString] = useState(strings ? `stringCount=${strings}` : '');
-  const [filterType, setFilterType] = useState(types ? `type=${types}` : '');
-  const [filterMinPrice, setFilterMinPrice] = useState(minPrice ? `price_gte=${minPrice}` : '');
-  const [filterMaxPrice, setFilterMaxPrice] = useState(maxPrice ? `price_lte=${maxPrice}` : '');
-  const [sortPopular, setSortPopular] = useState(popular ? popular : 'price');
-  const [sortDirection, setDirection] = useState(direction ? direction : 'asc');
+  const [filterString, setFilterString] = useState(strings ? `${searchParams.stringCount}=${strings}` : '');
+  const [filterType, setFilterType] = useState(types ? `${searchParams.type}=${types}` : '');
+  const [filterMinPrice, setFilterMinPrice] = useState(minPrice ? `${searchParams.minPrice}=${minPrice}` : '');
+  const [filterMaxPrice, setFilterMaxPrice] = useState(maxPrice ? `${searchParams.maxPrice}=${maxPrice}` : '');
+  const [sortPopular, setSortPopular] = useState(popular ? popular : `${searchParams.defaultSort}`);
+  const [sortDirection, setDirection] = useState(direction ? direction : `${searchParams.defaultDirection}`);
 
   const finalRequest = [
-    `_sort=${sortPopular}`,
-    `_order=${sortDirection}`,
+    `${searchParams.sort}=${sortPopular}`,
+    `${searchParams.direction}=${sortDirection}`,
     `${filterMinPrice}`,
     `${filterMaxPrice}`,
     `${filterString}`,

@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useLocation } from 'react-router-dom';
 import { useModal } from '../../hooks/use-modal';
 import { usePagination } from '../../hooks/use-pagination';
@@ -8,18 +7,14 @@ import { Loader } from '../common/loader/loader';
 import { ModalAction } from '../common/modal/modal-action/modal-action';
 import { ModalSuccess } from '../common/modal/modal-success/modal-success';
 import { CardsList } from './cards-list/cards-list';
-
 import { FiltersSort } from './filtersSort';
 import { MainPagination } from './pagination/pagination';
 
-
 export function Main() {
-  const {pathname} = useLocation();
+  const { search } = useLocation();
   const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
-
-  const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(`?${pathname.slice(8)}`);
+  const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(search);
   const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(guitarsList);
-
   error && errorHandler(error);
 
   return (
@@ -48,7 +43,7 @@ export function Main() {
           <h2>Условиям фильтрации не соответствует не один товар</h2>
         )}
         {isError && <h2>Не удалось загрузить данные с сервера</h2>}
-        {isAdded && <ModalSuccess place={'main'} setIsAdded={setIsAdded} />}
+        {isAdded && <ModalSuccess place='main' setIsAdded={setIsAdded} />}
       </div>
       {guitarsList?.length > cardsOnPage && (
         <MainPagination

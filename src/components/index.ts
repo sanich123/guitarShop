@@ -11,8 +11,6 @@ export * from '../components/cart/item/cart-item';
 export * from '../components/cart/promocode/promocode';
 export * from '../components/cart/total-info/total-info';
 export * from '../components/cart/no-items/no-items';
-export * from '../components/catalog/filters/filters';
-export * from '../components/catalog/sort/sort';
 export * from '../components/catalog/cards-list/cards-list';
 export * from '../components/product/price/price';
 export * from '../components/product/reviews/reviews';

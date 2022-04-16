@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { CartType } from '../../../types/types';
 import { appRoutes } from '../../../utils/const';
+import { normalizeImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 
 export interface CardProps {
@@ -19,7 +20,7 @@ export default function Card({previewImg, name, rating, price, id, setActionModa
 
   return (
     <div className="product-card">
-      <img src={previewImg} width="75" height="190" alt={name}/>
+      <img src={normalizeImg(previewImg)} width="75" height="190" alt={name}/>
       <div className="product-card__info">
         <div className="rate product-card__rate" aria-hidden="true">
           <span className="visually-hidden">Рейтинг:</span>
