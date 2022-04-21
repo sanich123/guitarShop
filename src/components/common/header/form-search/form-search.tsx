@@ -33,7 +33,7 @@ export default function FormSearch() {
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
       {search &&
-            <ul className='list-opened form-search__select-list' style={{zIndex: 999}}>
+            <ul className="list-opened form-search__select-list" style={{zIndex: 999}}>
               {similarGuitars?.length > 0 ? similarGuitars?.map(({name, id}: Guitar) => (
                 <li
                   onClick={() => navigate(`/guitar/${id}`)}

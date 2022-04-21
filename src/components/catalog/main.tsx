@@ -43,7 +43,7 @@ export function Main() {
           <h2>Условиям фильтрации не соответствует не один товар</h2>
         )}
         {isError && <h2>Не удалось загрузить данные с сервера</h2>}
-        {isAdded && <ModalSuccess place='main' setIsAdded={setIsAdded} />}
+        {isAdded && <ModalSuccess place="main" setIsAdded={setIsAdded} />}
       </div>
       {guitarsList?.length > cardsOnPage && (
         <MainPagination

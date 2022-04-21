@@ -10,7 +10,7 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path='*' element={<Page404/>} />
+        <Route path="*" element={<Page404/>} />
         <Route path={appRoutes.main} element={<Navigate to={appRoutes.catalog}/>} />
         <Route path={appRoutes.catalog} element={<Main/>}/>
         <Route path={appRoutes.cart} element={<Cart/>} />
