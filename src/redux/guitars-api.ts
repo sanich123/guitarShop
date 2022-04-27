@@ -1,9 +1,10 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import { BASE_URL } from '../utils/const';
 
 export const guitarsApi = createApi({
   reducerPath: 'guitarsApi',
   tagTypes: ['Guitars'],
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://accelerator-guitar-shop-api-v1.glitch.me'}),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL}),
   endpoints: (builder) => ({
     getGuitars: builder.query({
       query: (filter = '') => `/guitars${filter}`,

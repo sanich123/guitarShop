@@ -9,7 +9,7 @@ export const media = ['facebook', 'twitter', 'instagram'];
 export const navLinks = ['Где купить?', 'Блог', 'Вопрос - ответ', 'Возврат', 'Сервис-центры'];
 export const guitarTypes = ['electric', 'ukulele', 'acoustic'];
 export const stringsTypes = [4, 6, 7, 12];
-
+export const BASE_URL = 'https://accelerator-guitar-shop-api-v1.glitch.me';
 export const tabs = {
   char: 'characteristics',
   desc: 'description',
