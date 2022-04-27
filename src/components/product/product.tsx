@@ -13,8 +13,7 @@ export default function Product() {
   const { setIsAdded, setActionModal, showActionModal, isAdded, showReview, setReview, isSended, setIsSended, needToReload, setIsReload} = useModal();
   error && errorHandler(error);
   const {previewImg, name, stringCount, type, vendorCode, description, price, rating} = guitar || defaultGuitar;
-  // eslint-disable-next-line no-console
-  console.log(needToReload);
+
   useEffect(() => {
     if (needToReload) {
       window.location.reload();
