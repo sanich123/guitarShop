@@ -10,9 +10,10 @@ interface SuccessCartProps {
   setIsAdded?: (arg: boolean) => void;
   place?: string;
   setIsSended?: (arg: boolean) => void;
+  setIsReload: (arg: boolean) => void;
 }
 
-export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProps) {
+export function ModalSuccess({ setIsSended, setIsAdded, place, setIsReload }: SuccessCartProps) {
   const modalMessage = setIsAdded
     ? 'Товар успешно добавлен в корзину'
     : 'Спасибо за ваш отзыв!';
@@ -27,8 +28,14 @@ export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProp
 
         {setIsAdded && (
           <FocusOn
-            onClickOutside={() => setIsAdded(false)}
-            onEscapeKey={() => setIsAdded(false)}
+            onClickOutside={() => {
+              setIsAdded(false);
+              setIsReload(true);
+            }}
+            onEscapeKey={() => {
+              setIsAdded(false);
+              setIsReload(true);
+            }}
           >
             <div className="modal__content">
               <SvgModal />
@@ -43,8 +50,14 @@ export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProp
 
         {setIsSended && (
           <FocusOn
-            onClickOutside={() => setIsSended(false)}
-            onEscapeKey={() => setIsSended(false)}
+            onClickOutside={() => {
+              setIsSended(false);
+              setIsReload(true);
+            }}
+            onEscapeKey={() => {
+              setIsSended(false);
+              setIsReload(true);
+            }}
           >
             <div className="modal__content">
               <SvgModal />
@@ -52,11 +65,10 @@ export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProp
               <div className={activeClass}>
                 <ContinueBtn />
               </div>
-              <CloseBtnReview setIsSended={setIsSended} />
+              <CloseBtnReview setIsSended={setIsSended} setIsReload={setIsReload} />
             </div>
           </FocusOn>
         )}
-
       </div>
     </div>
   );

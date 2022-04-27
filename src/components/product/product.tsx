@@ -4,17 +4,22 @@ import { useModal } from '../../hooks/use-modal';
 import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Price, Reviews, UpBtn, AddReviewBtn, ProductInfo  } from '../index';
 import { appRoutes, defaultGuitar } from '../../utils/const';
 import { errorHandler, normalizeImg } from '../../utils/utils';
+import { useEffect } from 'react';
 
 
 export default function Product() {
   const {id} = useParams();
   const {data: guitar, isLoading, isError, error} = useGetGuitarQuery(id);
-
-  const { setIsAdded, setActionModal, showActionModal, isAdded, showReview, setReview, isSended, setIsSended} = useModal();
-
+  const { setIsAdded, setActionModal, showActionModal, isAdded, showReview, setReview, isSended, setIsSended, needToReload, setIsReload} = useModal();
   error && errorHandler(error);
-
   const {previewImg, name, stringCount, type, vendorCode, description, price, rating} = guitar || defaultGuitar;
+  // eslint-disable-next-line no-console
+  console.log(needToReload);
+  useEffect(() => {
+    if (needToReload) {
+      window.location.reload();
+    }
+  }, [needToReload]);
 
   return (
     <>
@@ -59,7 +64,7 @@ export default function Product() {
               )}
 
               {isAdded && (
-                <ModalSuccess place={'product'} setIsAdded={setIsAdded} />
+                <ModalSuccess place={'product'} setIsAdded={setIsAdded} setIsReload={setIsReload} />
               )}
             </div>
             <section className="reviews">
@@ -79,7 +84,7 @@ export default function Product() {
                   name={name}
                 />
               )}
-              {isSended && <ModalSuccess setIsSended={setIsSended} />}
+              {isSended && <ModalSuccess setIsSended={setIsSended} setIsReload={setIsReload} />}
               <Reviews uniq={id} />
               <UpBtn />
             </section>

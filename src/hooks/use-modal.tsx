@@ -6,6 +6,7 @@ export function useModal() {
   const [guitarId, setGuitarId] = useState('');
   const [isSended, setIsSended] = useState(false);
   const [showReview, setReview] = useState(false);
+  const [needToReload, setIsReload] = useState(false);
 
   return {
     setGuitarId,
@@ -15,6 +16,8 @@ export function useModal() {
     isAdded,
     guitarId,
     showReview,
+    needToReload,
+    setIsReload,
     setReview,
     isSended,
     setIsSended,

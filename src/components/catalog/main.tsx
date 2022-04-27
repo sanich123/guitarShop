@@ -12,7 +12,7 @@ import { MainPagination } from './pagination/pagination';
 
 export function Main() {
   const { search } = useLocation();
-  const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
+  const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId, setIsReload } = useModal();
   const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(search);
   const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(guitarsList);
   error && errorHandler(error);
@@ -43,7 +43,7 @@ export function Main() {
           <h2>Условиям фильтрации не соответствует не один товар</h2>
         )}
         {isError && <h2>Не удалось загрузить данные с сервера</h2>}
-        {isAdded && <ModalSuccess place="main" setIsAdded={setIsAdded} />}
+        {isAdded && <ModalSuccess place="main" setIsAdded={setIsAdded} setIsReload={setIsReload} />}
       </div>
       {guitarsList?.length > cardsOnPage && (
         <MainPagination

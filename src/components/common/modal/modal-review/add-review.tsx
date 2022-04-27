@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useAddCommentMutation } from '../../../../redux';
 import { messages, notFoundPage } from '../../../../utils/const';
@@ -11,6 +11,7 @@ import Rating from './rating';
 import CloseReviewBtn from './close-review-btn';
 import SendReviewBtn from './send-review-btn';
 import { normalizedError } from '../../../../utils/utils';
+import useForm from '../../../../hooks/use-form';
 
 interface AddReviewProps {
   setReview: (arg: boolean) => void,
@@ -21,6 +22,7 @@ interface AddReviewProps {
 
 export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
   const [addComment, {isSuccess, isError, error, data: response}] = useAddCommentMutation();
+  const { rating, surName, issue, advantage, comment, setRating, setSurName, setIssue, setAdvantage, setComment } = useForm();
 
   useEffect(() => {
     if (isSuccess) {
@@ -36,11 +38,6 @@ export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
     }
   }, [isSuccess, isError, setIsSended, setReview, error, response]);
 
-  const [rating, setRating] = useState('');
-  const [surName, setSurName] = useState('');
-  const [issue, setIssue] = useState('');
-  const [advantage, setAdvantage] = useState('');
-  const [comment, setComment] = useState('');
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
