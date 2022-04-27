@@ -52,7 +52,6 @@ export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
       disadvantage: issue,
       advantage: advantage,
       comment: comment,
-      createAt: new Date(),
       guitarId: id,
     }).unwrap();
   };

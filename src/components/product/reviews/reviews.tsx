@@ -1,43 +1,43 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useGetCommentsQuery } from '../../../redux';
 import { Comments } from '../../../types/types';
-import { sortReviews } from '../../../utils/utils';
-import {Loader} from '../../common/loader/loader';
+import { errorHandler } from '../../../utils/utils';
+import { Loader } from '../../common/loader/loader';
 import Review from '../review/review';
 
-interface ReviewsProps {
-  comments: Comments[],
-  uniq?: string,
-}
-
-export function Reviews({comments, uniq}: ReviewsProps) {
-  const {data: reviews, isLoading} = useGetCommentsQuery('');
+export function Reviews({uniq}: { uniq?: string }) {
+  const {data: reviews, isLoading, error} = useGetCommentsQuery(uniq);
   const [sliceNumber, setSliceNumber] = useState(2);
-
-  const filtredComments = useMemo(() => reviews?.filter(({guitarId}: {guitarId: number}) => guitarId === Number(uniq)), [reviews, uniq]);
-  const allComments = [...filtredComments || [], ...comments];
+  const slicedReviews: Comments[] = reviews
+    ?.slice()
+    .sort((dateA: Comments, dateB: Comments) => Date.parse(dateB.createAt) - Date.parse(dateA.createAt))
+    .slice(0, sliceNumber);
 
   return (
     <>
       {isLoading && <Loader />}
 
-      {allComments.length === 0 && (
-        <h3>There are no comments to this product</h3>
-      )}
+      {error && errorHandler(error)}
 
-      {sortReviews(allComments)
-        .slice(0, sliceNumber)
-        .map(({ id, ...rest }) => (
-          <Review key={id} {...rest} />
-        ))}
+      {reviews && (
+        <>
+          {reviews.length === 0 && (
+            <h3>There are no comments to this product</h3>
+          )}
 
-      {allComments.length >= 2 && sliceNumber < comments.length && (
-        <button
-          className="button button--medium reviews__more-button"
-          onClick={() => setSliceNumber(sliceNumber + 2)}
-        >
-          Показать еще отзывы
-        </button>
+          {reviews.length > 0 && (
+            slicedReviews
+              .map(({ id, ...rest }) => <Review key={id} {...rest} />))}
+
+          {slicedReviews.length !== reviews.length && (
+            <button
+              className="button button--medium reviews__more-button"
+              onClick={() => setSliceNumber(sliceNumber + 2)}
+            >
+              Показать еще отзывы
+            </button>
+          )}
+        </>
       )}
     </>
   );

@@ -14,7 +14,7 @@ export default function Product() {
 
   error && errorHandler(error);
 
-  const {previewImg, name, stringCount, type, vendorCode, description, price, rating, comments} = guitar || defaultGuitar;
+  const {previewImg, name, stringCount, type, vendorCode, description, price, rating} = guitar || defaultGuitar;
 
   return (
     <>
@@ -80,7 +80,7 @@ export default function Product() {
                 />
               )}
               {isSended && <ModalSuccess setIsSended={setIsSended} />}
-              <Reviews comments={comments} uniq={id} />
+              <Reviews uniq={id} />
               <UpBtn />
             </section>
           </div>

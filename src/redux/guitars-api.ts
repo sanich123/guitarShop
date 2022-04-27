@@ -3,10 +3,10 @@ import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 export const guitarsApi = createApi({
   reducerPath: 'guitarsApi',
   tagTypes: ['Guitars'],
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/'}),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://accelerator-guitar-shop-api-v1.glitch.me'}),
   endpoints: (builder) => ({
     getGuitars: builder.query({
-      query: (filter = '') => `guitars${filter}`,
+      query: (filter = '') => `/guitars${filter}`,
       providesTags: (result) =>
         result
           ? [
@@ -17,16 +17,16 @@ export const guitarsApi = createApi({
     }),
 
     getGuitar: builder.query({
-      query: (id = '') => `guitars/${id}`,
+      query: (id = '') => `/guitars/${id}`,
     }),
 
     getComments: builder.query({
-      query: () => '/comments',
+      query: (id) => `/guitars/${id}/comments`,
     }),
 
     addComment: builder.mutation({
       query: (body) => ({
-        url: 'guitars/comments',
+        url: '/comments',
         method: 'POST',
         body,
       }),
