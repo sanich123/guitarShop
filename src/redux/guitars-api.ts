@@ -34,12 +34,22 @@ export const guitarsApi = createApi({
       transformResponse: (_, meta) => meta,
       invalidatesTags: [{type: 'Guitars', id: 'LIST'}],
     }),
+
+    addCoupon: builder.mutation({
+      query: (body) => ({
+        url: '/coupons',
+        method: 'POST',
+        body,
+      }),
+
+    }),
   }),
 });
 
 export const {
   useGetGuitarsQuery,
   useAddCommentMutation,
+  useAddCouponMutation,
   useGetGuitarQuery,
   useGetCommentsQuery,
 } = guitarsApi;

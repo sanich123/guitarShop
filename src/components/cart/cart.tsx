@@ -5,6 +5,7 @@ import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, CartItem, Prom
 import { CartType, Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
 import { errorHandler } from '../../utils/utils';
+import { useState } from 'react';
 
 export default function Cart() {
   const { showActionModal, setActionModal, setGuitarId, guitarId} = useModal();
@@ -12,6 +13,8 @@ export default function Cart() {
   const forRequest = [...new Set(inCart.map(({id}) => id))];
   const request = forRequest?.map((number) => `id=${number}`).join('&');
   const {data: guitarsInCart, isLoading, error} = useGetGuitarsQuery(`?${request}`);
+  const [discount, setDiscount] = useState('');
+  console.log(typeof discount);
 
   return (
     <div className="wrapper">
@@ -47,8 +50,8 @@ export default function Cart() {
                     />
                   ))}
                 <div className="cart__footer">
-                  <Promocode />
-                  <TotalInfo inCart={inCart} />
+                  <Promocode setDiscount={setDiscount} />
+                  <TotalInfo inCart={inCart} discount={discount} />
                 </div>
               </>
             ) : (

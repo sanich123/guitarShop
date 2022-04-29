@@ -5,7 +5,7 @@
       "htmlacademy/react-typescript"
     ],
 "rules": {
-      "no-console":"warn",
+      "no-console":"off",
       "prefer-const": "error",
       "quotes": ["error", "single"],
       "jsx-quotes": ["error", "prefer-double"],
