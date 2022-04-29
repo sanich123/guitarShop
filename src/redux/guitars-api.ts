@@ -41,15 +41,24 @@ export const guitarsApi = createApi({
         method: 'POST',
         body,
       }),
-
     }),
+
+    addOrder: builder.mutation({
+      query: (body) => ({
+        url: '/orders',
+        method: 'POST',
+        body,
+      }),
+    }),
+
   }),
 });
 
 export const {
   useGetGuitarsQuery,
-  useAddCommentMutation,
-  useAddCouponMutation,
   useGetGuitarQuery,
   useGetCommentsQuery,
+  useAddCommentMutation,
+  useAddCouponMutation,
+  useAddOrderMutation,
 } = guitarsApi;

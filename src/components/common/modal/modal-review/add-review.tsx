@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useAddCommentMutation } from '../../../../redux';
-import { messages, notFoundPage } from '../../../../utils/const';
+import { messages } from '../../../../utils/const';
 import {FocusOn} from 'react-focus-on';
 import Issue from './issue';
 import Advantage from './advantage';
@@ -21,7 +21,7 @@ interface AddReviewProps {
 }
 
 export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
-  const [addComment, {isSuccess, isError, error, data: response}] = useAddCommentMutation();
+  const [addComment, {isSuccess, error, data: response}] = useAddCommentMutation();
   const { rating, surName, issue, advantage, comment, setRating, setSurName, setIssue, setAdvantage, setComment } = useForm();
 
   useEffect(() => {
@@ -29,14 +29,18 @@ export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
       setReview(false);
       setIsSended(true);
     }
-    if (isError) {
+    if (error) {
       setReview(true);
       setIsSended(false);
-      error && normalizedError(error).status === notFoundPage ?
-        toast.warn(messages.failAddress) :
-        toast.warn(messages.failedSending);
+      const status = normalizedError(error).status;
+      if (status === 400) {
+        toast.warn(normalizedError(error).data.messages.join(''));
+      }
+      if (status === 'FETCH_ERROR') {
+        toast.error('Не удалось отправить Ваш комментарий. Проверьте ваше соединение интернет');
+      }
     }
-  }, [isSuccess, isError, setIsSended, setReview, error, response]);
+  }, [isSuccess, setIsSended, setReview, error, response]);
 
 
   const handleSubmit = async (evt: React.FormEvent) => {

@@ -89,3 +89,13 @@ export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
 };
 
 export const normalizeImg = (img: string) => `../${img}`;
+
+export const percentToCouponChanger = (number: number) => {
+  switch (number) {
+  case 0 : return null;
+  case 15 : return 'light-333';
+  case 25 : return 'medium-444';
+  case 35 : return 'height-555';
+  default: return null;
+  }
+};

@@ -17,9 +17,13 @@ export function Promocode() {
       setShowInfo(true);
     }
     if (error) {
-      toast.warn(normalizedError(error).data.messages.join(''));
-      dispatch(addDiscount(0));
-      setShowInfo(true);
+      if (normalizedError(error).status === 'FETCH_ERROR') {
+        toast.error('Не удалось отправить данные о вашем промокоде на сервер. Проверьте, существует ли интернет в вашей стране');
+      } else {
+        toast.warn(normalizedError(error).data.messages.join(''));
+        dispatch(addDiscount(0));
+        setShowInfo(true);
+      }
     }
     if (!coupon) {
       setShowInfo(false);
@@ -35,10 +39,12 @@ export function Promocode() {
         id="coupon-form"
         method="post"
         action="/"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          await addCoupon({coupon}).unwrap();
-        }}
+        onSubmit={
+          async (e) => {
+            e.preventDefault();
+            await addCoupon({coupon}).unwrap();
+          }
+        }
       >
         <div className="form-input coupon__input">
           <label className="visually-hidden">Промокод</label>

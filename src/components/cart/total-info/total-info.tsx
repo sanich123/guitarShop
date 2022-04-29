@@ -1,8 +1,10 @@
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 import { Loader } from '../..';
-import { useGetGuitarsQuery } from '../../../redux/guitars-api';
+import { useGetGuitarsQuery, useAddOrderMutation } from '../../../redux/guitars-api';
 import { State, Guitar } from '../../../types/types';
-import { errorHandler, valueChecker } from '../../../utils/utils';
+import { errorHandler, normalizedError, percentToCouponChanger, valueChecker } from '../../../utils/utils';
 
 export function TotalInfo({inCart}: {inCart: State['cart']}) {
   const discountValue = useSelector(({discount}: State) => discount.discount);
@@ -10,12 +12,22 @@ export function TotalInfo({inCart}: {inCart: State['cart']}) {
   const forRequest = [...new Set(inCart.map(({ id }) => id))];
   const request = forRequest?.map((number) => `id=${number}`).join('&');
   const { data: guitars, isLoading, error } = useGetGuitarsQuery(`?${request}`);
+  const [postOrder, {error: orderError, data: response}] = useAddOrderMutation();
   const syncGuitarsWithCart = guitars?.filter((guitar: Guitar) =>
     forRequest.includes(guitar.id));
-  console.log(discountValue, typeof discountValue);
+
   const price = valueChecker(syncGuitarsWithCart, inCart);
   const discountPrice =  price * Number(`0.${discountValue}`);
   const totalPrice = price - discountPrice;
+
+  useEffect(() => {
+    if (response) {
+      toast.success('Вы успешно сделали заказ! Большое Вам спасибо!');
+    }
+    if (orderError) {
+      toast.error(normalizedError(orderError).error);
+    }
+  }, [response, orderError]);
 
   return (
     <>
@@ -44,7 +56,18 @@ export function TotalInfo({inCart}: {inCart: State['cart']}) {
               {totalPrice} ₽
             </span>
           </p>
-          <button className="button button--red button--big cart__order-button">
+          <button
+            className="button button--red button--big cart__order-button"
+            onClick={
+              async (e) => {
+                e.preventDefault();
+                await postOrder({
+                  guitarsIds: forRequest,
+                  coupon: percentToCouponChanger(discountValue),
+                }).unwrap();
+              }
+            }
+          >
             Оформить заказ
           </button>
         </div>
