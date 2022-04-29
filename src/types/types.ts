@@ -21,15 +21,17 @@ export interface Comments {
   createAt: string,
   guitarId: number
 }
-
 export interface Cart {
-  quantity: number,
-  id: number,
-  price: number
-  }
+    quantity: number,
+    id: number,
+    price: number,
+}
 
-export interface CartType {
-  cart: Cart[]
+export interface State {
+  cart: Cart[],
+  discount: {
+    discount: number,
+  }
 }
 
 

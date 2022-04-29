@@ -2,19 +2,16 @@ import { useGetGuitarsQuery } from '../../redux';
 import { useSelector } from 'react-redux';
 import { useModal } from '../../hooks/use-modal';
 import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, CartItem, Promocode, TotalInfo, NoItems } from '../index';
-import { CartType, Guitar } from '../../types/types';
+import { State, Guitar } from '../../types/types';
 import { appRoutes } from '../../utils/const';
 import { errorHandler } from '../../utils/utils';
-import { useState } from 'react';
 
 export default function Cart() {
   const { showActionModal, setActionModal, setGuitarId, guitarId} = useModal();
-  const inCart = useSelector(({cart}: CartType) => cart);
+  const inCart = useSelector(({cart}: State) => cart);
   const forRequest = [...new Set(inCart.map(({id}) => id))];
   const request = forRequest?.map((number) => `id=${number}`).join('&');
   const {data: guitarsInCart, isLoading, error} = useGetGuitarsQuery(`?${request}`);
-
-  const [discount, setDiscount] = useState('');
 
   return (
     <div className="wrapper">
@@ -50,8 +47,8 @@ export default function Cart() {
                     />
                   ))}
                 <div className="cart__footer">
-                  <Promocode setDiscount={setDiscount} />
-                  <TotalInfo inCart={inCart} discount={discount || '0'} />
+                  <Promocode />
+                  <TotalInfo inCart={inCart} />
                 </div>
               </>
             ) : (

@@ -1,27 +1,30 @@
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useAddCouponMutation } from '../../../redux';
+import { addDiscount } from '../../../redux/discount-slice';
 import { normalizedError } from '../../../utils/utils';
 
-export function Promocode({setDiscount}: {setDiscount: (arg: string) => void}) {
+export function Promocode() {
   const [coupon, setCoupon] = useState('');
   const [showInfo, setShowInfo] = useState(false);
   const [addCoupon, { error, data: response }] = useAddCouponMutation();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (response) {
-      setDiscount(response);
+      dispatch(addDiscount(response));
       setShowInfo(true);
     }
     if (error) {
       toast.warn(normalizedError(error).data.messages.join(''));
+      dispatch(addDiscount(0));
       setShowInfo(true);
-      setDiscount('0');
     }
     if (!coupon) {
       setShowInfo(false);
     }
-  }, [error, response, setDiscount, coupon]);
+  }, [error, response, coupon, dispatch]);
 
   return (
     <div className="cart__coupon coupon">

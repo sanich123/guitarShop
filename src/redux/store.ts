@@ -1,11 +1,13 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import { guitarsApi } from './guitars-api';
 import cartSlice from '../redux/cart-slice';
+import discountSlice from './discount-slice';
 import type { PreloadedState } from '@reduxjs/toolkit';
 
 const rootReducer = combineReducers({
   [guitarsApi.reducerPath]: guitarsApi.reducer,
   cart: cartSlice,
+  discount: discountSlice,
 });
 
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => configureStore({

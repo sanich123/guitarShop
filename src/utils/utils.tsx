@@ -2,7 +2,7 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { toast } from 'react-toastify';
 import Page404 from '../components/common/page404/page404';
-import { Cart, Comments, Guitar } from '../types/types';
+import { Cart, Comments, Guitar, State } from '../types/types';
 import { errors, warnings } from './const';
 
 export const typeChanger = (type: string) => {
@@ -34,7 +34,10 @@ export const stringChanger = (direction: string) => direction === 'asc' ? 'up' :
 
 export const stringChangerBack = (direction: string) => direction === 'up' ? 'asc' : 'desc';
 
-export const valueChecker = (arr1: Guitar[], arr2: Cart[]) => {
+export const valueChecker = (arr1: Guitar[], arr2: State['cart']) => {
+  if (!arr1 || !arr2) {
+    return 0;
+  }
   const total = [];
   const sortedArr1 = arr1.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
   const sortedArr2 = arr2.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
