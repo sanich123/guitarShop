@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAddCouponMutation } from '../../../redux';
 import { normalizedError } from '../../../utils/utils';
@@ -6,7 +6,7 @@ import { normalizedError } from '../../../utils/utils';
 export function Promocode({setDiscount}: {setDiscount: (arg: string) => void}) {
   const [coupon, setCoupon] = useState('');
   const [showInfo, setShowInfo] = useState(false);
-  const [addCoupon, { isError, error, data: response }] = useAddCouponMutation();
+  const [addCoupon, { error, data: response }] = useAddCouponMutation();
 
   useEffect(() => {
     if (response) {
@@ -16,8 +16,12 @@ export function Promocode({setDiscount}: {setDiscount: (arg: string) => void}) {
     if (error) {
       toast.warn(normalizedError(error).data.messages.join(''));
       setShowInfo(true);
+      setDiscount('0');
     }
-  }, [error, response, setDiscount]);
+    if (!coupon) {
+      setShowInfo(false);
+    }
+  }, [error, response, setDiscount, coupon]);
 
   return (
     <div className="cart__coupon coupon">
@@ -44,7 +48,7 @@ export function Promocode({setDiscount}: {setDiscount: (arg: string) => void}) {
             onChange={({target}) => setCoupon(target.value)}
           />
 
-          {showInfo && <p className={`form-input__message form-input__message--${isError ? 'error' : 'success'}`}>Промокод { error && 'не'} принят</p>}
+          {showInfo && <p className={`form-input__message form-input__message--${error ? 'error' : 'success'}`}>Промокод { error && 'не'} принят</p>}
         </div>
         <button className="button button--big coupon__button">Применить</button>
       </form>

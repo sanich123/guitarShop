@@ -5,7 +5,7 @@ import { errorHandler, valueChecker } from '../../../utils/utils';
 
 interface TotalInfoProps {
   inCart: Cart[],
-  discount?: string,
+  discount: string,
 }
 
 export function TotalInfo({inCart, discount}: TotalInfoProps) {
@@ -14,6 +14,7 @@ export function TotalInfo({inCart, discount}: TotalInfoProps) {
   const { data: guitars, isLoading, error } = useGetGuitarsQuery(`?${request}`);
   const syncGuitarsWithCart = guitars?.filter((guitar: Guitar) =>
     forRequest.includes(guitar.id));
+  console.log(discount);
 
   // const price = valueChecker(syncGuitarsWithCart, inCart) || 0;
   // const discountPrice = discount ? price * Number(`0.${discount}`) : 0;

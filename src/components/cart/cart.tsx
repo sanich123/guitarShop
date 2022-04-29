@@ -13,8 +13,8 @@ export default function Cart() {
   const forRequest = [...new Set(inCart.map(({id}) => id))];
   const request = forRequest?.map((number) => `id=${number}`).join('&');
   const {data: guitarsInCart, isLoading, error} = useGetGuitarsQuery(`?${request}`);
+
   const [discount, setDiscount] = useState('');
-  console.log(typeof discount);
 
   return (
     <div className="wrapper">
@@ -51,7 +51,7 @@ export default function Cart() {
                   ))}
                 <div className="cart__footer">
                   <Promocode setDiscount={setDiscount} />
-                  <TotalInfo inCart={inCart} discount={discount} />
+                  <TotalInfo inCart={inCart} discount={discount || '0'} />
                 </div>
               </>
             ) : (
