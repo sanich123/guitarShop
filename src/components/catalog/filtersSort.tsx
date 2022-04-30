@@ -8,12 +8,12 @@ import TypeFilters from './filters/type-filters/type-filters';
 import SortOrder from './sort/direction/direction-sort';
 import SortType from './sort/type/sort-type';
 
-interface filtersSortProps {
+interface FiltersSortProps {
   guitarsList: Guitar[],
   isError: boolean,
 }
 
-export function FiltersSort({guitarsList, isError}: filtersSortProps) {
+export function FiltersSort({guitarsList, isError}: FiltersSortProps) {
   const navigate = useNavigate();
   const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, sortDirection, finalRequest, filterString, filterType, filterMinPrice, filterMaxPrice } = useQueries();
 
@@ -47,7 +47,12 @@ export function FiltersSort({guitarsList, isError}: filtersSortProps) {
         />
       </form>
       <div className="catalog-sort">
-        <h2 className="catalog-sort__title">Сортировать:</h2>
+        <h2
+          className="catalog-sort__title"
+          style={{color: `${guitarsList.length === 1 ? 'white' : 'black'}`}}
+        >
+          Сортировать:
+        </h2>
         {guitarsList.length > 1 && (
           <>
             <SortType
@@ -66,5 +71,3 @@ export function FiltersSort({guitarsList, isError}: filtersSortProps) {
     </>
   );
 }
-
-
