@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useGetGuitarQuery } from '../../redux';
 import { useModal } from '../../hooks/use-modal';
 import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Price, Reviews, UpBtn, AddReviewBtn, ProductInfo  } from '../index';
-import { appRoutes, defaultGuitar } from '../../utils/const';
+import { appRoutes, defaultGuitar, places, warnings } from '../../utils/const';
 import { errorHandler, normalizeImg } from '../../utils/utils';
 import { useEffect } from 'react';
 
@@ -63,17 +63,14 @@ export default function Product() {
               )}
 
               {isAdded && (
-                <ModalSuccess place={'product'} setIsAdded={setIsAdded} setIsReload={setIsReload} />
+                <ModalSuccess place={places.product} setIsAdded={setIsAdded} setIsReload={setIsReload} />
               )}
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
-              {isError && (
-                <h2>
-                  Не удалось получить данные о товаре, проверьте ваше сетевое
-                  соединение
-                </h2>
-              )}
+
+              {isError && <h2>{warnings.network}</h2>}
+
               <AddReviewBtn setReview={setReview} isError={isError} />
               {showReview && (
                 <AddReview

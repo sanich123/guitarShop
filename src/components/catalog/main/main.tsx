@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { useModal } from '../../../hooks/use-modal';
 import { usePagination } from '../../../hooks/use-pagination';
 import { useGetGuitarsQuery } from '../../../redux';
+import { places } from '../../../utils/const';
 import { errorHandler } from '../../../utils/utils';
 import { Loader } from '../../common/loader/loader';
 import { ModalAction } from '../../common/modal/modal-action/modal-action';
@@ -51,7 +52,7 @@ export function Main() {
         )}
         {isAdded && (
           <ModalSuccess
-            place="main"
+            place={places.main}
             setIsAdded={setIsAdded}
             setIsReload={setIsReload}
           />

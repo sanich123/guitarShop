@@ -52,8 +52,13 @@ export const errors = {
 };
 
 export const warnings = {
-  network: 'Неполадки с сетью или вы неправильно ввели адрес',
+  network: 'Не удалось получить данные, проверьте ваше сетевое соединение',
   server404: 'Запрашиваемая страница не найдена. Проверьте правильность написанного адреса',
+};
+
+export const places = {
+  main: 'main',
+  product: 'product',
 };
 
 export const defaultGuitar = {
