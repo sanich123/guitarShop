@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { Loader } from '../..';
 import { useGetGuitarsQuery, useAddOrderMutation } from '../../../redux/guitars-api';
 import { State, Guitar } from '../../../types/types';
-import { errorHandler, normalizedError, percentToCouponChanger, valueChecker } from '../../../utils/utils';
+import { errorHandler, normalizedError, percentToCouponChanger, priceChecker } from '../../../utils/utils';
 
 export function TotalInfo({inCart}: {inCart: State['cart']}) {
   const discountValue = useSelector(({discount}: State) => discount.discount);
@@ -16,7 +16,7 @@ export function TotalInfo({inCart}: {inCart: State['cart']}) {
   const syncGuitarsWithCart = guitars?.filter((guitar: Guitar) =>
     forRequest.includes(guitar.id));
 
-  const price = valueChecker(syncGuitarsWithCart, inCart);
+  const price = priceChecker(syncGuitarsWithCart, inCart);
   const discountPrice =  price * Number(`0.${discountValue}`);
   const totalPrice = price - discountPrice;
 
