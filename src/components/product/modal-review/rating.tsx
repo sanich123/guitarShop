@@ -1,4 +1,4 @@
-import { marks } from '../../../../utils/const';
+import { marks } from '../../../utils/const';
 import ReviewRating from './review-rating';
 
 export default function Rating({setRating}: {setRating: (arg: string) => void}) {

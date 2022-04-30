@@ -1,5 +1,5 @@
-import { sortDirections } from '../../../../utils/const';
-import { stringChanger, stringChangerBack } from '../../../../utils/utils';
+import { sortDirections } from '../../../utils/const';
+import { stringChanger, stringChangerBack } from '../../../utils/utils';
 
 interface SortOrderProps {
   direction: string,
@@ -7,7 +7,7 @@ interface SortOrderProps {
   isError: boolean
 }
 
-export default function SortOrder({direction, setDirection, isError}: SortOrderProps) {
+export default function SortDirection({direction, setDirection, isError}: SortOrderProps) {
 
   return (
     <div className="catalog-sort__order">

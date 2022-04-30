@@ -1,4 +1,4 @@
-import { Guitar } from '../../../../types/types';
+import { Guitar } from '../../../types/types';
 
 interface PriceFiltersProps {
   setFilterMinPrice: (arg: string) => void,
@@ -9,7 +9,7 @@ interface PriceFiltersProps {
   filterMaxPrice: string,
 }
 
-export default function PriceFilters({setFilterMinPrice, setFilterMaxPrice, guitars, isError, filterMinPrice, filterMaxPrice}: PriceFiltersProps) {
+export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guitars, isError, filterMinPrice, filterMaxPrice}: PriceFiltersProps) {
   const sortPrices = guitars?.map(({price}: {price: number}) => price);
   const minPrice = Math.min(...sortPrices).toLocaleString('ru-Ru');
   const maxPrice = Math.max(...sortPrices).toLocaleString('ru-Ru');

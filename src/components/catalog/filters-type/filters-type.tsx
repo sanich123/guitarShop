@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Guitar } from '../../../../types/types';
-import { guitarTypesEn } from '../../../../utils/const';
-import { stringMaker, typeChanger } from '../../../../utils/utils';
+import { Guitar } from '../../../types/types';
+import { guitarTypesEn } from '../../../utils/const';
+import { stringMaker, typeChanger } from '../../../utils/utils';
 
 interface TypeFiltersProps {
   setFilterType: (arg: string) => void,
@@ -10,7 +10,7 @@ interface TypeFiltersProps {
   filterType: string,
 }
 
-export default function TypeFilters({setFilterType, guitars, isError, filterType}: TypeFiltersProps) {
+export default function FiltersType({setFilterType, guitars, isError, filterType}: TypeFiltersProps) {
   const stateFromUrl = Object.values(guitarTypesEn).map((type) => type === filterType.slice(5));
   const [checkedState, setCheckedState] = useState(stateFromUrl);
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Guitar } from '../../../../types/types';
-import { stringsTypes } from '../../../../utils/const';
+import { Guitar } from '../../../types/types';
+import { stringsTypes } from '../../../utils/const';
 
 interface StringFiltersProps {
   setFilterString: (arg: string) => void,
@@ -9,7 +9,7 @@ interface StringFiltersProps {
   filterString: string,
 }
 
-export default function StringFilters({setFilterString, guitars, isError, filterString}: StringFiltersProps) {
+export default function FiltersStrings({setFilterString, guitars, isError, filterString}: StringFiltersProps) {
   const stateFromUrl = stringsTypes.map((stringNumber) => stringNumber.toString() === filterString.slice(12));
   const [checkedState, setCheckedState] = useState(stateFromUrl);
   const allExistingStrings = [...new Set(guitars?.map(({stringCount}: Guitar) => stringCount))];

@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useQueries from '../../hooks/use-queries';
-import { Guitar } from '../../types/types';
-import PriceFilters from './filters/price-filters/price-filters';
-import StringFilters from './filters/strings-filters/string-filters';
-import TypeFilters from './filters/type-filters/type-filters';
-import SortOrder from './sort/direction/direction-sort';
-import SortType from './sort/type/sort-type';
+import useQueries from '../../../hooks/use-queries';
+import { Guitar } from '../../../types/types';
+import PriceFilters from '../filters-price/filters-price';
+import StringFilters from '../filters-strings/filters-strings';
+import TypeFilters from '../filters-type/filters-type';
+import SortOrder from '../sort-direction/sort-direction';
+import SortType from '../sort-type/sort-type';
 
 interface FiltersSortProps {
   guitarsList: Guitar[],

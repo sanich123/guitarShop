@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
-import { useAddCommentMutation } from '../../../../redux';
-import { messages } from '../../../../utils/const';
+import { useAddCommentMutation } from '../../../redux';
+import { messages } from '../../../utils/const';
 import {FocusOn} from 'react-focus-on';
 import Issue from './issue';
 import Advantage from './advantage';
@@ -10,8 +10,8 @@ import AddName from './add-name';
 import Rating from './rating';
 import CloseReviewBtn from './close-review-btn';
 import SendReviewBtn from './send-review-btn';
-import { normalizedError } from '../../../../utils/utils';
-import useForm from '../../../../hooks/use-form';
+import { normalizedError } from '../../../utils/utils';
+import useForm from '../../../hooks/use-form';
 
 interface AddReviewProps {
   setReview: (arg: boolean) => void,

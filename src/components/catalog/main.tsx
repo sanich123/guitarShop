@@ -6,8 +6,8 @@ import { errorHandler } from '../../utils/utils';
 import { Loader } from '../common/loader/loader';
 import { ModalAction } from '../common/modal/modal-action/modal-action';
 import { ModalSuccess } from '../common/modal/modal-success/modal-success';
-import { CardsList } from './cards-list/cards-list';
-import { FiltersSort } from './filtersSort';
+import Card from './card/card';
+import { FiltersSort } from './filters-sort/filters-sort';
 import { MainPagination } from './pagination/pagination';
 
 export function Main() {
@@ -32,18 +32,30 @@ export function Main() {
           />
         )}
         {isLoading && <Loader />}
+        {isError && <h2>Не удалось загрузить данные с сервера</h2>}
         {guitars?.length > 0 && (
-          <CardsList
-            setGuitarId={setGuitarId}
-            setActionModal={setActionModal}
-            guitars={guitars}
-          />
+          <>
+            {guitars.map(({ id, ...rest }) => (
+              <Card
+                key={id}
+                id={id}
+                {...rest}
+                setGuitarId={setGuitarId}
+                setActionModal={setActionModal}
+              />
+            ))}
+          </>
         )}
         {guitars?.length === 0 && (
           <h2>Условиям фильтрации не соответствует не один товар</h2>
         )}
-        {isError && <h2>Не удалось загрузить данные с сервера</h2>}
-        {isAdded && <ModalSuccess place="main" setIsAdded={setIsAdded} setIsReload={setIsReload} />}
+        {isAdded && (
+          <ModalSuccess
+            place="main"
+            setIsAdded={setIsAdded}
+            setIsReload={setIsReload}
+          />
+        )}
       </div>
       {guitarsList?.length > cardsOnPage && (
         <MainPagination

@@ -1,4 +1,4 @@
-import { sortTypes } from '../../../../utils/const';
+import { sortTypes } from '../../../utils/const';
 
 interface SortTypeProps {
   setSortPopular: (arg: string) => void,
