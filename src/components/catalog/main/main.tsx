@@ -13,7 +13,7 @@ import { MainPagination } from '../pagination/pagination';
 
 export function Main() {
   const { search } = useLocation();
-  const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId, setIsReload } = useModal();
+  const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
   const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(search);
   const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(guitarsList);
   error && errorHandler(error);
@@ -54,7 +54,6 @@ export function Main() {
           <ModalSuccess
             place={places.main}
             setIsAdded={setIsAdded}
-            setIsReload={setIsReload}
           />
         )}
       </div>

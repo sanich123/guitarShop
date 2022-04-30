@@ -10,10 +10,9 @@ interface SuccessCartProps {
   setIsAdded?: (arg: boolean) => void;
   place?: string;
   setIsSended?: (arg: boolean) => void;
-  setIsReload: (arg: boolean) => void;
 }
 
-export function ModalSuccess({ setIsSended, setIsAdded, place, setIsReload }: SuccessCartProps) {
+export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProps) {
   const modalMessage = setIsAdded
     ? 'Товар успешно добавлен в корзину'
     : 'Спасибо за ваш отзыв!';
@@ -28,14 +27,8 @@ export function ModalSuccess({ setIsSended, setIsAdded, place, setIsReload }: Su
 
         {setIsAdded && (
           <FocusOn
-            onClickOutside={() => {
-              setIsAdded(false);
-              setIsReload(true);
-            }}
-            onEscapeKey={() => {
-              setIsAdded(false);
-              setIsReload(true);
-            }}
+            onClickOutside={() => setIsAdded(false)}
+            onEscapeKey={() => setIsAdded(false)}
           >
             <div className="modal__content">
               <SvgModal />
@@ -50,14 +43,8 @@ export function ModalSuccess({ setIsSended, setIsAdded, place, setIsReload }: Su
 
         {setIsSended && (
           <FocusOn
-            onClickOutside={() => {
-              setIsSended(false);
-              setIsReload(true);
-            }}
-            onEscapeKey={() => {
-              setIsSended(false);
-              setIsReload(true);
-            }}
+            onClickOutside={() => setIsSended(false)}
+            onEscapeKey={() => setIsSended(false)}
           >
             <div className="modal__content">
               <SvgModal />
@@ -65,7 +52,7 @@ export function ModalSuccess({ setIsSended, setIsAdded, place, setIsReload }: Su
               <div className={activeClass}>
                 <ContinueBtn />
               </div>
-              <CloseBtnReview setIsSended={setIsSended} setIsReload={setIsReload} />
+              <CloseBtnReview setIsSended={setIsSended} />
             </div>
           </FocusOn>
         )}

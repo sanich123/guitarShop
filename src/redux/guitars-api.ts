@@ -3,7 +3,7 @@ import { BASE_URL } from '../utils/const';
 
 export const guitarsApi = createApi({
   reducerPath: 'guitarsApi',
-  tagTypes: ['Guitars'],
+  tagTypes: ['Guitars', 'Comments'],
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL}),
   endpoints: (builder) => ({
     getGuitars: builder.query({
@@ -23,6 +23,11 @@ export const guitarsApi = createApi({
 
     getComments: builder.query({
       query: (id) => `/guitars/${id}/comments`,
+      providesTags: (result) =>
+        result ?
+          [...result.map(({ id }: {id: number}) => ({ type: 'Comments', id })),
+            { type: 'Comments', id: 'Comment' }]
+          : [{ type: 'Comments', id: 'Comment' }],
     }),
 
     addComment: builder.mutation({
@@ -32,7 +37,7 @@ export const guitarsApi = createApi({
         body,
       }),
       transformResponse: (_, meta) => meta,
-      invalidatesTags: [{type: 'Guitars', id: 'LIST'}],
+      invalidatesTags: [{type: 'Comments', id: 'Comment'}],
     }),
 
     addCoupon: builder.mutation({
