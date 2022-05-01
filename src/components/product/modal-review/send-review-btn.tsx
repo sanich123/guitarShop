@@ -1,4 +1,6 @@
-export default function SendReviewBtn() {
+import { memo } from 'react';
+
+function SendReviewBtn() {
   return (
     <button
       className="button button--medium-20 form-review__button"
@@ -8,3 +10,5 @@ export default function SendReviewBtn() {
     </button>
   );
 }
+
+export default memo(SendReviewBtn);

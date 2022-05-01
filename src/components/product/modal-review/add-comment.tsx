@@ -1,4 +1,11 @@
-export default function AddComment({setComment}: {setComment: (arg: string) => void}) {
+import { memo } from 'react';
+
+interface AddCommentProps {
+  setComment: (arg: string) => void;
+  comment: string,
+}
+
+function AddComment({setComment, comment}: AddCommentProps) {
 
   return (
     <>
@@ -11,7 +18,10 @@ export default function AddComment({setComment}: {setComment: (arg: string) => v
         rows={10}
         autoComplete="off"
         onChange={({ target }) => setComment(target.value)}
+        value={comment}
       />
     </>
   );
 }
+
+export default memo(AddComment, (prev, next) => prev.comment === next.comment);

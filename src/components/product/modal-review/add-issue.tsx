@@ -1,4 +1,12 @@
-export default function AddIssue({setIssue}: {setIssue: (arg: string) => void}) {
+import { memo } from 'react';
+
+interface AddIssueProps {
+  setIssue: (arg: string) => void,
+  issue: string,
+}
+
+
+function AddIssue({setIssue, issue}: AddIssueProps) {
 
   return (
     <>
@@ -11,7 +19,10 @@ export default function AddIssue({setIssue}: {setIssue: (arg: string) => void}) 
         type="text"
         autoComplete="off"
         onChange={({ target }) => setIssue(target.value)}
+        value={issue}
       />
     </>
   );
 }
+
+export default memo(AddIssue, (prev, next) => prev.issue === next.issue);

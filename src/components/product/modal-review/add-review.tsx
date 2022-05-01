@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { useAddCommentMutation } from '../../../redux';
-import { messages } from '../../../utils/const';
+import { errors, messages } from '../../../utils/const';
 import {FocusOn} from 'react-focus-on';
 import Issue from './add-issue';
 import Advantage from './add-advantage';
@@ -36,8 +36,8 @@ export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
       if (status === 400) {
         toast.warn(normalizedError(error).data.messages.join(''));
       }
-      if (status === 'FETCH_ERROR') {
-        toast.error('Не удалось отправить Ваш комментарий. Проверьте ваше соединение интернет');
+      if (status === errors.fetchError) {
+        toast.error(messages.failedSending);
       }
     }
   }, [isSuccess, setIsSended, setReview, error, response]);
@@ -45,8 +45,6 @@ export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
-    if (+rating === 0) {return toast.warn(messages.ratingRequired);}
-    if (surName === '') {return toast.warn(messages.surnameRequired);}
     await addComment({
       rating: +rating,
       userName: surName,
@@ -74,12 +72,12 @@ export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
             </h3>
             <form className="form-review" onSubmit={handleSubmit}>
               <div className="form-review__wrapper">
-                <AddName setSurName={setSurName}/>
-                <Rating setRating={setRating} />
+                <AddName surName={surName} setSurName={setSurName}/>
+                <Rating setRating={setRating}/>
               </div>
-              <Issue setIssue={setIssue} />
-              <Advantage setAdvantage={setAdvantage}/>
-              <AddComment setComment={setComment}/>
+              <Issue setIssue={setIssue} issue={issue} />
+              <Advantage setAdvantage={setAdvantage} advantage={advantage}/>
+              <AddComment setComment={setComment} comment={comment}/>
               <SendReviewBtn/>
             </form>
             <CloseReviewBtn setReview={setReview}/>

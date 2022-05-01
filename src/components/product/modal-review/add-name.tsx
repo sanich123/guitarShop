@@ -1,4 +1,11 @@
-export default function AddName({setSurName}: {setSurName: (arg: string) => void}) {
+import { memo } from 'react';
+
+interface AddNameProps {
+  setSurName: (arg: string) => void,
+  surName: string,
+}
+
+function AddName({setSurName, surName}: AddNameProps) {
 
   return (
     <div className="form-review__name-wrapper">
@@ -15,8 +22,11 @@ export default function AddName({setSurName}: {setSurName: (arg: string) => void
         autoComplete="off"
         autoFocus
         onChange={({ target }) => setSurName(target.value)}
+        value={surName}
       />
       <span className="form-review__warning">Заполните поле</span>
     </div>
   );
 }
+
+export default memo(AddName, (prev, next) => prev.surName === next.surName);
