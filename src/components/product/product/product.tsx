@@ -1,9 +1,11 @@
 import { useParams } from 'react-router-dom';
-import { useGetGuitarQuery } from '../../redux';
-import { useModal } from '../../hooks/use-modal';
-import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Price, Reviews, UpBtn, AddReviewBtn, ProductInfo  } from '../index';
-import { appRoutes, defaultGuitar, places, warnings } from '../../utils/const';
-import { errorHandler, normalizeImg } from '../../utils/utils';
+import { useGetGuitarQuery } from '../../../redux';
+import { useModal } from '../../../hooks/use-modal';
+import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Price, Reviews, UpBtn, AddReviewBtn  } from '../../index';
+import { appRoutes, defaultGuitar, places, warnings } from '../../../utils/const';
+import { errorHandler, normalizeImg } from '../../../utils/utils';
+import Rating from '../../common/rating/rating';
+import Properties from '../properties/properties';
 
 export default function Product() {
   const {id} = useParams();
@@ -30,14 +32,26 @@ export default function Product() {
                 alt=""
               />
               {isLoading && <Loader />}
-              <ProductInfo
-                name={name}
-                vendorCode={vendorCode}
-                type={type}
-                stringCount={stringCount}
-                description={description}
-                rating={rating}
-              />
+              <div className="product-container__info-wrapper">
+                <h2 className="product-container__title title title--big title--uppercase">
+                  {name}
+                </h2>
+                <div
+                  className="rate product-container__rating"
+                  aria-hidden="true"
+                >
+                  <span className="visually-hidden">Рейтинг:</span>
+                  <Rating width={14} height={14} rating={rating} />
+                  <span className="rate__count" />
+                  <span className="rate__message" />
+                </div>
+                <Properties
+                  vendorCode={vendorCode}
+                  stringCount={stringCount}
+                  type={type}
+                  description={description}
+                />
+              </div>
 
               <Price
                 price={price}
@@ -54,9 +68,7 @@ export default function Product() {
                 />
               )}
 
-              {isAdded && (
-                <ModalSuccess place={places.product} setIsAdded={setIsAdded}/>
-              )}
+              {isAdded && <ModalSuccess place={places.product} setIsAdded={setIsAdded} />}
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>

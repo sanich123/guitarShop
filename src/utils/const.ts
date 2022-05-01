@@ -30,6 +30,7 @@ export const guitarTypesRus = {
 export const stringsTypes = [4, 6, 7, 12];
 
 export const BASE_URL = 'https://accelerator-guitar-shop-api-v1.glitch.me';
+
 export const tabs = {
   char: 'characteristics',
   desc: 'description',
@@ -49,11 +50,14 @@ export const messages = {
 export const errors = {
   wrongAddress: 404,
   wrongData: 400,
+  fetchError: 'FETCH_ERROR',
 };
 
 export const warnings = {
   network: 'Не удалось получить данные, проверьте ваше сетевое соединение',
   server404: 'Запрашиваемая страница не найдена. Проверьте правильность написанного адреса',
+  failedSendingPromocode: 'Не удалось отправить данные о вашем промокоде на сервер. Проверьте, существует ли интернет в вашей стране',
+  successOrder: 'Вы успешно сделали заказ! Большое Вам спасибо!',
 };
 
 export const places = {

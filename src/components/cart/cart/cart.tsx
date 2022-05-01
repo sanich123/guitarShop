@@ -1,10 +1,11 @@
-import { useGetGuitarsQuery } from '../../redux';
+import { useGetGuitarsQuery } from '../../../redux';
 import { useSelector } from 'react-redux';
-import { useModal } from '../../hooks/use-modal';
-import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, CartItem, Promocode, TotalInfo, NoItems } from '../index';
-import { State, Guitar } from '../../types/types';
-import { appRoutes } from '../../utils/const';
-import { errorHandler } from '../../utils/utils';
+import { useModal } from '../../../hooks/use-modal';
+import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, CartItem, Promocode, TotalInfo } from '../../index';
+import { State, Guitar } from '../../../types/types';
+import { appRoutes } from '../../../utils/const';
+import { errorHandler } from '../../../utils/utils';
+import { Link } from 'react-router-dom';
 
 export default function Cart() {
   const { showActionModal, setActionModal, setGuitarId, guitarId} = useModal();
@@ -35,7 +36,8 @@ export default function Cart() {
 
             {inCart?.length > 0 ? (
               <>
-                {guitarsInCart?.filter((guitar: Guitar) => forRequest.includes(guitar.id))
+                {guitarsInCart
+                  ?.filter((guitar: Guitar) => forRequest.includes(guitar.id))
                   .map(({ id, ...rest }: Guitar) => (
                     <CartItem
                       key={id}
@@ -52,7 +54,12 @@ export default function Cart() {
                 </div>
               </>
             ) : (
-              <NoItems />
+              <>
+                <h1>Your cart has no items :(</h1>
+                <h2>
+                  <Link to={appRoutes.main}>Go ahead and buy something!</Link>
+                </h2>
+              </>
             )}
           </div>
         </div>

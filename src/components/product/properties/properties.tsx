@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { tabs } from '../../../../utils/const';
-import { typeChanger } from '../../../../utils/utils';
+import { tabs } from '../../../utils/const';
+import { typeChanger } from '../../../utils/utils';
 
 interface PropertiesProps {
   vendorCode: string,

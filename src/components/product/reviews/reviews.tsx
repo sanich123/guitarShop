@@ -21,13 +21,9 @@ export function Reviews({uniq}: { uniq?: string }) {
 
       {reviews && (
         <>
-          {reviews.length === 0 && (
-            <h3>There are no comments to this product</h3>
-          )}
+          {reviews.length === 0 && <h3>There are no comments to this product</h3>}
 
-          {reviews.length > 0 && (
-            slicedReviews
-              .map(({ id, ...rest }) => <Review key={id} {...rest} />))}
+          {reviews.length > 0 && slicedReviews.map(({ id, ...rest }) => <Review key={id} {...rest} />)}
 
           {slicedReviews.length !== reviews.length && (
             <button

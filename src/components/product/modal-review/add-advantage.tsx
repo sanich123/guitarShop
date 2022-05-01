@@ -1,4 +1,4 @@
-export default function Advantage({setAdvantage}: {setAdvantage: (arg: string) => void}) {
+export default function AddAdvantage({setAdvantage}: {setAdvantage: (arg: string) => void}) {
   return (
     <>
       <label className="form-review__label" htmlFor="user-name">

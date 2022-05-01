@@ -1,4 +1,4 @@
-export default function Issue({setIssue}: {setIssue: (arg: string) => void}) {
+export default function AddIssue({setIssue}: {setIssue: (arg: string) => void}) {
 
   return (
     <>

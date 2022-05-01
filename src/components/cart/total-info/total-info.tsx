@@ -5,6 +5,7 @@ import { Loader } from '../..';
 import { useGetGuitarsQuery, useAddOrderMutation } from '../../../redux/guitars-api';
 import { State, Guitar } from '../../../types/types';
 import { errorHandler, normalizedError, percentToCouponChanger, priceChecker } from '../../../utils/utils';
+import { warnings } from '../../../utils/const';
 
 export function TotalInfo({inCart}: {inCart: State['cart']}) {
   const discountValue = useSelector(({discount}: State) => discount.discount);
@@ -22,7 +23,7 @@ export function TotalInfo({inCart}: {inCart: State['cart']}) {
 
   useEffect(() => {
     if (response) {
-      toast.success('Вы успешно сделали заказ! Большое Вам спасибо!');
+      toast.success(warnings.successOrder);
     }
     if (orderError) {
       toast.error(normalizedError(orderError).error);

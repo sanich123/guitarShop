@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useAddCouponMutation } from '../../../redux';
 import { addDiscount } from '../../../redux/discount-slice';
+import { errors, warnings } from '../../../utils/const';
 import { normalizedError } from '../../../utils/utils';
 
 export function Promocode() {
@@ -17,8 +18,8 @@ export function Promocode() {
       setShowInfo(true);
     }
     if (error) {
-      if (normalizedError(error).status === 'FETCH_ERROR') {
-        toast.error('Не удалось отправить данные о вашем промокоде на сервер. Проверьте, существует ли интернет в вашей стране');
+      if (normalizedError(error).status === errors.fetchError) {
+        toast.error(warnings.failedSendingPromocode);
       } else {
         toast.warn(normalizedError(error).data.messages.join(''));
         dispatch(addDiscount(0));
