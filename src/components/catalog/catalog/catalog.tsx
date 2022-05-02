@@ -1,4 +1,5 @@
-import { Breadcrumbs, Footer, Header, Icons } from '../../index';
+import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
+import { Footer, Header, Icons } from '../../index';
 import { Main } from '../main/main';
 
 export default function Catalog() {

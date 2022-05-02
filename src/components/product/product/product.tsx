@@ -1,11 +1,15 @@
 import { useParams } from 'react-router-dom';
 import { useGetGuitarQuery } from '../../../redux';
 import { useModal } from '../../../hooks/use-modal';
-import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Price, Reviews, UpBtn, AddReviewBtn  } from '../../index';
+import { Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Reviews } from '../../index';
 import { appRoutes, defaultGuitar, places, warnings } from '../../../utils/const';
 import { errorHandler, normalizeImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 import Properties from '../properties/properties';
+import UpBtn from '../up-btn/up-btn';
+import Price from '../price/price';
+import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
+import AddReviewBtn from '../add-review-btn/add-review-btn';
 
 export default function Product() {
   const {id} = useParams();

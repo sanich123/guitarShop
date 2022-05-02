@@ -1,7 +1,8 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { appRoutes } from '../../../../utils/const';
 
-export default function NavList() {
+function NavList() {
 
   return (
     <nav className="main-nav">
@@ -19,3 +20,5 @@ export default function NavList() {
     </nav>
   );
 }
+
+export default memo(NavList);

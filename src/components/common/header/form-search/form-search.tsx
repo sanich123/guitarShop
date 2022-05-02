@@ -1,11 +1,11 @@
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetGuitarsQuery } from '../../../../redux';
 import { Guitar } from '../../../../types/types';
 import { errorHandler } from '../../../../utils/utils';
 import { Loader } from '../../loader/loader';
 
-export default function FormSearch() {
+function FormSearch() {
   const [search, setSearch] = useState('');
   const {data: similarGuitars, isLoading, error} = useGetGuitarsQuery(`?name_like=${search}`);
   const navigate = useNavigate();
@@ -48,3 +48,5 @@ export default function FormSearch() {
     </div>
   );
 }
+
+export default memo(FormSearch);

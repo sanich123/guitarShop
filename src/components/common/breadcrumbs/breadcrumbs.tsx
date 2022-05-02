@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import {appRoutes} from '../../../utils/const';
 
@@ -22,4 +23,4 @@ function Breadcrumbs({place}: {place?: string}) {
   );
 }
 
-export {Breadcrumbs};
+export default memo(Breadcrumbs);

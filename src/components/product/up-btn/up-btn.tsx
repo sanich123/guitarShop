@@ -1,4 +1,6 @@
-export function UpBtn() {
+import { memo } from 'react';
+
+function UpBtn() {
 
   return (
     <a
@@ -10,3 +12,5 @@ export function UpBtn() {
     </a>
   );
 }
+
+export default memo(UpBtn);

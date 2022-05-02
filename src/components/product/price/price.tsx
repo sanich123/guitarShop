@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 interface PriceProps {
   price: number,
   setActionModal: (arg: boolean) => void,
@@ -5,7 +7,7 @@ interface PriceProps {
 }
 
 
-export function Price({price, setActionModal, isError}: PriceProps) {
+function Price({price, setActionModal, isError}: PriceProps) {
 
   return (
     <div className="product-container__price-wrapper">
@@ -20,3 +22,5 @@ export function Price({price, setActionModal, isError}: PriceProps) {
     </div>
   );
 }
+
+export default memo(Price);

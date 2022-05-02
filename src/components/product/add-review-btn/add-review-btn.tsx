@@ -1,4 +1,5 @@
 import cn from 'classnames';
+import { memo } from 'react';
 
 interface AddReviewBtnProps {
   setReview: (arg: boolean) => void,
@@ -12,7 +13,7 @@ const btnClass = cn(
   'reviews__submit-button',
 );
 
-export function AddReviewBtn({setReview, isError}: AddReviewBtnProps) {
+function AddReviewBtn({setReview, isError}: AddReviewBtnProps) {
 
   return (
     <button
@@ -24,3 +25,5 @@ export function AddReviewBtn({setReview, isError}: AddReviewBtnProps) {
     </button>
   );
 }
+
+export default memo(AddReviewBtn);

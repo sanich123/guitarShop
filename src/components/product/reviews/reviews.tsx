@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useGetCommentsQuery } from '../../../redux';
 import { Comments } from '../../../types/types';
 import { errorHandler } from '../../../utils/utils';
@@ -38,4 +38,6 @@ export function Reviews({uniq}: { uniq?: string }) {
     </>
   );
 }
+
+export default memo(Reviews, (prev, next) => prev.uniq === next.uniq);
 

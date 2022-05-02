@@ -1,11 +1,12 @@
 import { useGetGuitarsQuery } from '../../../redux';
 import { useSelector } from 'react-redux';
 import { useModal } from '../../../hooks/use-modal';
-import { Breadcrumbs, Footer, Header, Loader, Icons, ModalAction, CartItem, Promocode, TotalInfo } from '../../index';
+import { Footer, Header, Loader, Icons, ModalAction, CartItem, Promocode, TotalInfo } from '../../index';
 import { State, Guitar } from '../../../types/types';
 import { appRoutes } from '../../../utils/const';
 import { errorHandler } from '../../../utils/utils';
 import { Link } from 'react-router-dom';
+import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
 
 export default function Cart() {
   const { showActionModal, setActionModal, setGuitarId, guitarId} = useModal();
