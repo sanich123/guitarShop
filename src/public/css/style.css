@@ -1123,7 +1123,7 @@ button,
 .modal__button-container {
   display: flex;
   flex-grow: 1;
-  justify-content: start;
+  justify-content: flex-start;
 
   padding-top: 20px;
 }
@@ -2300,7 +2300,7 @@ button,
 
 .logo {
   display: flex;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .logo__img {
