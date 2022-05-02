@@ -1,17 +1,6 @@
-import React, { useEffect } from 'react';
-import { toast } from 'react-toastify';
-import { useAddCommentMutation } from '../../../redux';
-import { errors, messages } from '../../../utils/const';
 import {FocusOn} from 'react-focus-on';
-import Issue from './add-issue';
-import Advantage from './add-advantage';
-import AddComment from './add-comment';
-import AddName from './add-name';
-import Rating from './add-rating';
 import CloseReviewBtn from './close-review-btn';
-import SendReviewBtn from './send-review-btn';
-import { normalizedError } from '../../../utils/utils';
-import useForm from '../../../hooks/use-form';
+import ReviewForm from './review-form';
 
 interface AddReviewProps {
   setReview: (arg: boolean) => void,
@@ -21,39 +10,6 @@ interface AddReviewProps {
 }
 
 export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
-  const [addComment, {isSuccess, error, data: response}] = useAddCommentMutation();
-  const { rating, surName, issue, advantage, comment, setRating, setSurName, setIssue, setAdvantage, setComment } = useForm();
-
-  useEffect(() => {
-    if (isSuccess) {
-      setReview(false);
-      setIsSended(true);
-    }
-    if (error) {
-      setReview(true);
-      setIsSended(false);
-      const status = normalizedError(error).status;
-      if (status === 400) {
-        toast.warn(normalizedError(error).data.messages.join(''));
-      }
-      if (status === errors.fetchError) {
-        toast.error(messages.failedSending);
-      }
-    }
-  }, [isSuccess, setIsSended, setReview, error, response]);
-
-
-  const handleSubmit = async (evt: React.FormEvent) => {
-    evt.preventDefault();
-    await addComment({
-      rating: +rating,
-      userName: surName,
-      disadvantage: issue,
-      advantage: advantage,
-      comment: comment,
-      guitarId: id,
-    }).unwrap();
-  };
 
   return (
     <div className="modal is-active modal--review modal-for-ui-kit">
@@ -70,16 +26,7 @@ export function AddReview({setIsSended, setReview, name, id}: AddReviewProps) {
             <h3 className="modal__product-name title title--medium-20 title--uppercase">
               {name}
             </h3>
-            <form className="form-review" onSubmit={handleSubmit}>
-              <div className="form-review__wrapper">
-                <AddName surName={surName} setSurName={setSurName}/>
-                <Rating setRating={setRating}/>
-              </div>
-              <Issue setIssue={setIssue} issue={issue} />
-              <Advantage setAdvantage={setAdvantage} advantage={advantage}/>
-              <AddComment setComment={setComment} comment={comment}/>
-              <SendReviewBtn/>
-            </form>
+            <ReviewForm setReview={setReview} setIsSended={setIsSended} id={id}/>
             <CloseReviewBtn setReview={setReview}/>
           </div>
         </FocusOn>

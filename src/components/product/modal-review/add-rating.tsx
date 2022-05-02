@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { marks } from '../../../utils/const';
 
 
-export default function AddRating({setRating}: {setRating: (arg: string) => void}) {
+function AddRating({setRating}: {setRating: (arg: string) => void}) {
 
   return (
     <div>
@@ -34,3 +34,5 @@ export default function AddRating({setRating}: {setRating: (arg: string) => void
     </div>
   );
 }
+
+export default memo(AddRating);

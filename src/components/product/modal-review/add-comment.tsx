@@ -2,10 +2,9 @@ import { memo } from 'react';
 
 interface AddCommentProps {
   setComment: (arg: string) => void;
-  comment: string,
 }
 
-function AddComment({setComment, comment}: AddCommentProps) {
+function AddComment({setComment}: AddCommentProps) {
 
   return (
     <>
@@ -18,10 +17,9 @@ function AddComment({setComment, comment}: AddCommentProps) {
         rows={10}
         autoComplete="off"
         onChange={({ target }) => setComment(target.value)}
-        value={comment}
       />
     </>
   );
 }
 
-export default memo(AddComment, (prev, next) => prev.comment === next.comment);
+export default memo(AddComment);

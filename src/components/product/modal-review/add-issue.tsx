@@ -2,11 +2,10 @@ import { memo } from 'react';
 
 interface AddIssueProps {
   setIssue: (arg: string) => void,
-  issue: string,
 }
 
 
-function AddIssue({setIssue, issue}: AddIssueProps) {
+function AddIssue({setIssue}: AddIssueProps) {
 
   return (
     <>
@@ -19,10 +18,9 @@ function AddIssue({setIssue, issue}: AddIssueProps) {
         type="text"
         autoComplete="off"
         onChange={({ target }) => setIssue(target.value)}
-        value={issue}
       />
     </>
   );
 }
 
-export default memo(AddIssue, (prev, next) => prev.issue === next.issue);
+export default memo(AddIssue);

@@ -1,11 +1,10 @@
 import { memo } from 'react';
 
 interface AddAdvantageProps {
-  advantage: string;
   setAdvantage: (arg: string) => void;
 }
 
-function AddAdvantage({setAdvantage, advantage}: AddAdvantageProps) {
+function AddAdvantage({setAdvantage}: AddAdvantageProps) {
 
   return (
     <>
@@ -18,10 +17,9 @@ function AddAdvantage({setAdvantage, advantage}: AddAdvantageProps) {
         type="text"
         autoComplete="off"
         onChange={({ target }) => setAdvantage(target.value)}
-        value={advantage}
       />
     </>
   );
 }
 
-export default memo(AddAdvantage, (prev, next) => prev.advantage === next.advantage);
+export default memo(AddAdvantage);

@@ -1,4 +1,6 @@
-export default function CloseReviewBtn({setReview}: {setReview: (arg: boolean) => void}) {
+import { memo } from 'react';
+
+function CloseReviewBtn({setReview}: {setReview: (arg: boolean) => void}) {
 
   return (
     <button
@@ -12,3 +14,5 @@ export default function CloseReviewBtn({setReview}: {setReview: (arg: boolean) =
     </button>
   );
 }
+
+export default memo(CloseReviewBtn);
