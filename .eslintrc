@@ -11,10 +11,7 @@
       "jsx-quotes": ["error", "prefer-double"],
       "indent": ["warn", 2],
       "comma-dangle": ["error", "always-multiline"],
-      "semi": ["error", "always"]
-      // "import/order": ["error", {
-      //   "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
-      //   "newlines-between": "always-and-inside-groups"
-      // }]
+      "semi": ["error", "always"],
+      "no-return-assign": "off"
     }
   }
