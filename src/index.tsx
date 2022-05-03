@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import { setupStore } from '../src/redux/store';
 import App from './components/app/app';
 import { ToastContainer } from 'react-toastify';
-import './public/css/style.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const root = createRoot(document.getElementById('root') as Element);
