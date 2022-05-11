@@ -1,4 +1,4 @@
-Размещен по адресу https://guitar-shop-m1hubyrev-sanich123.vercel.app
+Размещен по адресу https://guitar-shop-m4yrcupww-sanich123.vercel.app
 # Руководство по работе с проектом
 
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
