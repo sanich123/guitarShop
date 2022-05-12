@@ -2,6 +2,7 @@ import { useLocation } from 'react-router-dom';
 import { useModal } from '../../../hooks/use-modal';
 import { usePagination } from '../../../hooks/use-pagination';
 import { useGetGuitarsQuery } from '../../../redux';
+import { Guitar } from '../../../types/types';
 import { places } from '../../../utils/const';
 import { errorHandler } from '../../../utils/utils';
 import { Loader } from '../../common/loader/loader';
@@ -15,14 +16,15 @@ export function Main() {
   const { search } = useLocation();
   const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
   const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(search);
-  const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(guitarsList);
-  console.log(guitarsList);
+  const filtredWrongGuitars = guitarsList?.filter((guitar: Guitar) => guitar.name ? guitar : '');
+  const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(filtredWrongGuitars);
+
   error && errorHandler(error);
 
   return (
     <div className="catalog">
-      {guitarsList && (
-        <FiltersSort guitarsList={guitarsList} isError={isError} />
+      {filtredWrongGuitars && (
+        <FiltersSort guitarsList={filtredWrongGuitars} isError={isError} />
       )}
       <div className="cards catalog__cards">
         {showActionModal && (
@@ -35,35 +37,33 @@ export function Main() {
         )}
         {isLoading && <Loader />}
         {isError && <h2>Не удалось загрузить данные с сервера</h2>}
-        {guitars?.length > 0 && (
+        {filtredWrongGuitars?.length > 0 && (
           <>
-            {guitars.map(({ id, ...rest }) => (
-              <Card
-                key={id}
-                id={id}
-                {...rest}
-                setGuitarId={setGuitarId}
-                setActionModal={setActionModal}
-              />
-            ))}
+            {guitars
+              .map(({ id, ...rest }: Guitar) => (
+                <Card
+                  key={id}
+                  id={id}
+                  {...rest}
+                  setGuitarId={setGuitarId}
+                  setActionModal={setActionModal}
+                />
+              ))}
           </>
         )}
         {guitars?.length === 0 && (
           <h2>Условиям фильтрации не соответствует не один товар</h2>
         )}
         {isAdded && (
-          <ModalSuccess
-            place={places.main}
-            setIsAdded={setIsAdded}
-          />
+          <ModalSuccess place={places.main} setIsAdded={setIsAdded} />
         )}
       </div>
-      {guitarsList?.length > cardsOnPage && (
+      {filtredWrongGuitars?.length > cardsOnPage && (
         <MainPagination
           setPageNumber={setPageNumber}
           pageNumber={pageNumber}
           cardsOnPage={cardsOnPage}
-          count={guitarsList.length}
+          count={filtredWrongGuitars.length}
         />
       )}
     </div>
