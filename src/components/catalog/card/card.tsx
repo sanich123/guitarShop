@@ -4,7 +4,6 @@ import { useGetCommentsQuery } from '../../../redux/guitars-api';
 import { State } from '../../../types/types';
 import { appRoutes } from '../../../utils/const';
 import { errorHandler, normalizeImg } from '../../../utils/utils';
-import { Loader } from '../../common/loader/loader';
 import Rating from '../../common/rating/rating';
 
 export interface CardProps {
@@ -19,9 +18,8 @@ export interface CardProps {
 
 export default function Card({previewImg, name, rating, price, id, setActionModal, setGuitarId}: CardProps) {
   const inCart = useSelector(({cart}: State) => cart).map((guitar) => guitar.id);
-  const { data: reviews, isLoading, error } = useGetCommentsQuery(id);
+  const { data: reviews, error } = useGetCommentsQuery(id);
 
-  if (isLoading) {return <Loader/>;}
   error && errorHandler(error);
 
   return (
@@ -31,10 +29,9 @@ export default function Card({previewImg, name, rating, price, id, setActionModa
         <div className="rate product-card__rate" aria-hidden="true">
           <span className="visually-hidden">Рейтинг:</span>
           <Rating width={12} height={11} rating={rating} />
-          {reviews.length && (
+          {reviews?.length && (
             <span className="rate__count">{reviews.length}</span>
           )}
-
           <span className="rate__message" />
         </div>
         <p className="product-card__title">{name}</p>
