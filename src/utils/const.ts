@@ -29,7 +29,7 @@ export const guitarTypesRus = {
 
 export const stringsTypes = [4, 6, 7, 12];
 
-export const BASE_URL = 'https://accelerator-guitar-shop-api-v1.glitch.me';
+export const BASE_URL = 'https://guitar-shop.accelerator.pages.academy';
 
 export const tabs = {
   char: 'characteristics',

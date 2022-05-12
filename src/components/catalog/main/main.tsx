@@ -16,6 +16,7 @@ export function Main() {
   const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
   const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(search);
   const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(guitarsList);
+  console.log(guitarsList);
   error && errorHandler(error);
 
   return (

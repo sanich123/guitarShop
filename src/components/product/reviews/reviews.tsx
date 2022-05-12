@@ -7,7 +7,7 @@ import Review from '../review/review';
 
 export function Reviews({uniq}: { uniq?: string }) {
   const {data: reviews, isLoading, error} = useGetCommentsQuery(uniq);
-  const [sliceNumber, setSliceNumber] = useState(2);
+  const [sliceNumber, setSliceNumber] = useState(3);
   const slicedReviews: Comments[] = reviews
     ?.slice()
     .sort((dateA: Comments, dateB: Comments) => Date.parse(dateB.createAt) - Date.parse(dateA.createAt))
