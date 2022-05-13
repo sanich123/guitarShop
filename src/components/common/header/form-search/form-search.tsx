@@ -16,7 +16,7 @@ function FormSearch() {
 
   return (
     <div className="form-search">
-      <form className="form-search__form">
+      <form className="form-search__form" id="form-search">
         <button className="form-search__submit" type="button">
           <svg
             className="form-search__icon"
@@ -34,46 +34,51 @@ function FormSearch() {
           type="text"
           autoComplete="off"
           placeholder="что вы ищете?"
+          value={search}
           onChange={({ target }) => setSearch(target.value)}
         />
         <label className="visually-hidden" htmlFor="search">
           Поиск
         </label>
-        {search && (
+      </form>
+      {search && (
+        <>
+          <ul
+            className="list-opened form-search__select-list"
+            style={{ zIndex: 999 }}
+          >
+            {similarGuitars?.length > 0 ? (
+              similarGuitars?.map(({ name, id }: Guitar) => (
+                <li
+                  onClick={() =>
+                    navigate(`/guitar/${id}?${tabs.desc}=${tabs.char}`)}
+                  key={name}
+                  className="form-search__select-item"
+                  tabIndex={0}
+                >
+                  {name}
+                </li>
+              ))
+            ) : (
+              <p>Ничего не найдено по вашему запросу</p>
+            )}
+          </ul>
           <button
-            className="modal__close-btn button-cross"
-            type="reset"
-            aria-label="Закрыть"
+            className="button-cross form-search__reset"
             onClick={() => setSearch('')}
             tabIndex={0}
           >
-            <span className="button-cross__icon" />
-            <span className="modal__close-btn-interactive-area" />
+            <svg
+              className="form-search__icon"
+              width="14"
+              height="15"
+              aria-hidden="true"
+            >
+              <use xlinkHref="#icon-close" />
+            </svg>
+            <span className="visually-hidden">Сбросить поиск</span>
           </button>
-        )}
-      </form>
-      {search && (
-        <ul
-          className="list-opened form-search__select-list"
-          style={{ zIndex: 999 }}
-        >
-          {similarGuitars?.length > 0 ? (
-            similarGuitars?.map(({ name, id }: Guitar) => (
-              <li
-                onClick={() =>
-                  navigate(`/guitar/${id}?${tabs.desc}=${tabs.char}`)}
-                key={name}
-                className="form-search__select-item"
-                tabIndex={0}
-              >
-                {name}
-              </li>
-            ))
-          ) : (
-            <p>Ничего не найдено по вашему запросу</p>
-          )}
-        </ul>
-      )}
+        </>)}
     </div>
   );
 }
