@@ -3,13 +3,14 @@ import { Guitar } from '../../../types/types';
 import { stringsTypes } from '../../../utils/const';
 
 interface StringFiltersProps {
-  setFilterString: (arg: string) => void,
-  guitars: Guitar[],
-  isError: boolean,
-  filterString: string,
+  setFilterString: (arg: string) => void;
+  setPageNumber: (arg: number) => void,
+  guitars: Guitar[];
+  isError: boolean;
+  filterString: string;
 }
 
-export default function FiltersStrings({setFilterString, guitars, isError, filterString}: StringFiltersProps) {
+export default function FiltersStrings({setFilterString, setPageNumber, guitars, isError, filterString}: StringFiltersProps) {
   const stateFromUrl = stringsTypes.map((stringNumber) => stringNumber.toString() === filterString.slice(12));
   const [checkedState, setCheckedState] = useState(stateFromUrl);
   const allExistingStrings = [...new Set(guitars?.map(({stringCount}: Guitar) => stringCount))];
@@ -38,7 +39,10 @@ export default function FiltersStrings({setFilterString, guitars, isError, filte
             name={`${number}-strings`}
             disabled={!allExistingStrings.includes(number) || isError}
             checked={checkedState[index]}
-            onChange={() => handleChange(index)}
+            onChange={() => {
+              setPageNumber(1);
+              handleChange(index);
+            }}
             tabIndex={0}
           />
           <label htmlFor={`${number}-strings`}>{number}</label>

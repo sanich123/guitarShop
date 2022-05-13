@@ -12,9 +12,10 @@ interface FiltersSortProps {
   guitarsList: Guitar[],
   isError: boolean,
   pageNumber: number,
+  setPageNumber: (arg: number) => void,
 }
 
-export function FiltersSort({guitarsList, isError, pageNumber}: FiltersSortProps) {
+export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: FiltersSortProps) {
   const navigate = useNavigate();
   const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, sortDirection, finalRequest, filterString, filterType, filterMinPrice, filterMaxPrice } = useQueries();
 
@@ -29,18 +30,21 @@ export function FiltersSort({guitarsList, isError, pageNumber}: FiltersSortProps
         <PriceFilters
           filterMaxPrice={filterMaxPrice}
           filterMinPrice={filterMinPrice}
+          setPageNumber={setPageNumber}
           isError={isError}
           guitars={guitarsList}
           setFilterMinPrice={setFilterMinPrice}
           setFilterMaxPrice={setFilterMaxPrice}
         />
         <TypeFilters
+          setPageNumber={setPageNumber}
           filterType={filterType}
           setFilterType={setFilterType}
           guitars={guitarsList}
           isError={isError}
         />
         <StringFilters
+          setPageNumber={setPageNumber}
           filterString={filterString}
           setFilterString={setFilterString}
           guitars={guitarsList}
@@ -50,7 +54,7 @@ export function FiltersSort({guitarsList, isError, pageNumber}: FiltersSortProps
       <div className="catalog-sort">
         <h2
           className="catalog-sort__title"
-          style={{color: `${guitarsList.length === 1 ? 'white' : 'black'}`}}
+          style={{ color: `${guitarsList.length === 1 ? 'white' : 'black'}` }}
         >
           Сортировать:
         </h2>

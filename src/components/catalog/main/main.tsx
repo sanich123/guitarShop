@@ -24,7 +24,7 @@ export function Main() {
   return (
     <div className="catalog">
       {filtredWrongGuitars && (
-        <FiltersSort pageNumber={pageNumber} guitarsList={filtredWrongGuitars} isError={isError} />
+        <FiltersSort setPageNumber={setPageNumber} pageNumber={pageNumber} guitarsList={filtredWrongGuitars} isError={isError} />
       )}
       <div className="cards catalog__cards">
         {showActionModal && (

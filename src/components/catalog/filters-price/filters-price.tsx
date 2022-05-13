@@ -7,9 +7,10 @@ interface PriceFiltersProps {
   isError: boolean,
   filterMinPrice: string,
   filterMaxPrice: string,
+  setPageNumber: (arg: number) => void
 }
 
-export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guitars, isError, filterMinPrice, filterMaxPrice}: PriceFiltersProps) {
+export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guitars, isError, filterMinPrice, filterMaxPrice, setPageNumber}: PriceFiltersProps) {
   const sortPrices = guitars?.map(({price}: {price: number}) => price);
   const minPrice = Math.min(...sortPrices).toLocaleString('ru-Ru');
   const maxPrice = Math.max(...sortPrices).toLocaleString('ru-Ru');
@@ -26,7 +27,10 @@ export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guit
             id="priceMin"
             name="от"
             value={filterMinPrice.slice(10)}
-            onChange={({ target }) => setFilterMinPrice(target.value ? `price_gte=${target.value}` : '')}
+            onChange={({ target }) => {
+              setPageNumber(1);
+              setFilterMinPrice(target.value ? `price_gte=${target.value}` : '');
+            }}
             disabled={isError}
           />
         </div>
@@ -37,7 +41,10 @@ export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guit
             placeholder={maxPrice ?? '0'}
             id="priceMax"
             name="до"
-            onChange={({ target }) => setFilterMaxPrice(target.value ? `price_lte=${target.value}` : '')}
+            onChange={({ target }) => {
+              setPageNumber(1);
+              setFilterMaxPrice(target.value ? `price_lte=${target.value}` : '');
+            }}
             value={filterMaxPrice.slice(10)}
             disabled={isError}
           />

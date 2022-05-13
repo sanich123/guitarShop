@@ -8,9 +8,10 @@ interface TypeFiltersProps {
   guitars: Guitar[],
   isError: boolean,
   filterType: string,
+  setPageNumber: (arg: number) => void
 }
 
-export default function FiltersType({setFilterType, guitars, isError, filterType}: TypeFiltersProps) {
+export default function FiltersType({setFilterType, setPageNumber, guitars, isError, filterType}: TypeFiltersProps) {
   const stateFromUrl = Object.values(guitarTypesEn).map((type) => type === filterType.slice(5));
   const [checkedState, setCheckedState] = useState(stateFromUrl);
 
@@ -37,7 +38,10 @@ export default function FiltersType({setFilterType, guitars, isError, filterType
             id={type}
             name={type}
             checked={checkedState[index]}
-            onChange={() => handleChange(index)}
+            onChange={() => {
+              setPageNumber(1);
+              handleChange(index);
+            }}
             disabled={!existingTypes.includes(type) || isError}
             tabIndex={0}
           />
