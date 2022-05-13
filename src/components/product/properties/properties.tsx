@@ -1,6 +1,5 @@
-import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { tabs } from '../../../utils/const';
+import { rusEngTabs, tabs } from '../../../utils/const';
 import { typeChanger } from '../../../utils/utils';
 
 interface PropertiesProps {
@@ -15,35 +14,23 @@ export default function Properties({vendorCode, stringCount, description, type, 
   const { search } = useLocation();
   const navigate = useNavigate();
   const params = new URLSearchParams(search);
-  const tab = params.get('description');
-
-  const [activeTab, setActiveTab] = useState(tab);
-  console.log(activeTab);
-  const isChar = activeTab === tabs.char ? 'button--black-border' : '';
-  const isDesc = activeTab === tabs.desc ? 'button--black-border' : '';
+  const activeTab = params.get(tabs.desc);
 
   return (
     <div className="tabs">
-      <a
-        className={`button ${isDesc} button--medium tabs__button`}
-        href="#description"
-        onClick={() => {
-          navigate(`/guitar/${id}?description=${tabs.char}`);
-          setActiveTab(tabs.char);
-        }}
-      >
-        Характеристики
-      </a>
-      <a
-        className={`button ${isChar} button--medium tabs__button`}
-        href="#description"
-        onClick={() => {
-          navigate(`/guitar/${id}?description=${tabs.desc}`);
-          setActiveTab(tabs.desc);
-        }}
-      >
-        Описание
-      </a>
+      {Object
+        .entries(rusEngTabs)
+        .map(([eng, rus]) => (
+          <a
+            key={eng}
+            className={`button ${activeTab !== eng ? 'button--black-border' : ''} button--medium tabs__button`}
+            href="#description"
+            onClick={() => navigate(`/guitar/${id}?${tabs.desc}=${eng}`)}
+          >
+            {rus}
+          </a>
+        ))}
+
       <div className="tabs__content" id="characteristics">
         {activeTab === tabs.char && (
           <table className="tabs__table">
