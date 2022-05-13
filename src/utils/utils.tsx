@@ -85,4 +85,7 @@ export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
 
 export const normalizeImg = (img: string) => `../${img}`;
 
-
+export const wrongGuitarsFilter = (guitar: Guitar) =>
+  guitar.name && guitar.previewImg && guitar.id && guitar.price && guitar.rating
+    ? guitar
+    : '';

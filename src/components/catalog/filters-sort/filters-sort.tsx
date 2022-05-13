@@ -11,15 +11,16 @@ import SortType from '../sort-type/sort-type';
 interface FiltersSortProps {
   guitarsList: Guitar[],
   isError: boolean,
+  pageNumber: number,
 }
 
-export function FiltersSort({guitarsList, isError}: FiltersSortProps) {
+export function FiltersSort({guitarsList, isError, pageNumber}: FiltersSortProps) {
   const navigate = useNavigate();
   const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, sortDirection, finalRequest, filterString, filterType, filterMinPrice, filterMaxPrice } = useQueries();
 
   useEffect(() => {
-    navigate(`/catalog/:?${finalRequest}`);
-  }, [finalRequest, navigate]);
+    navigate(`/catalog/:?page_${pageNumber}&${finalRequest}`);
+  }, [finalRequest, navigate, pageNumber]);
 
   return (
     <>
