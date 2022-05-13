@@ -41,7 +41,7 @@ export default function Card({previewImg, name, rating, price, id, setActionModa
         </p>
       </div>
       <div className="product-card__buttons">
-        <Link className="button button--mini" to={`/guitar/${id}`}>
+        <Link className="button button--mini" to={`/guitar/${id}?description=characteristics`}>
           Подробнее
         </Link>
         {inCart.includes(id) ? (

@@ -50,6 +50,7 @@ export default function Product() {
                   <span className="rate__message" />
                 </div>
                 <Properties
+                  id={id}
                   vendorCode={vendorCode}
                   stringCount={stringCount}
                   type={type}
