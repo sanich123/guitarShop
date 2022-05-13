@@ -2,9 +2,9 @@ import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import {appRoutes} from '../../../utils/const';
 
-function Breadcrumbs({place}: {place?: string}) {
+function Breadcrumbs({place, name}: {place?: string, name?: string}) {
   const properRoute = place === appRoutes.product ? appRoutes.product : appRoutes.cart;
-  const properName = place === appRoutes.product ? 'Товар' : 'Корзина';
+  const properName = place === appRoutes.product ? name : 'Корзина';
   const cartModificator = place === appRoutes.cart ? 'page-content__breadcrumbs--on-cart-page' : '';
 
   return (

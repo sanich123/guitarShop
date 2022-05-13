@@ -25,8 +25,8 @@ export default function Product() {
         <Header />
         <main className="page-content">
           <div className="container">
-            <h1 className="page-content__title title title--bigger">Товар</h1>
-            <Breadcrumbs place={appRoutes.product} />
+            <h1 className="page-content__title title title--bigger">{name}</h1>
+            <Breadcrumbs place={appRoutes.product} name={name} />
             <div className="product-container">
               <img
                 className="product-container__img"
