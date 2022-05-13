@@ -24,8 +24,12 @@ export function Main() {
   return (
     <div className="catalog">
       {filtredWrongGuitars && (
-        <FiltersSort setPageNumber={setPageNumber} pageNumber={pageNumber} guitarsList={filtredWrongGuitars} isError={isError} />
-      )}
+        <FiltersSort
+          setPageNumber={setPageNumber}
+          pageNumber={pageNumber}
+          guitarsList={filtredWrongGuitars}
+          isError={isError}
+        />)}
       <div className="cards catalog__cards">
         {showActionModal && (
           <ModalAction
@@ -33,8 +37,7 @@ export function Main() {
             setIsAdded={setIsAdded}
             guitars={guitarsList}
             id={+guitarId}
-          />
-        )}
+          />)}
         {isLoading && <Loader />}
         {isError && <h2>Не удалось загрузить данные с сервера</h2>}
         {filtredWrongGuitars?.length > 0 && (
@@ -49,14 +52,9 @@ export function Main() {
                   setActionModal={setActionModal}
                 />
               ))}
-          </>
-        )}
-        {guitars?.length === 0 && (
-          <h2>Условиям фильтрации не соответствует не один товар</h2>
-        )}
-        {isAdded && (
-          <ModalSuccess place={places.main} setIsAdded={setIsAdded} />
-        )}
+          </>)}
+        {guitars?.length === 0 && <h2>Условиям фильтрации не соответствует не один товар</h2>}
+        {isAdded && <ModalSuccess place={places.main} setIsAdded={setIsAdded} />}
       </div>
       {filtredWrongGuitars?.length > cardsOnPage && (
         <MainPagination
@@ -64,8 +62,7 @@ export function Main() {
           pageNumber={pageNumber}
           cardsOnPage={cardsOnPage}
           count={filtredWrongGuitars.length}
-        />
-      )}
+        />)}
     </div>
   );
 }

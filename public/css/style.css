@@ -2299,6 +2299,12 @@ button,
   color: #545454;
 }
 
+.form-search__reset {
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
 .logo {
   display: flex;
   align-items: start;
