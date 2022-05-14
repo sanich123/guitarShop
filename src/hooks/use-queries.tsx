@@ -43,7 +43,5 @@ export default function useQueries() {
     sortDirection,
     filterString,
     filterType,
-    filterMinPrice,
-    filterMaxPrice,
   };
 }

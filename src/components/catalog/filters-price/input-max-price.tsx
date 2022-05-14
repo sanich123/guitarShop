@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { Guitar } from '../../../types/types';
 import { priceWarnings, searchParams } from '../../../utils/const';
-import { getDefaultMaxValue } from '../../../utils/utils';
+import { getDefaultMaxValue, getDefaultMinValue } from '../../../utils/utils';
 
 interface InputMaxPriceProps {
   setFilterMaxPrice: (arg: string) => void;
@@ -19,6 +19,7 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars,
   const filterMaxPrice = params.get(searchParams.maxPrice);
   const { data: defaultGuitars } = useGetGuitarsQuery('');
   const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
+  const smallestPrice = defaultGuitars ? getDefaultMinValue(defaultGuitars) : 0;
 
   const filtredPrices = guitars?.map(({ price }: Guitar) => price);
   const maxPrice = Math.max(...filtredPrices);
@@ -27,13 +28,9 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars,
     setPageNumber(1);
     if (target.value[0] === '0' || target.value.slice(0, 2) === '-0') {
       toast.warn(priceWarnings.zeroNum);
-      setFilterMaxPrice('');
-    } else {
-      setFilterMaxPrice(
-        target.value
-          ? `${searchParams.maxPrice}=${Math.abs(+target.value)}`
-          : '',
-      );
+    }
+    else {
+      setFilterMaxPrice(target.value ? `${searchParams.maxPrice}=${Math.abs(+target.value)}` : '');
     }
   };
 
@@ -43,6 +40,9 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars,
     if (Number(target.value) > biggestPrice) {
       toast.warn(priceWarnings.biggerThanMax);
       setFilterMaxPrice(`${searchParams.maxPrice}=${biggestPrice}`);
+    }
+    if (Number(target.value) < smallestPrice) {
+      setFilterMaxPrice(`${searchParams.maxPrice}=${smallestPrice}`);
     }
   };
 

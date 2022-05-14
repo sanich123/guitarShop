@@ -1,11 +1,5 @@
-// import React from 'react';
-// import { useLocation } from 'react-router-dom';
-// import { toast } from 'react-toastify';
-// import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { Guitar } from '../../../types/types';
 import InputMaxPrice from './input-max-price';
-// import { priceWarnings, searchParams } from '../../../utils/const';
-// import { getDefaultMinValue } from '../../../utils/utils';
 import InputMinPrice from './input-min-price';
 
 interface PriceFiltersProps {

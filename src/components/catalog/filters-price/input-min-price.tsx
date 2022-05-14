@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { Guitar } from '../../../types/types';
 import { priceWarnings, searchParams } from '../../../utils/const';
-import { getDefaultMinValue } from '../../../utils/utils';
+import { getDefaultMaxValue, getDefaultMinValue } from '../../../utils/utils';
 
 interface InputMinPriceProps {
   setFilterMinPrice: (arg: string) => void;
@@ -16,35 +17,50 @@ export default function InputMinPrice({setFilterMinPrice, guitars,isError, setPa
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMinPrice = params.get(searchParams.minPrice);
+  const [priceValue, setPrice] = useState(filterMinPrice ? filterMinPrice : '');
+
   const { data: defaultGuitars } = useGetGuitarsQuery('');
   const smallestPrice = defaultGuitars ? getDefaultMinValue(defaultGuitars) : 0;
-
+  const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
   const filtredPrices = guitars?.map(({ price }: Guitar) => price);
   const minPrice = Math.min(...filtredPrices);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
+    const price = Math.abs(Number(target.value));
+    setPrice(target.value);
     if (target.value[0] === '0' || target.value.slice(0, 2) === '-0') {
       toast.warn(priceWarnings.zeroNum);
-      setFilterMinPrice('');
+      setPrice('');
+      return;
+    }
+    if (price > smallestPrice && price < biggestPrice) {
+      setFilterMinPrice(`${searchParams.minPrice}=${Math.abs(Number(target.value))}`);
+      setPrice(`${price}`);
     } else {
-      setFilterMinPrice(target.value ? `${searchParams.minPrice}=${Math.abs(+target.value)}` : '');
+      toast.warn(priceWarnings.smallerAndBigger);
     }
   };
 
   const handleBlur = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
-    if (!target.value) {return;}
-    if (Number(target.value) < smallestPrice) {
+    const price = Math.abs(Number(target.value));
+    if (!price) {return;}
+    if (price < smallestPrice) {
       toast.warn(priceWarnings.smallerThanMin);
+      setPrice(`${smallestPrice}`);
       setFilterMinPrice(`${searchParams.minPrice}=${smallestPrice}`);
+    }
+    if (price > biggestPrice) {
+      toast.warn(priceWarnings.biggerThanMax);
+      setPrice(`${biggestPrice}`);
+      setFilterMinPrice(`${searchParams.minPrice}=${biggestPrice}`);
     }
   };
 
   const handleKeyDown = ({ code }: React.KeyboardEvent<HTMLInputElement>) => {
     if (code === 'KeyE') {
       toast.warn(priceWarnings.typeCharE);
-      setFilterMinPrice('');
     }
   };
 
@@ -56,7 +72,7 @@ export default function InputMinPrice({setFilterMinPrice, guitars,isError, setPa
         placeholder={minPrice.toLocaleString('ru-Ru')}
         id="priceMin"
         name="от"
-        value={filterMinPrice ? filterMinPrice : ''}
+        value={priceValue}
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}

@@ -90,23 +90,6 @@ export const wrongGuitarsFilter = (guitar: Guitar) =>
     ? guitar
     : '';
 
-export const priceValueChecker = (price: string) => {
-  console.log(price[0]);
-  if (price[0] === '-') {
-    toast.warn('Низя ввадить атрицательные числа. Ты ведь не будешь атрицать эта?');
-    return '';
-  }
-  if (price[0] === 'e') {
-    toast.warn('И так тоже низя');
-    return '';
-  }
-  if (price[0] === '0') {
-    toast.warn('Лишние нули в начале ни к чему, малыш');
-    return '';
-  }
-  return price;
-};
-
 export const getDefaultMinValue = (guitars: Guitar[]) => Math.min(...guitars.map(({price}) => price).filter(Boolean));
 
 export const getDefaultMaxValue = (guitars: Guitar[]) =>

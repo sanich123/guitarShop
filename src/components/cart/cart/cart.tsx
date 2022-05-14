@@ -47,8 +47,7 @@ export default function Cart() {
                       setActionModal={setActionModal}
                       setDeleteId={setGuitarId}
                       inCart={inCart}
-                    />
-                  ))}
+                    />))}
                 <div className="cart__footer">
                   <Promocode />
                   <TotalInfo inCart={inCart} />
