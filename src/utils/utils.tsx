@@ -41,6 +41,7 @@ export const stringChangerBack = (direction: string) => direction === 'up' ? 'as
 
 export const priceChecker = (guitarsFromServer: Guitar[], amountFromCart: State['cart']) => {
   if (!guitarsFromServer || !amountFromCart) { return 0;}
+  console.log(guitarsFromServer, amountFromCart);
 
   const sortedArr1 = guitarsFromServer?.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
   const sortedArr2 = amountFromCart?.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
