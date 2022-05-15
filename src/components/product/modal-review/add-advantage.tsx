@@ -8,8 +8,11 @@ function AddAdvantage({setAdvantage}: AddAdvantageProps) {
 
   return (
     <>
-      <label className="form-review__label" htmlFor="user-name">
-                Достоинства
+      <label
+        className="form-review__label form-review__label--required"
+        htmlFor="user-name"
+      >
+        Достоинства
       </label>
       <input
         className="form-review__input"
@@ -18,6 +21,9 @@ function AddAdvantage({setAdvantage}: AddAdvantageProps) {
         autoComplete="off"
         onChange={({ target }) => setAdvantage(target.value)}
       />
+      <p className="form-review__warning" style={{ marginTop: -10 }}>
+        Заполните поле
+      </p>
     </>
   );
 }

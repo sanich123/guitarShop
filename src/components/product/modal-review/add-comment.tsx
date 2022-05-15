@@ -8,7 +8,10 @@ function AddComment({setComment}: AddCommentProps) {
 
   return (
     <>
-      <label className="form-review__label" htmlFor="user-name">
+      <label
+        className="form-review__label form-review__label--required"
+        htmlFor="user-name"
+      >
         Комментарий
       </label>
       <textarea
@@ -18,6 +21,9 @@ function AddComment({setComment}: AddCommentProps) {
         autoComplete="off"
         onChange={({ target }) => setComment(target.value)}
       />
+      <p className="form-review__warning" style={{ marginTop: -10 }}>
+        Заполните поле
+      </p>
     </>
   );
 }
