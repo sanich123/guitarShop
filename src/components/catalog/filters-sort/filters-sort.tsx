@@ -46,6 +46,14 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
           guitars={guitarsList}
           isError={isError}
         />
+        <button
+          className="catalog-filter__reset-btn button button--black-border button--medium"
+          type="reset"
+          tabIndex={0}
+          onClick={() => { navigate(`/catalog/:?page_${pageNumber}&_sort=price&_order=asc`);}}
+        >
+          Очистить
+        </button>
       </form>
       <div className="catalog-sort">
         <h2

@@ -15,11 +15,10 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const typesFromUrl = params.get(searchParams.type);
-
   const stateFromUrl = Object.values(guitarTypesEn).map((type) => type === typesFromUrl);
   const [checkedState, setCheckedState] = useState(stateFromUrl);
 
-  const existingTypes = [...new Set(guitars?.map(({type}: {type: string}) => type))];
+  const existingTypes = [...new Set(guitars?.map(({type}: Guitar) => type))];
 
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);

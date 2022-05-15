@@ -12,11 +12,12 @@ export interface CardProps {
   rating: number,
   price: number,
   id: number,
+  type: string,
   setActionModal: (arg: boolean) => void,
   setGuitarId: (arg: string) => void
 }
 
-export default function Card({previewImg, name, rating, price, id, setActionModal, setGuitarId}: CardProps) {
+export default function Card({previewImg, type, name, rating, price, id, setActionModal, setGuitarId}: CardProps) {
   const inCart = useSelector(({cart}: State) => cart).map((guitar) => guitar.id);
   const { data: reviews, error } = useGetCommentsQuery(id);
 
@@ -34,7 +35,7 @@ export default function Card({previewImg, name, rating, price, id, setActionModa
           )}
           <span className="rate__message" />
         </div>
-        <p className="product-card__title">{name}</p>
+        <p className="product-card__title">{name} {type}</p>
         <p className="product-card__price">
           <span className="visually-hidden">Цена:</span>
           {price}
