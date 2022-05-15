@@ -5,7 +5,6 @@ import { searchParams } from '../utils/const';
 export default function useQueries() {
   const {search} = useLocation();
   const params = new URLSearchParams(search);
-
   const strings = params.get(searchParams.stringCount);
   const types = params.get(searchParams.type);
   const minPrice = params.get(searchParams.minPrice);
@@ -41,7 +40,5 @@ export default function useQueries() {
     setDirection,
     sortPopular,
     sortDirection,
-    filterString,
-    filterType,
   };
 }

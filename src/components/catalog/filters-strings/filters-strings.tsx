@@ -1,25 +1,28 @@
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Guitar } from '../../../types/types';
-import { stringsTypes } from '../../../utils/const';
+import { searchParams, stringsTypes } from '../../../utils/const';
 
 interface StringFiltersProps {
   setFilterString: (arg: string) => void;
   setPageNumber: (arg: number) => void,
   guitars: Guitar[];
   isError: boolean;
-  filterString: string;
 }
 
-export default function FiltersStrings({setFilterString, setPageNumber, guitars, isError, filterString}: StringFiltersProps) {
-  const stateFromUrl = stringsTypes.map((stringNumber) => stringNumber.toString() === filterString.slice(12));
+export default function FiltersStrings({setFilterString, setPageNumber, guitars, isError}: StringFiltersProps) {
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const stringsFromUrl = params.get(searchParams.stringCount);
+  const stateFromUrl = stringsTypes.map((stringNumber) => `${stringNumber}` === stringsFromUrl);
   const [checkedState, setCheckedState] = useState(stateFromUrl);
-  const allExistingStrings = [...new Set(guitars?.map(({stringCount}: Guitar) => stringCount))];
+  const allExistingStrings = [...new Set(guitars?.map(({stringCount}) => stringCount))];
 
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
     setCheckedState(updatedCheckedState);
-    const currentResult = updatedCheckedState.map((string, index) => string === true && stringsTypes[index]).filter(Boolean).toString();
-    currentResult ? setFilterString(`stringCount=${currentResult}`) : setFilterString('');
+    const currentResult = updatedCheckedState.map((isChecked, index) => isChecked === true && stringsTypes[index]).filter(Boolean).toString();
+    currentResult ? setFilterString(`${searchParams.stringCount}=${currentResult}`) : setFilterString('');
   };
 
   return (
@@ -48,6 +51,5 @@ export default function FiltersStrings({setFilterString, setPageNumber, guitars,
           <label htmlFor={`${number}-strings`}>{number}</label>
         </div>
       ))}
-    </fieldset>
-  );
+    </fieldset>);
 }

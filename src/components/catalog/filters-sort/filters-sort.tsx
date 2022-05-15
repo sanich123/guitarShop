@@ -17,7 +17,7 @@ interface FiltersSortProps {
 
 export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: FiltersSortProps) {
   const navigate = useNavigate();
-  const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, sortDirection, finalRequest, filterString, filterType } = useQueries();
+  const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, sortDirection, finalRequest} = useQueries();
 
   useEffect(() => {
     navigate(`/catalog/:?page_${pageNumber}&${finalRequest}`);
@@ -36,14 +36,12 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
         />
         <TypeFilters
           setPageNumber={setPageNumber}
-          filterType={filterType}
           setFilterType={setFilterType}
           guitars={guitarsList}
           isError={isError}
         />
         <StringFilters
           setPageNumber={setPageNumber}
-          filterString={filterString}
           setFilterString={setFilterString}
           guitars={guitarsList}
           isError={isError}
