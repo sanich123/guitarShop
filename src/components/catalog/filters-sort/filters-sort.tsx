@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useQueries from '../../../hooks/use-queries';
 import { Guitar } from '../../../types/types';
@@ -18,9 +18,10 @@ interface FiltersSortProps {
 export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: FiltersSortProps) {
   const navigate = useNavigate();
   const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, sortDirection, finalRequest} = useQueries();
+  const [needToReset, setNeedToReset] = useState(false);
 
   useEffect(() => {
-    navigate(`/catalog/:?page_${pageNumber}&${finalRequest}`);
+    navigate(`/catalog:?page_${pageNumber}&${finalRequest}`);
   }, [finalRequest, navigate, pageNumber]);
 
   return (
@@ -33,12 +34,14 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
           guitars={guitarsList}
           setFilterMinPrice={setFilterMinPrice}
           setFilterMaxPrice={setFilterMaxPrice}
+          needToReset={needToReset}
         />
         <TypeFilters
           setPageNumber={setPageNumber}
           setFilterType={setFilterType}
           guitars={guitarsList}
           isError={isError}
+          needToReset={needToReset}
         />
         <StringFilters
           setPageNumber={setPageNumber}
@@ -50,7 +53,10 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
           className="catalog-filter__reset-btn button button--black-border button--medium"
           type="reset"
           tabIndex={0}
-          onClick={() => { navigate(`/catalog/:?page_${pageNumber}&_sort=price&_order=asc`);}}
+          onClick={() => {
+            setNeedToReset(true);
+            navigate(`/catalog:?page_${pageNumber}&_sort=price&_order=asc`);
+          }}
         >
           Очистить
         </button>

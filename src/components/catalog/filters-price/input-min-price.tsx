@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
@@ -11,9 +11,10 @@ interface InputMinPriceProps {
   guitars: Guitar[];
   isError: boolean;
   setPageNumber: (arg: number) => void;
+  needToReset: boolean,
 }
 
-export default function InputMinPrice({setFilterMinPrice, guitars,isError, setPageNumber}: InputMinPriceProps) {
+export default function InputMinPrice({setFilterMinPrice, guitars,isError, setPageNumber, needToReset}: InputMinPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMinPrice = params.get(searchParams.minPrice);
@@ -24,6 +25,12 @@ export default function InputMinPrice({setFilterMinPrice, guitars,isError, setPa
   const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
   const filtredPrices = guitars?.map(({ price }: Guitar) => price);
   const minPrice = Math.min(...filtredPrices);
+
+  useEffect(() => {
+    if (needToReset) {
+      setPrice('');
+    }
+  }, [needToReset]);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);

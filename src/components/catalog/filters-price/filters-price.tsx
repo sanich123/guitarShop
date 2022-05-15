@@ -7,10 +7,11 @@ interface PriceFiltersProps {
   setFilterMaxPrice: (arg: string) => void,
   guitars: Guitar[],
   isError: boolean,
-  setPageNumber: (arg: number) => void
+  setPageNumber: (arg: number) => void,
+  needToReset: boolean,
 }
 
-export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guitars, isError, setPageNumber}: PriceFiltersProps) {
+export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guitars, isError, setPageNumber, needToReset}: PriceFiltersProps) {
 
   return (
     <fieldset className="catalog-filter__block">
@@ -18,6 +19,7 @@ export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guit
       <div className="catalog-filter__price-range">
         <div className="form-input">
           <InputMinPrice
+            needToReset={needToReset}
             setFilterMinPrice={setFilterMinPrice}
             isError={isError}
             guitars={guitars}
@@ -26,6 +28,7 @@ export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guit
         </div>
         <div className="form-input">
           <InputMaxPrice
+            needToReset={needToReset}
             setFilterMaxPrice={setFilterMaxPrice}
             isError={isError}
             guitars={guitars}

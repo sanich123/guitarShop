@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
@@ -11,20 +11,26 @@ interface InputMaxPriceProps {
   guitars: Guitar[];
   isError: boolean;
   setPageNumber: (arg: number) => void;
+  needToReset: boolean;
 }
 
-export default function InputMaxPrice({setFilterMaxPrice, guitars,
-  isError, setPageNumber}: InputMaxPriceProps) {
+export default function InputMaxPrice({setFilterMaxPrice, guitars, isError, setPageNumber, needToReset}: InputMaxPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMaxPrice = params.get(searchParams.maxPrice);
-  const [priceValue, setPrice] = useState(filterMaxPrice ?filterMaxPrice : '');
+  const [priceValue, setPrice] = useState(filterMaxPrice ? filterMaxPrice : '');
   const { data: defaultGuitars } = useGetGuitarsQuery('');
   const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
   const smallestPrice = defaultGuitars ? getDefaultMinValue(defaultGuitars) : 0;
 
   const filtredPrices = guitars?.map(({ price }: Guitar) => price);
   const maxPrice = Math.max(...filtredPrices);
+
+  useEffect(() => {
+    if (needToReset) {
+      setPrice('');
+    }
+  }, [needToReset]);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
@@ -38,8 +44,7 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars,
     }
     if (price > smallestPrice && price < biggestPrice) {
       setFilterMaxPrice(`${searchParams.maxPrice}=${Math.abs(+value)}`);
-    }
-    else {
+    } else {
       toast.warn(priceWarnings.smallerAndBigger);
     }
   };
@@ -47,7 +52,9 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars,
   const handleBlur = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
     const price = Math.abs(Number(target.value));
-    if (!price) {return;}
+    if (!price) {
+      return;
+    }
 
     if (price > biggestPrice) {
       toast.warn(priceWarnings.biggerThanMax);

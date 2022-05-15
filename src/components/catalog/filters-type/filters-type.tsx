@@ -5,19 +5,22 @@ import { guitarTypesEn, searchParams } from '../../../utils/const';
 import { typeChanger } from '../../../utils/utils';
 
 interface TypeFiltersProps {
-  setFilterType: (arg: string) => void,
-  guitars: Guitar[],
-  isError: boolean,
-  setPageNumber: (arg: number) => void
+  setFilterType: (arg: string) => void;
+  guitars: Guitar[];
+  isError: boolean;
+  setPageNumber: (arg: number) => void;
+  needToReset: boolean;
 }
 
-export default function FiltersType({setFilterType, setPageNumber, guitars, isError}: TypeFiltersProps) {
+export default function FiltersType({setFilterType, setPageNumber, guitars, isError, needToReset}: TypeFiltersProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const typesFromUrl = params.get(searchParams.type);
   const stateFromUrl = Object.values(guitarTypesEn).map((type) => type === typesFromUrl);
   const [checkedState, setCheckedState] = useState(stateFromUrl);
 
+  const [numToUpdate, setNumToUpdate] = useState(0);
+  console.log(checkedState, numToUpdate);
   const existingTypes = [...new Set(guitars?.map(({type}: Guitar) => type))];
 
   const handleChange = (number: number) => {
@@ -40,6 +43,7 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
             checked={checkedState[index]}
             onChange={() => {
               setPageNumber(1);
+              setNumToUpdate(index);
               handleChange(index);
             }}
             disabled={!existingTypes.includes(type) || isError}
