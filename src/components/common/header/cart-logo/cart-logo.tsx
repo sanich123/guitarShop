@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { State } from '../../../../types/types';
 import { appRoutes } from '../../../../utils/const';
 
 export default function CartLogo() {
-  const inCart = [...new Set(useSelector(({ cart }: { cart: number[] }) => cart))];
+  const inCart = useSelector(({ cart }: State) => cart);
 
   return (
     <Link

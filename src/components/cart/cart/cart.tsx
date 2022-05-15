@@ -11,7 +11,7 @@ import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
 export default function Cart() {
   const { showActionModal, setActionModal, setGuitarId, guitarId} = useModal();
   const inCart = useSelector(({cart}: State) => cart);
-  const forRequest = [...new Set(inCart.map(({id}) => id))];
+  const forRequest = inCart.map(({id}) => id);
   const request = forRequest?.map((number) => `id=${number}`).join('&');
   const {data: guitarsInCart, isLoading, error} = useGetGuitarsQuery(`?${request}`);
 

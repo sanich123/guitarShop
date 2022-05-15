@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux';
+import { State } from '../../../types/types';
 import CartLogo from './cart-logo/cart-logo';
 import FormSearch from './form-search/form-search';
 import Logo from './logo/logo';
 import NavList from './nav-list/nav-list';
 
 export function Header() {
-  const inCart = [...new Set(useSelector(({cart}: {cart: number[]}) => cart))];
+  const inCart = useSelector(({cart}: State) => cart);
 
   return (
     <header className="header" id="header">

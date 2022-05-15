@@ -9,15 +9,14 @@ import { warnings } from '../../../utils/const';
 
 export function TotalInfo({inCart}: {inCart: State['cart']}) {
   const discountValue = useSelector(({discount}: State) => discount.discount);
+  const forRequest = inCart.map(({ id }) => id);
 
-  const forRequest = [...new Set(inCart.map(({ id }) => id))];
-  console.log(forRequest);
   const request = forRequest?.map((number) => `id=${number}`).join('&');
   const { data: guitars, isLoading, error } = useGetGuitarsQuery(`?${request}`);
   const [postOrder, {error: orderError, data: response}] = useAddOrderMutation();
   const syncGuitarsWithCart = guitars?.filter((guitar: Guitar) =>
     forRequest.includes(guitar.id));
-  console.log(syncGuitarsWithCart, inCart);
+
   const price = priceChecker(syncGuitarsWithCart, inCart);
   const discountPrice =  price * Number(`0.${discountValue}`);
   const totalPrice = price - discountPrice;
