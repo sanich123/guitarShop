@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
@@ -17,6 +18,7 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars,
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMaxPrice = params.get(searchParams.maxPrice);
+  const [priceValue, setPrice] = useState(filterMaxPrice ?filterMaxPrice : '');
   const { data: defaultGuitars } = useGetGuitarsQuery('');
   const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
   const smallestPrice = defaultGuitars ? getDefaultMinValue(defaultGuitars) : 0;
@@ -26,22 +28,35 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars,
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
-    if (target.value[0] === '0' || target.value.slice(0, 2) === '-0') {
+    const price = Math.abs(Number(target.value));
+    const value = target.value;
+    setPrice(value);
+    if (value[0] === '0' || value.slice(0, 2) === '-0') {
       toast.warn(priceWarnings.zeroNum);
+      setPrice('');
+      return;
+    }
+    if (price > smallestPrice && price < biggestPrice) {
+      setFilterMaxPrice(`${searchParams.maxPrice}=${Math.abs(+value)}`);
     }
     else {
-      setFilterMaxPrice(target.value ? `${searchParams.maxPrice}=${Math.abs(+target.value)}` : '');
+      toast.warn(priceWarnings.smallerAndBigger);
     }
   };
 
   const handleBlur = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
-    if (!target.value) {return;}
-    if (Number(target.value) > biggestPrice) {
+    const price = Math.abs(Number(target.value));
+    if (!price) {return;}
+
+    if (price > biggestPrice) {
       toast.warn(priceWarnings.biggerThanMax);
+      setPrice(`${biggestPrice}`);
       setFilterMaxPrice(`${searchParams.maxPrice}=${biggestPrice}`);
     }
-    if (Number(target.value) < smallestPrice) {
+    if (price < smallestPrice) {
+      toast.warn(priceWarnings.smallerThanMin);
+      setPrice(`${smallestPrice}`);
       setFilterMaxPrice(`${searchParams.maxPrice}=${smallestPrice}`);
     }
   };
@@ -61,7 +76,7 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars,
         placeholder={maxPrice.toLocaleString('ru-Ru')}
         id="priceMax"
         name="до"
-        value={filterMaxPrice ? filterMaxPrice : ''}
+        value={priceValue}
         onChange={handleChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
