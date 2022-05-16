@@ -11,10 +11,12 @@ interface InputMinPriceProps {
   guitars: Guitar[];
   isError: boolean;
   setPageNumber: (arg: number) => void;
-  needToReset: boolean,
+  needToReset: boolean;
+  setNeedToReset: (arg: boolean) => void;
 }
 
-export default function InputMinPrice({setFilterMinPrice, guitars,isError, setPageNumber, needToReset}: InputMinPriceProps) {
+export default function InputMinPrice({setFilterMinPrice, guitars,isError, setPageNumber, needToReset,
+  setNeedToReset}: InputMinPriceProps): JSX.Element {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMinPrice = params.get(searchParams.minPrice);
@@ -29,8 +31,10 @@ export default function InputMinPrice({setFilterMinPrice, guitars,isError, setPa
   useEffect(() => {
     if (needToReset) {
       setPrice('');
+      setFilterMinPrice('');
+      setNeedToReset(false);
     }
-  }, [needToReset]);
+  }, [needToReset, setNeedToReset, setFilterMinPrice]);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);

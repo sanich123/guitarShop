@@ -1,34 +1,42 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Guitar } from '../../../types/types';
 import { guitarTypesEn, searchParams } from '../../../utils/const';
 import { typeChanger } from '../../../utils/utils';
 
 interface TypeFiltersProps {
-  setFilterType: (arg: string) => void;
-  guitars: Guitar[];
-  isError: boolean;
-  setPageNumber: (arg: number) => void;
-  needToReset: boolean;
+  setFilterType: (arg: string) => void,
+  guitars: Guitar[],
+  isError: boolean,
+  setPageNumber: (arg: number) => void,
+  needToReset: boolean,
+  setNeedToReset: (arg: boolean) => void,
 }
 
-export default function FiltersType({setFilterType, setPageNumber, guitars, isError, needToReset}: TypeFiltersProps) {
+export default function FiltersType({setFilterType, setPageNumber, guitars, isError, needToReset, setNeedToReset}: TypeFiltersProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const typesFromUrl = params.get(searchParams.type);
   const stateFromUrl = Object.values(guitarTypesEn).map((type) => type === typesFromUrl);
   const [checkedState, setCheckedState] = useState(stateFromUrl);
 
-  const [numToUpdate, setNumToUpdate] = useState(0);
-  console.log(checkedState, numToUpdate);
-  const existingTypes = [...new Set(guitars?.map(({type}: Guitar) => type))];
+  useEffect(() => {
+    if (needToReset) {
+      setCheckedState([false, false, false]);
+      setFilterType('');
+      setNeedToReset(false);
+    }
+  },[needToReset, setFilterType, setNeedToReset]);
 
+  const existingTypes = [...new Set(guitars?.map(({type}: Guitar) => type))];
   const handleChange = (number: number) => {
-    const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
+    const updatedCheckedState = checkedState.map((item, index) =>
+      index === number ? !item : item);
     setCheckedState(updatedCheckedState);
     const currentStrings = updatedCheckedState.map((string, index) => string === true && Object.values(guitarTypesEn)[index]).filter(Boolean);
     setFilterType(currentStrings.length > 0 ? `${searchParams.type}=${currentStrings}` : '');
   };
+
 
   return (
     <fieldset className="catalog-filter__block">
@@ -43,7 +51,6 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
             checked={checkedState[index]}
             onChange={() => {
               setPageNumber(1);
-              setNumToUpdate(index);
               handleChange(index);
             }}
             disabled={!existingTypes.includes(type) || isError}

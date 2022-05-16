@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useQueries from '../../../hooks/use-queries';
 import { Guitar } from '../../../types/types';
+import { defaultParams, searchParams } from '../../../utils/const';
 import PriceFilters from '../filters-price/filters-price';
 import StringFilters from '../filters-strings/filters-strings';
 import TypeFilters from '../filters-type/filters-type';
@@ -21,7 +22,7 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
   const [needToReset, setNeedToReset] = useState(false);
 
   useEffect(() => {
-    navigate(`/catalog:?page_${pageNumber}&${finalRequest}`);
+    navigate(`/catalog:?${searchParams.page}${pageNumber}&${finalRequest}`);
   }, [finalRequest, navigate, pageNumber]);
 
   return (
@@ -29,14 +30,16 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
       <form className="catalog-filter">
         <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
         <PriceFilters
+          setNeedToReset={setNeedToReset}
+          needToReset={needToReset}
           setPageNumber={setPageNumber}
           isError={isError}
           guitars={guitarsList}
           setFilterMinPrice={setFilterMinPrice}
           setFilterMaxPrice={setFilterMaxPrice}
-          needToReset={needToReset}
         />
         <TypeFilters
+          setNeedToReset={setNeedToReset}
           setPageNumber={setPageNumber}
           setFilterType={setFilterType}
           guitars={guitarsList}
@@ -44,6 +47,8 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
           needToReset={needToReset}
         />
         <StringFilters
+          setNeedToReset={setNeedToReset}
+          needToReset={needToReset}
           setPageNumber={setPageNumber}
           setFilterString={setFilterString}
           guitars={guitarsList}
@@ -55,7 +60,7 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
           tabIndex={0}
           onClick={() => {
             setNeedToReset(true);
-            navigate(`/catalog:?page_${pageNumber}&_sort=price&_order=asc`);
+            navigate(`/catalog:?${defaultParams}`);
           }}
         >
           Очистить
@@ -80,9 +85,7 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
               direction={sortDirection}
               isError={isError}
             />
-          </>
-        )}
+          </>)}
       </div>
-    </>
-  );
+    </>);
 }

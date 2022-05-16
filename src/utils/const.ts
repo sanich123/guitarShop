@@ -89,13 +89,16 @@ export const searchParams = {
   direction: '_order',
   defaultSort: 'price',
   defaultDirection: 'asc',
+  page: 'page_',
 };
+
+export const defaultParams = `${searchParams.page}1&${searchParams.sort}=${searchParams.defaultSort}&${searchParams.direction}=${searchParams.defaultDirection}`;
 
 export const priceWarnings = {
   zeroNum: 'Не стоит даже пытаться начинать ваше число с нуля. -0 тоже не прокатит. Одумайся, проказник',
   smallerThanMin: 'Нельзя вводить числа, меньшие, чем минимальная цена. Мы вынуждены поменять значение поля на минимально возможное',
   biggerThanMax: 'Нельзя вводить числа, большие, чем максимальная цена. Мы вынуждены поменять значение поля на максимально возможное',
   typeCharE: 'Я даже не думал, что ты будешь настолько плох, и попытаешься ввести номер с буквы e. Сотри это быстро!',
-  smallerAndBigger: 'Ничего не фильтруется. Введенное значение должно быть больше минимального, или меньше максимального. О Боже, как это все сложно',
+  smallerAndBigger: 'Ничего не фильтруется. Введенное значение должно быть больше минимального, или меньше максимального.',
 };
 

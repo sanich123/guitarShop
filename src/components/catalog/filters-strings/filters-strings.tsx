@@ -1,22 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Guitar } from '../../../types/types';
 import { searchParams, stringsTypes } from '../../../utils/const';
 
 interface StringFiltersProps {
   setFilterString: (arg: string) => void;
-  setPageNumber: (arg: number) => void,
+  setPageNumber: (arg: number) => void;
   guitars: Guitar[];
   isError: boolean;
+  needToReset: boolean;
+  setNeedToReset: (arg: boolean) => void;
 }
 
-export default function FiltersStrings({setFilterString, setPageNumber, guitars, isError}: StringFiltersProps) {
+export default function FiltersStrings({setFilterString, setPageNumber, guitars, isError, needToReset, setNeedToReset}: StringFiltersProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const stringsFromUrl = params.get(searchParams.stringCount);
   const stateFromUrl = stringsTypes.map((stringNumber) => `${stringNumber}` === stringsFromUrl);
   const [checkedState, setCheckedState] = useState(stateFromUrl);
   const allExistingStrings = [...new Set(guitars?.map(({stringCount}) => stringCount))];
+
+  useEffect(() => {
+    if (needToReset) {
+      setCheckedState([false, false, false]);
+      setFilterString('');
+      setNeedToReset(false);
+    }
+  }, [needToReset, setFilterString, setNeedToReset]);
 
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);

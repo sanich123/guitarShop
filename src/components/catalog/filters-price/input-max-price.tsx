@@ -12,9 +12,17 @@ interface InputMaxPriceProps {
   isError: boolean;
   setPageNumber: (arg: number) => void;
   needToReset: boolean;
+  setNeedToReset: (arg: boolean) => void;
 }
 
-export default function InputMaxPrice({setFilterMaxPrice, guitars, isError, setPageNumber, needToReset}: InputMaxPriceProps) {
+export default function InputMaxPrice({
+  setFilterMaxPrice,
+  guitars,
+  isError,
+  setPageNumber,
+  needToReset,
+  setNeedToReset,
+}: InputMaxPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMaxPrice = params.get(searchParams.maxPrice);
@@ -29,8 +37,10 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars, isError, setP
   useEffect(() => {
     if (needToReset) {
       setPrice('');
+      setFilterMaxPrice('');
+      setNeedToReset(false);
     }
-  }, [needToReset]);
+  }, [needToReset, setNeedToReset, setFilterMaxPrice]);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
