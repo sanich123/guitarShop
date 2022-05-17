@@ -21,10 +21,8 @@ function Social() {
               <use xlinkHref={`#icon-${network}`} />
             </svg>
           </a>
-        </li>
-      ))}
-    </ul>
-  );
+        </li>))}
+    </ul>);
 }
 
 export default memo(Social);

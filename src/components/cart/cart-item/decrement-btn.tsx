@@ -8,17 +8,19 @@ export default function DecrementBtn({ id }: { id: number }) {
   const inCart = useSelector(({ cart }: State) => cart);
   const [{ quantity }] = inCart.filter((cart) => cart.id === id);
 
+  const handleClick = () => {
+    if (Number(quantity) > 1) {
+      const value = Number(quantity) - 1;
+      changeLocalStorageCart(value, id);
+      dispatch(amountQuantity({ id, value }));
+    }
+  };
+
   return (
     <button
       className="quantity__button"
       aria-label="Уменьшить количество"
-      onClick={() => {
-        if (Number(quantity) > 1) {
-          const value = Number(quantity) - 1;
-          changeLocalStorageCart(value, id);
-          dispatch(amountQuantity({ id, value }));
-        }
-      }}
+      onClick={handleClick}
     >
       <svg width="8" height="8" aria-hidden="true">
         <use xlinkHref="#icon-minus" />

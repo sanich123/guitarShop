@@ -1,6 +1,3 @@
-import './loader-styles.css';
-
-export function Loader():JSX.Element {
-
+export function Loader() {
   return <div className="loader">Loading...</div>;
 }

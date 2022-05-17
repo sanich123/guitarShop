@@ -16,7 +16,6 @@ export default function AddToCartBtn({price, id, setActionModal, setIsAdded}: Ad
     dispatch(addToCart({ id, price }));
     setActionModal(false);
     setIsAdded(true);
-
     if (!localStorage.cart) {
       localStorage.setItem('cart', JSON.stringify([{ id, quantity: 1, price }]));
     }

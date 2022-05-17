@@ -25,8 +25,7 @@ export default function Properties({vendorCode, stringCount, description, type, 
             onClick={() => navigate(`/guitar/${id}?${tabs.desc}=${eng}`)}
           >
             {rus}
-          </a>
-        ))}
+          </a>))}
 
       <div className="tabs__content" id="characteristics">
         {activeTab === tabs.char && (
@@ -45,14 +44,11 @@ export default function Properties({vendorCode, stringCount, description, type, 
                 <td className="tabs__value">{stringCount} струнная</td>
               </tr>
             </tbody>
-          </table>
-        )}
+          </table>)}
         {activeTab === tabs.desc && (
-          <p className="tabs__product-description">{description}</p>
-        )}
+          <p className="tabs__product-description">{description}</p>)}
       </div>
-    </div>
-  );
+    </div>);
 }
 
 

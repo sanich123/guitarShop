@@ -3,7 +3,7 @@ import { useModal } from '../../../hooks/use-modal';
 import { usePagination } from '../../../hooks/use-pagination';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { Guitar } from '../../../types/types';
-import { places } from '../../../utils/const';
+import { CARDS_ON_PAGE, places } from '../../../utils/const';
 import { errorHandler, getCorrectGuitars } from '../../../utils/utils';
 import { Loader } from '../../common/loader/loader';
 import { ModalAction } from '../../common/modal/modal-action/modal-action';
@@ -17,7 +17,7 @@ export function Main() {
   const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
   const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(search);
   const filtredWrongGuitars = guitarsList?.filter(getCorrectGuitars);
-  const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(filtredWrongGuitars);
+  const { guitars, setPageNumber, pageNumber } = usePagination(filtredWrongGuitars);
 
   error && errorHandler(error);
 
@@ -43,22 +43,25 @@ export function Main() {
         {filtredWrongGuitars?.length > 0 && (
           <>
             {guitars.map(({ id, ...rest }: Guitar) => (
-              <Card key={id} id={id} {...rest}
+              <Card
+                key={id}
+                id={id}
+                {...rest}
                 setGuitarId={setGuitarId}
                 setActionModal={setActionModal}
-              />
-            ))}
+              />))}
           </>)}
-        {guitars?.length === 0 && <h2>Условиям фильтрации не соответствует не один товар</h2>}
-        {isAdded && <ModalSuccess place={places.main} setIsAdded={setIsAdded} />}
+        {guitars?.length === 0 && (
+          <h2>Условиям фильтрации не соответствует не один товар</h2>)}
+        {isAdded && (
+          <ModalSuccess place={places.main} setIsAdded={setIsAdded} />)}
       </div>
-      {filtredWrongGuitars?.length > cardsOnPage && (
+      {filtredWrongGuitars?.length > CARDS_ON_PAGE && (
         <MainPagination
           setPageNumber={setPageNumber}
           pageNumber={pageNumber}
-          cardsOnPage={cardsOnPage}
+          cardsOnPage={CARDS_ON_PAGE}
           count={filtredWrongGuitars.length}
         />)}
-    </div>
-  );
+    </div>);
 }

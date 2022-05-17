@@ -22,8 +22,6 @@ export default function Rating({width, height, rating}: RatingProps) {
                 Math.floor(rating) >= number ? '-full' : ''
               }-star`}
             />
-          </svg>
-        ))}
-    </>
-  );
+          </svg>))}
+    </>);
 }

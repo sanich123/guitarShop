@@ -32,6 +32,5 @@ export default function SortDirection({direction, setDirection, isError, needToR
           disabled={isError}
         />
       ))}
-    </div>
-  );
+    </div>);
 }

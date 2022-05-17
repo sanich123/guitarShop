@@ -17,8 +17,7 @@ function NavList() {
           <a className="link main-nav__link" href="/">О компании</a>
         </li>
       </ul>
-    </nav>
-  );
+    </nav>);
 }
 
 export default memo(NavList);

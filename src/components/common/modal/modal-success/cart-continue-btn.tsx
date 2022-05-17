@@ -5,6 +5,7 @@ interface CartContinueBtnProps {
   place?: string,
   setIsAdded: (arg: boolean) => void
 }
+
 export default function CartContinueBtn({place, setIsAdded}: CartContinueBtnProps) {
   const navigate = useNavigate();
 

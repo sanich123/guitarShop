@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useGetGuitarQuery } from '../../../redux/guitars-api';
 import { useModal } from '../../../hooks/use-modal';
-import { Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Reviews } from '../../index';
+import { Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Reviews } from '../../index';
 import { appRoutes, defaultGuitar, places, warnings } from '../../../utils/const';
 import { errorHandler, getNormalizedImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
@@ -10,6 +10,7 @@ import UpBtn from '../up-btn/up-btn';
 import Price from '../price/price';
 import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
 import AddReviewBtn from '../add-review-btn/add-review-btn';
+import Footer from '../../common/footer/footer';
 
 export default function Product() {
   const {id} = useParams();

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { useAddCouponMutation } from '../../../redux/guitars-api';
 import { addDiscount } from '../../../redux/discount-slice';
 import { errors, warnings } from '../../../utils/const';
 import { getNormalizedError } from '../../../utils/utils';
+import { toast } from 'react-toastify';
 
 export function Promocode() {
   const [coupon, setCoupon] = useState('');

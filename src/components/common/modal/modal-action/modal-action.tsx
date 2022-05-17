@@ -18,7 +18,6 @@ export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}:
   const activeClass = cn('title', 'title--medium', 'modal__header', {
     'title--red': deleteId,
   });
-
   const [{ previewImg, name, stringCount, vendorCode, price }] =
         guitars.filter((guitar) => deleteId ? guitar.id === +deleteId : guitar.id === id);
 
@@ -26,7 +25,6 @@ export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}:
     <div className="modal is-active modal-for-ui-kit">
       <div className="modal__wrapper">
         <div className="modal__overlay" data-close-modal />
-
         <FocusOn
           onClickOutside={() => setActionModal(false)}
           onEscapeKey={() => setActionModal(false)}
@@ -35,7 +33,6 @@ export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}:
             <h2 className={activeClass}>
               {deleteId ? 'Удалить этот товар?' : 'Добавить товар в корзину'}
             </h2>
-
             <ModalInfo
               previewImg={previewImg}
               name={name}
@@ -43,30 +40,23 @@ export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}:
               stringCount={stringCount}
               price={price}
             />
-
             <div className="modal__button-container">
-
               {deleteId && (
                 <DeleteContinueBtns
                   setActionModal={setActionModal}
                   deleteId={deleteId}
-                />
-              )}
-
+                />)}
               {setIsAdded && (
                 <AddToCartBtn
                   price={price}
                   id={id}
                   setIsAdded={setIsAdded}
                   setActionModal={setActionModal}
-                />
-              )}
+                />)}
             </div>
-
             <CloseBtn setActionModal={setActionModal} />
           </div>
         </FocusOn>
       </div>
-    </div>
-  );
+    </div>);
 }

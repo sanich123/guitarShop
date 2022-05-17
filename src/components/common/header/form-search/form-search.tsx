@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useGetGuitarsQuery } from '../../../../redux/guitars-api';
 import { Guitar } from '../../../../types/types';
-import { tabs } from '../../../../utils/const';
+import { searchParams, tabs } from '../../../../utils/const';
 import { errorHandler } from '../../../../utils/utils';
 import { Loader } from '../../loader/loader';
 
 export default function FormSearch() {
   const [search, setSearch] = useState('');
-  const {data: similarGuitars, isLoading, error} = useGetGuitarsQuery(`?name_like=${search}`);
+  const {data: similarGuitars, isLoading, error} = useGetGuitarsQuery(`?${searchParams.similar}=${search}`);
   const navigate = useNavigate();
 
   if (isLoading) {return <Loader/>;}
@@ -48,7 +48,7 @@ export default function FormSearch() {
             style={{ zIndex: 999 }}
           >
             {similarGuitars?.length > 0 ? (
-              similarGuitars?.map(({ name, id }: Guitar) => (
+              similarGuitars.map(({ name, id }: Guitar) => (
                 <li
                   onClick={() => navigate(`/guitar/${id}?${tabs.desc}=${tabs.char}`)}
                   key={name}

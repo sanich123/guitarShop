@@ -10,7 +10,7 @@ interface InputMaxPriceProps extends FiltersProps {
   setFilterMaxPrice: (arg: string) => void;
 }
 
-export default function InputMaxPrice({setFilterMaxPrice, guitars, isError, setPageNumber, needToReset, setNeedToReset}: InputMaxPriceProps) {
+export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, guitars, isError, needToReset, setNeedToReset}: InputMaxPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMaxPrice = params.get(searchParams.maxPrice);
@@ -18,7 +18,6 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars, isError, setP
   const { data: defaultGuitars } = useGetGuitarsQuery('');
   const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
   const smallestPrice = defaultGuitars ? getDefaultMinValue(defaultGuitars) : 0;
-
   const filtredPrices = guitars?.map(({ price }: Guitar) => price);
   const maxPrice = Math.max(...filtredPrices);
 
@@ -50,10 +49,7 @@ export default function InputMaxPrice({setFilterMaxPrice, guitars, isError, setP
   const handleBlur = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
     const price = Math.abs(Number(target.value));
-    if (!price) {
-      return;
-    }
-
+    if (!price) {return;}
     if (price > biggestPrice) {
       toast.warn(priceWarnings.biggerThanMax);
       setPrice(`${biggestPrice}`);

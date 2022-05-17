@@ -29,9 +29,7 @@ export function MainPagination({setPageNumber, pageNumber, cardsOnPage, count}: 
           .map((number) => (
             <li
               key={number}
-              className={`pagination__page ${
-                number === pageNumber ? 'pagination__page--active' : ''
-              }`}
+              className={`pagination__page ${number === pageNumber ? 'pagination__page--active' : ''}`}
               onClick={() => setPageNumber(number)}
             >
               <a className="link pagination__page-link" href="#footer">

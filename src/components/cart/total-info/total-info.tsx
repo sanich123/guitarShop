@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useGetGuitarsQuery, useAddOrderMutation } from '../../../redux/guitars-api';
 import { toast } from 'react-toastify';
 import { Loader } from '../..';
@@ -19,6 +19,14 @@ export function TotalInfo({inCart}: {inCart: Cart[]}) {
   const price = getSynchronizedWithServerPrice(syncGuitarsWithCart, inCart);
   const discountPrice =  price * Number(`0.${discountValue}`);
   const totalPrice = price - discountPrice;
+
+  const handleClick = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
+    await postOrder({
+      guitarsIds: forRequest,
+      coupon: getCouponValueFromPercents(discountValue),
+    }).unwrap();
+  };
 
   useEffect(() => {
     if (response) {
@@ -58,15 +66,7 @@ export function TotalInfo({inCart}: {inCart: Cart[]}) {
           </p>
           <button
             className="button button--red button--big cart__order-button"
-            onClick={
-              async (e) => {
-                e.preventDefault();
-                await postOrder({
-                  guitarsIds: forRequest,
-                  coupon: getCouponValueFromPercents(discountValue),
-                }).unwrap();
-              }
-            }
+            onClick={handleClick}
           >
             Оформить заказ
           </button>

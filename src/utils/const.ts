@@ -5,6 +5,8 @@ export const appRoutes = {
   cart: '/cart',
 } as const;
 
+export const CARDS_ON_PAGE = 9;
+
 export const apiRoutes = {
   guitars: 'guitars',
   comments: 'comments',
@@ -97,6 +99,7 @@ export const searchParams = {
   defaultSort: 'price',
   defaultDirection: 'asc',
   page: 'page_',
+  similar: 'name_like',
 } as const;
 
 export const defaultParams = `${searchParams.page}1&${searchParams.sort}=${searchParams.defaultSort}&${searchParams.direction}=${searchParams.defaultDirection}`;

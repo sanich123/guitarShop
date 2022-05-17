@@ -24,7 +24,6 @@ export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProp
     <div className="modal is-active modal--success modal-for-ui-kit">
       <div className="modal__wrapper">
         <div className="modal__overlay" data-close-modal />
-
         {setIsAdded && (
           <FocusOn
             onClickOutside={() => setIsAdded(false)}
@@ -38,9 +37,7 @@ export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProp
               </div>
               <CloseBtnCart setIsAdded={setIsAdded} />
             </div>
-          </FocusOn>
-        )}
-
+          </FocusOn>)}
         {setIsSended && (
           <FocusOn
             onClickOutside={() => setIsSended(false)}
@@ -54,9 +51,7 @@ export function ModalSuccess({ setIsSended, setIsAdded, place }: SuccessCartProp
               </div>
               <CloseBtnReview setIsSended={setIsSended} />
             </div>
-          </FocusOn>
-        )}
+          </FocusOn>)}
       </div>
-    </div>
-  );
+    </div>);
 }

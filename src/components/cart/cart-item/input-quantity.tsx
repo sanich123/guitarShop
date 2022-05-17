@@ -23,7 +23,7 @@ export default function InputQuantity({id}: {id: number}) {
     }
   };
 
-  const zeroChanger = quantity.toString()[0] === '0' ? '' : `${quantity}`;
+  const zeroChanger = `${quantity}`[0] === '0' ? '' : `${quantity}`;
 
   return (
     <input

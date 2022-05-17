@@ -14,6 +14,5 @@ export default function CloseBtn({setActionModal}: CloseBtnProps) {
     >
       <span className="button-cross__icon" />
       <span className="modal__close-btn-interactive-area" />
-    </button>
-  );
+    </button>);
 }

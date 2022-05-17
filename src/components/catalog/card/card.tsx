@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { useGetCommentsQuery } from '../../../redux/guitars-api';
+import { Link } from 'react-router-dom';
 import { Guitar, State } from '../../../types/types';
-import { appRoutes } from '../../../utils/const';
+import { appRoutes, tabs } from '../../../utils/const';
 import { errorHandler, getNormalizedImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 
@@ -36,7 +36,7 @@ export default function Card({previewImg, type, name, rating, price, id, setActi
         </p>
       </div>
       <div className="product-card__buttons">
-        <Link className="button button--mini" to={`/guitar/${id}?description=characteristics`}>
+        <Link className="button button--mini" to={`/guitar/${id}?${tabs.desc}=${tabs.char}`}>
           Подробнее
         </Link>
         {inCart.includes(id) ? (

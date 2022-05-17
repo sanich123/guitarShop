@@ -8,10 +8,8 @@ function NavLinks() {
       {navLinks.map((link) => (
         <li key={link} className="footer__nav-list-item">
           <a className="link" href="#top">{link}</a>
-        </li>
-      ))}
-    </ul>
-  );
+        </li>))}
+    </ul>);
 }
 
 export default memo(NavLinks);

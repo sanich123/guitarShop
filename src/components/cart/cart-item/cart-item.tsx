@@ -1,10 +1,9 @@
-import {Cart} from '../../../types/types';
-import {getTypeInRus} from '../../../utils/utils';
+import { getTypeInRus } from '../../../utils/utils';
 import DecrementBtn from './decrement-btn';
 import DeleteBtn from './delete-btn';
 import IncrementBtn from './increment-btn';
 import InputQuantity from './input-quantity';
-import {Guitar} from '../../../types/types';
+import { Guitar, Cart } from '../../../types/types';
 
 export interface CartItemProps extends Guitar {
   setActionModal: (arg: boolean) => void,
@@ -40,6 +39,5 @@ export function CartItem({previewImg, name, price, stringCount, type, vendorCode
       <div className="cart-item__price-total">
         {totalPrice}
       </div>
-    </div>
-  );
+    </div>);
 }

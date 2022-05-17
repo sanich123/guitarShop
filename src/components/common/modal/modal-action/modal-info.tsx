@@ -1,14 +1,8 @@
+import { Guitar } from '../../../../types/types';
 import { getNormalizedImg } from '../../../../utils/utils';
 
-interface ModalInfoProps {
-  previewImg: string,
-  name: string,
-  vendorCode: string,
-  stringCount: number,
-  price: number
-}
+export function ModalInfo({previewImg, name, vendorCode, stringCount, price}: Omit<Guitar, 'id' | 'type' | 'description' | 'rating' | 'comments'>) {
 
-export function ModalInfo({previewImg, name, vendorCode, stringCount, price}: ModalInfoProps) {
   return (
     <div className="modal__info">
       <img className="modal__img" src={getNormalizedImg(previewImg)} width="67" height="137" alt={name} />
@@ -21,6 +15,5 @@ export function ModalInfo({previewImg, name, vendorCode, stringCount, price}: Mo
           <span className="modal__price">{price} ₽</span>
         </p>
       </div>
-    </div>
-  );
+    </div>);
 }

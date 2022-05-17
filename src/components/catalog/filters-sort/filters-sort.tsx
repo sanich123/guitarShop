@@ -87,9 +87,7 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
               needToReset={needToReset}
               isError={isError}
             />
-          </>
-        )}
+          </>)}
       </div>
-    </>
-  );
+    </>);
 }

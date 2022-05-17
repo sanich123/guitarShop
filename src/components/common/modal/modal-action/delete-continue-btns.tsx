@@ -22,7 +22,7 @@ export default function DeleteContinueBtns({deleteId, setActionModal}: DeleteCon
           dispatch(deleteFromCart({ uniq }));
           setActionModal(false);
 
-          localStorage.setItem('cart', JSON.stringify(JSON.parse(localStorage.cart)?.filter(({ id }: Cart) => id.toString() !== uniq)));
+          localStorage.setItem('cart', JSON.stringify(JSON.parse(localStorage.cart)?.filter(({ id }: Cart) => `${id}` !== uniq)));
         }}
       >
         Удалить товар
