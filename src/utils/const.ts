@@ -12,7 +12,7 @@ export const couponValues = {
   noDiscount: null,
 };
 
-export const media = ['facebook', 'twitter', 'instagram'];
+export const media = ['skype', 'vsco', 'pinterest'];
 export const navLinks = ['Где купить?', 'Блог', 'Вопрос - ответ', 'Возврат', 'Сервис-центры'];
 
 export const guitarTypesEn = {
