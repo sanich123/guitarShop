@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useGetGuitarQuery } from '../../../redux';
+import { useGetGuitarQuery } from '../../../redux/guitars-api';
 import { useModal } from '../../../hooks/use-modal';
 import { Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Reviews } from '../../index';
 import { appRoutes, defaultGuitar, places, warnings } from '../../../utils/const';

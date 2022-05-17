@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useModal } from '../../../hooks/use-modal';
 import { usePagination } from '../../../hooks/use-pagination';
-import { useGetGuitarsQuery } from '../../../redux';
+import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { Guitar } from '../../../types/types';
 import { places } from '../../../utils/const';
 import { errorHandler, wrongGuitarsFilter } from '../../../utils/utils';

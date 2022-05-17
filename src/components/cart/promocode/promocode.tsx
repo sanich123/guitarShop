@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useAddCouponMutation } from '../../../redux';
+import { useAddCouponMutation } from '../../../redux/guitars-api';
 import { addDiscount } from '../../../redux/discount-slice';
 import { errors, warnings } from '../../../utils/const';
 import { normalizedError } from '../../../utils/utils';

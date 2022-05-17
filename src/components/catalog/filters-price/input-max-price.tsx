@@ -2,27 +2,15 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
-import { Guitar } from '../../../types/types';
+import { FiltersProps, Guitar } from '../../../types/types';
 import { priceWarnings, searchParams } from '../../../utils/const';
 import { getDefaultMaxValue, getDefaultMinValue } from '../../../utils/utils';
 
-interface InputMaxPriceProps {
+interface InputMaxPriceProps extends FiltersProps {
   setFilterMaxPrice: (arg: string) => void;
-  guitars: Guitar[];
-  isError: boolean;
-  setPageNumber: (arg: number) => void;
-  needToReset: boolean;
-  setNeedToReset: (arg: boolean) => void;
 }
 
-export default function InputMaxPrice({
-  setFilterMaxPrice,
-  guitars,
-  isError,
-  setPageNumber,
-  needToReset,
-  setNeedToReset,
-}: InputMaxPriceProps) {
+export default function InputMaxPrice({setFilterMaxPrice, guitars, isError, setPageNumber, needToReset, setNeedToReset}: InputMaxPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMaxPrice = params.get(searchParams.maxPrice);
@@ -100,6 +88,5 @@ export default function InputMaxPrice({
         disabled={isError}
         tabIndex={0}
       />
-    </>
-  );
+    </>);
 }

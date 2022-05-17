@@ -2,7 +2,7 @@ import { SerializedError } from '@reduxjs/toolkit';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { toast } from 'react-toastify';
 import Page404 from '../components/common/page404/page404';
-import { Comments, Guitar, State } from '../types/types';
+import { Cart, Guitar } from '../types/types';
 import { couponValues, errors, guitarTypesEn, guitarTypesRus, warnings } from './const';
 
 export const typeChanger = (type: string) => {
@@ -39,8 +39,9 @@ export const stringChanger = (direction: string) => direction === 'asc' ? 'up' :
 
 export const stringChangerBack = (direction: string) => direction === 'up' ? 'asc' : 'desc';
 
-export const priceChecker = (guitarsFromServer: Guitar[], amountFromCart: State['cart']) => {
+export const priceChecker = (guitarsFromServer: Guitar[], amountFromCart: Cart[]) => {
   if (!guitarsFromServer || !amountFromCart) { return 0;}
+  if (guitarsFromServer.length !== amountFromCart.length) {return 0;}
 
   const sortedArr1 = guitarsFromServer?.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
   const sortedArr2 = amountFromCart?.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
@@ -51,15 +52,12 @@ export const priceChecker = (guitarsFromServer: Guitar[], amountFromCart: State[
   })).reduce((total, { quantity, price }) => total + Number(quantity) * price, 0);
 };
 
-export const sortReviews = (arr: Comments[]) => arr.slice().sort((dateA, dateB) =>
-  Date.parse(dateB.createAt) - Date.parse(dateA.createAt));
-
 export const normalizedError = (error: SerializedError | FetchBaseQueryError) => JSON.parse(JSON.stringify(error));
 
 export const localStorageChanger = (value: number, id: number) => {
   const cart = [...JSON.parse(localStorage.cart)];
 
-  return localStorage.setItem('cart', JSON.stringify(cart.map((e) => e.id === id ? { ...e, quantity: value } : e)));
+  return localStorage.setItem('cart', JSON.stringify(cart.map((guitar) => guitar.id === id ? { ...guitar, quantity: value } : guitar)));
 };
 
 

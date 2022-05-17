@@ -1,10 +1,6 @@
 import { memo } from 'react';
 
-interface AddAdvantageProps {
-  setAdvantage: (arg: string) => void;
-}
-
-function AddAdvantage({setAdvantage}: AddAdvantageProps) {
+function AddAdvantage({setAdvantage}: {setAdvantage: (arg: string) => void}) {
 
   return (
     <>

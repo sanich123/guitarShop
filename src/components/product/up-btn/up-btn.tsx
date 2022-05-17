@@ -4,7 +4,7 @@ function UpBtn() {
 
   return (
     <a
-      style={{ zIndex: 900 }}
+      style={{ zIndex: 999 }}
       className="button button--red-border button--big reviews__up-button button--up"
       href="#header"
     >

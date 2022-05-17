@@ -1,4 +1,4 @@
-import { useGetGuitarsQuery } from '../../../redux';
+import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { useSelector } from 'react-redux';
 import { useModal } from '../../../hooks/use-modal';
 import { Footer, Header, Loader, Icons, ModalAction, CartItem, Promocode, TotalInfo } from '../../index';

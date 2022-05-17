@@ -1,10 +1,6 @@
 import { memo } from 'react';
 
-interface AddNameProps {
-  setSurName: (arg: string) => void,
-}
-
-function AddName({setSurName}: AddNameProps) {
+function AddName({setSurName}: {setSurName: (arg: string) => void}) {
 
   return (
     <div className="form-review__name-wrapper">

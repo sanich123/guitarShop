@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import { memo } from 'react';
+import { FiltersProps } from '../../../types/types';
 
-interface AddReviewBtnProps {
+interface AddReviewBtnProps extends Pick<FiltersProps, 'isError'>{
   setReview: (arg: boolean) => void,
-  isError: boolean
 }
 
 const btnClass = cn(

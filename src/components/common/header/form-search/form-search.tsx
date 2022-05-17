@@ -1,12 +1,12 @@
-import { memo, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useGetGuitarsQuery } from '../../../../redux';
+import { useGetGuitarsQuery } from '../../../../redux/guitars-api';
 import { Guitar } from '../../../../types/types';
 import { tabs } from '../../../../utils/const';
 import { errorHandler } from '../../../../utils/utils';
 import { Loader } from '../../loader/loader';
 
-function FormSearch() {
+export default function FormSearch() {
   const [search, setSearch] = useState('');
   const {data: similarGuitars, isLoading, error} = useGetGuitarsQuery(`?name_like=${search}`);
   const navigate = useNavigate();
@@ -50,8 +50,7 @@ function FormSearch() {
             {similarGuitars?.length > 0 ? (
               similarGuitars?.map(({ name, id }: Guitar) => (
                 <li
-                  onClick={() =>
-                    navigate(`/guitar/${id}?${tabs.desc}=${tabs.char}`)}
+                  onClick={() => navigate(`/guitar/${id}?${tabs.desc}=${tabs.char}`)}
                   key={name}
                   className="form-search__select-item"
                   tabIndex={0}
@@ -79,8 +78,5 @@ function FormSearch() {
             <span className="visually-hidden">Сбросить поиск</span>
           </button>
         </>)}
-    </div>
-  );
+    </div>);
 }
-
-export default memo(FormSearch);

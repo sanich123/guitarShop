@@ -6,7 +6,6 @@ interface PriceProps {
   isError: boolean
 }
 
-
 function Price({price, setActionModal, isError}: PriceProps) {
 
   return (

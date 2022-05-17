@@ -7,7 +7,7 @@ import AddIssue from './add-issue';
 import AddName from './add-name';
 import AddRating from './add-rating';
 import SendReviewBtn from './send-review-btn';
-import { errors, messages } from '../../../utils/const';
+import { errors, warnings } from '../../../utils/const';
 import { normalizedError } from '../../../utils/utils';
 import { toast } from 'react-toastify';
 
@@ -18,8 +18,7 @@ interface ReviewFormProps {
 }
 
 function ReviewForm({setReview, setIsSended, id}: ReviewFormProps) {
-  const [addComment, { isSuccess, error, data: response }] =
-      useAddCommentMutation();
+  const [addComment, { isSuccess, error, data: response }] = useAddCommentMutation();
   const { rating, surName, issue, advantage, comment, setRating, setSurName, setIssue, setAdvantage, setComment} = useForm();
 
   useEffect(() => {
@@ -35,7 +34,7 @@ function ReviewForm({setReview, setIsSended, id}: ReviewFormProps) {
         toast.warn(normalizedError(error).data.messages.join(''));
       }
       if (status === errors.fetchError) {
-        toast.error(messages.failedSending);
+        toast.error(warnings.failedSending);
       }
     }
   }, [isSuccess, setIsSended, setReview, error, response]);
@@ -62,8 +61,7 @@ function ReviewForm({setReview, setIsSended, id}: ReviewFormProps) {
       <AddAdvantage setAdvantage={setAdvantage}/>
       <AddComment setComment={setComment}/>
       <SendReviewBtn />
-    </form>
-  );
+    </form>);
 }
 
 export default memo(ReviewForm);

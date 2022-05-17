@@ -1,11 +1,6 @@
 import { memo } from 'react';
 
-interface AddIssueProps {
-  setIssue: (arg: string) => void,
-}
-
-
-function AddIssue({setIssue}: AddIssueProps) {
+function AddIssue({setIssue}: {setIssue: (arg: string) => void}) {
 
   return (
     <>

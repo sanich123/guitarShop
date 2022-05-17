@@ -23,9 +23,9 @@ export interface Comments {
 }
 
 export interface Cart {
-    quantity: number,
-    id: number,
-    price: number,
+  quantity: number,
+  id: number,
+  price: number,
 }
 
 export interface State {

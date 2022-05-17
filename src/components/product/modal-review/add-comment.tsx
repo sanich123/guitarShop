@@ -1,10 +1,6 @@
 import { memo } from 'react';
 
-interface AddCommentProps {
-  setComment: (arg: string) => void;
-}
-
-function AddComment({setComment}: AddCommentProps) {
+function AddComment({ setComment }: { setComment: (arg: string) => void }) {
 
   return (
     <>
@@ -21,9 +17,7 @@ function AddComment({setComment}: AddCommentProps) {
         autoComplete="off"
         onChange={({ target }) => setComment(target.value)}
       />
-      <p className="form-review__warning">
-        Заполните поле
-      </p>
+      <p className="form-review__warning">Заполните поле</p>
     </>
   );
 }

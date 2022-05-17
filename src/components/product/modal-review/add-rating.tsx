@@ -1,7 +1,6 @@
 import React, { memo } from 'react';
 import { marks } from '../../../utils/const';
 
-
 function AddRating({setRating}: {setRating: (arg: string) => void}) {
 
   return (
@@ -13,7 +12,7 @@ function AddRating({setRating}: {setRating: (arg: string) => void}) {
         {Object.entries(marks).map(([title, mark]) => (
           <React.Fragment key={title}>
             <input
-              onClick={() => setRating(mark.toString())}
+              onClick={() => setRating(`${mark}`)}
               className="visually-hidden"
               type="radio"
               id={`star-${title}`}
@@ -24,10 +23,9 @@ function AddRating({setRating}: {setRating: (arg: string) => void}) {
             <label
               className="rate__label"
               htmlFor={`star-${title}`}
-              title={mark.toString()}
+              title={`${mark}`}
             />
-          </React.Fragment>
-        ))}
+          </React.Fragment>))}
         <span className="rate__count" />
         <span className="rate__message">Поставьте оценку</span>
       </div>
