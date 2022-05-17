@@ -87,8 +87,7 @@ export default function Product() {
                   setIsSended={setIsSended}
                   setReview={setReview}
                   name={name}
-                />
-              )}
+                />)}
               {isSended && <ModalSuccess setIsSended={setIsSended} />}
               <Reviews uniq={id} />
               <UpBtn />
@@ -97,6 +96,5 @@ export default function Product() {
         </main>
         <Footer />
       </div>
-    </>
-  );
+    </>);
 }

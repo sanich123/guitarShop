@@ -1,17 +1,8 @@
+import { Comments } from '../../../types/types';
 import { dateChanger } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 
-interface ReviewProps {
-  createAt: string,
-  userName: string,
-  advantage: string,
-  disadvantage: string,
-  comment: string,
-  rating: number
-}
-
-export default function Review(review: ReviewProps) {
-  const {createAt, userName, advantage, disadvantage, comment, rating} = review;
+export default function Review({createAt, userName, advantage, disadvantage, comment, rating}: Omit<Comments, 'id'>) {
 
   return (
     <div className="review">

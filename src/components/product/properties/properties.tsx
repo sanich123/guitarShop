@@ -1,12 +1,9 @@
 import { useLocation, useNavigate } from 'react-router-dom';
+import { Guitar } from '../../../types/types';
 import { rusEngTabs, tabs } from '../../../utils/const';
 import { typeChanger } from '../../../utils/utils';
 
-interface PropertiesProps {
-  vendorCode: string,
-  stringCount: number,
-  description: string,
-  type: string,
+interface PropertiesProps extends Pick<Guitar, 'vendorCode' | 'stringCount' | 'description' | 'type'> {
   id?: string
 }
 
