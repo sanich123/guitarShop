@@ -1,18 +1,12 @@
-import { Cart } from '../../../types/types';
-import { typeChanger } from '../../../utils/utils';
+import {Cart} from '../../../types/types';
+import {typeChanger} from '../../../utils/utils';
 import DecrementBtn from './decrement-btn';
 import DeleteBtn from './delete-btn';
 import IncrementBtn from './increment-btn';
 import InputQuantity from './input-quantity';
+import {Guitar} from '../../../types/types';
 
-interface CartItemProps {
-  previewImg: string,
-  name: string,
-  price: number,
-  stringCount: number,
-  type: string,
-  vendorCode: string,
-  id: number,
+export interface CartItemProps extends Guitar {
   setActionModal: (arg: boolean) => void,
   setDeleteId: (arg: string) => void,
   inCart: Cart[]

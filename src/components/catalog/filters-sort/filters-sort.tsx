@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useQueries from '../../../hooks/use-queries';
-import { Guitar } from '../../../types/types';
+import { FiltersProps, Guitar } from '../../../types/types';
 import { defaultParams, searchParams } from '../../../utils/const';
 import PriceFilters from '../filters-price/filters-price';
 import StringFilters from '../filters-strings/filters-strings';
@@ -9,11 +9,9 @@ import TypeFilters from '../filters-type/filters-type';
 import SortOrder from '../sort-direction/sort-direction';
 import SortType from '../sort-type/sort-type';
 
-interface FiltersSortProps {
-  guitarsList: Guitar[],
-  isError: boolean,
+interface FiltersSortProps extends Pick<FiltersProps, 'isError' | 'setPageNumber'> {
   pageNumber: number,
-  setPageNumber: (arg: number) => void,
+  guitarsList: Guitar[],
 }
 
 export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: FiltersSortProps) {
@@ -30,28 +28,28 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
       <form className="catalog-filter">
         <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
         <PriceFilters
-          setNeedToReset={setNeedToReset}
-          needToReset={needToReset}
-          setPageNumber={setPageNumber}
-          isError={isError}
           guitars={guitarsList}
           setFilterMinPrice={setFilterMinPrice}
           setFilterMaxPrice={setFilterMaxPrice}
+          setNeedToReset={setNeedToReset}
+          setPageNumber={setPageNumber}
+          needToReset={needToReset}
+          isError={isError}
         />
         <TypeFilters
+          guitars={guitarsList}
+          setFilterType={setFilterType}
           setNeedToReset={setNeedToReset}
           setPageNumber={setPageNumber}
-          setFilterType={setFilterType}
-          guitars={guitarsList}
-          isError={isError}
           needToReset={needToReset}
+          isError={isError}
         />
         <StringFilters
-          setNeedToReset={setNeedToReset}
-          needToReset={needToReset}
-          setPageNumber={setPageNumber}
-          setFilterString={setFilterString}
           guitars={guitarsList}
+          setFilterString={setFilterString}
+          setNeedToReset={setNeedToReset}
+          setPageNumber={setPageNumber}
+          needToReset={needToReset}
           isError={isError}
         />
         <button
@@ -76,17 +74,17 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
         {guitarsList.length > 1 && (
           <>
             <SortType
-              setNeedToReset={setNeedToReset}
-              needToReset={needToReset}
               setSortPopular={setSortPopular}
               sortPopular={sortPopular}
+              setNeedToReset={setNeedToReset}
+              needToReset={needToReset}
               isError={isError}
             />
             <SortOrder
-              setNeedToReset={setNeedToReset}
-              needToReset={needToReset}
               setDirection={setDirection}
               direction={sortDirection}
+              setNeedToReset={setNeedToReset}
+              needToReset={needToReset}
               isError={isError}
             />
           </>

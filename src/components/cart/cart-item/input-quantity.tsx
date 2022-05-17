@@ -8,7 +8,7 @@ export default function InputQuantity({id}: {id: number}) {
   const inCart = useSelector(({ cart }: State) => cart);
   const [{ quantity }] = inCart.filter((cart) => cart.id === id);
 
-  const handleValueChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (Number(target.value) < 100) {
       const value = Math.abs(Number(target.value));
       localStorageChanger(value, id);
@@ -16,14 +16,14 @@ export default function InputQuantity({id}: {id: number}) {
     }
   };
 
-  const handleValueBlur = () => {
+  const handleBlur = () => {
     if (!quantity) {
       localStorageChanger(1, id);
       dispatch(amountQuantity({ id, value: 1 }));
     }
   };
 
-  const zeroChanger = quantity.toString()[0] === '0' ? '' : quantity.toString();
+  const zeroChanger = quantity.toString()[0] === '0' ? '' : `${quantity}`;
 
   return (
     <input
@@ -33,8 +33,8 @@ export default function InputQuantity({id}: {id: number}) {
       name="2-count"
       max="99"
       value={zeroChanger}
-      onBlur={handleValueBlur}
-      onChange={handleValueChange}
+      onBlur={handleBlur}
+      onChange={handleChange}
       tabIndex={0}
     />
   );

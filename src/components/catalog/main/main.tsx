@@ -42,16 +42,12 @@ export function Main() {
         {isError && <h2>Не удалось загрузить данные с сервера</h2>}
         {filtredWrongGuitars?.length > 0 && (
           <>
-            {guitars
-              .map(({ id, ...rest }: Guitar) => (
-                <Card
-                  key={id}
-                  id={id}
-                  {...rest}
-                  setGuitarId={setGuitarId}
-                  setActionModal={setActionModal}
-                />
-              ))}
+            {guitars.map(({ id, ...rest }: Guitar) => (
+              <Card key={id} id={id} {...rest}
+                setGuitarId={setGuitarId}
+                setActionModal={setActionModal}
+              />
+            ))}
           </>)}
         {guitars?.length === 0 && <h2>Условиям фильтрации не соответствует не один товар</h2>}
         {isAdded && <ModalSuccess place={places.main} setIsAdded={setIsAdded} />}

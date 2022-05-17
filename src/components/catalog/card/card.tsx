@@ -1,18 +1,12 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useGetCommentsQuery } from '../../../redux/guitars-api';
-import { State } from '../../../types/types';
+import { Guitar, State } from '../../../types/types';
 import { appRoutes } from '../../../utils/const';
 import { errorHandler, normalizeImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 
-export interface CardProps {
-  previewImg: string,
-  name: string,
-  rating: number,
-  price: number,
-  id: number,
-  type: string,
+export interface CardProps extends Guitar {
   setActionModal: (arg: boolean) => void,
   setGuitarId: (arg: string) => void
 }
@@ -57,7 +51,7 @@ export default function Card({previewImg, type, name, rating, price, id, setActi
             className="button button--red button--mini button--add-to-cart"
             onClick={() => {
               setActionModal(true);
-              setGuitarId(id.toString());
+              setGuitarId(`${id}`);
             }}
           >
             Купить

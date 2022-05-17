@@ -1,15 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Guitar } from '../../../types/types';
+import { FiltersProps } from '../../../types/types';
 import { searchParams, stringsTypes } from '../../../utils/const';
 
-interface StringFiltersProps {
+interface StringFiltersProps extends FiltersProps {
   setFilterString: (arg: string) => void;
-  setPageNumber: (arg: number) => void;
-  guitars: Guitar[];
-  isError: boolean;
-  needToReset: boolean;
-  setNeedToReset: (arg: boolean) => void;
 }
 
 export default function FiltersStrings({setFilterString, setPageNumber, guitars, isError, needToReset, setNeedToReset}: StringFiltersProps) {

@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
+import { FiltersProps } from '../../../types/types';
 import { searchParams, sortDirections } from '../../../utils/const';
 import { stringChanger, stringChangerBack } from '../../../utils/utils';
 
-interface SortOrderProps {
+interface SortOrderProps extends Omit<FiltersProps, 'guitars' | 'setPageNumber'> {
   direction: string;
   setDirection: (arg: string) => void;
-  isError: boolean;
-  needToReset: boolean;
-  setNeedToReset: (arg: boolean) => void;
 }
 
 export default function SortDirection({direction, setDirection, isError, needToReset, setNeedToReset}: SortOrderProps) {

@@ -1,15 +1,10 @@
-import { Guitar } from '../../../types/types';
+import { FiltersProps } from '../../../types/types';
 import InputMaxPrice from './input-max-price';
 import InputMinPrice from './input-min-price';
 
-interface PriceFiltersProps {
+interface PriceFiltersProps extends FiltersProps {
   setFilterMinPrice: (arg: string) => void,
   setFilterMaxPrice: (arg: string) => void,
-  guitars: Guitar[],
-  isError: boolean,
-  setPageNumber: (arg: number) => void,
-  needToReset: boolean,
-  setNeedToReset: (arg: boolean) => void,
 }
 
 export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guitars, isError, setPageNumber, needToReset, setNeedToReset}: PriceFiltersProps) {

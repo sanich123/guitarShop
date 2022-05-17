@@ -13,7 +13,7 @@ export default function DeleteBtn({setActionModal, setDeleteId, id}: DeleteBtnPr
       aria-label="Удалить"
       onClick={() => {
         setActionModal(true);
-        setDeleteId(id.toString());
+        setDeleteId(`${id}`);
       }}
       tabIndex={0}
     >

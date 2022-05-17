@@ -35,4 +35,12 @@ export interface State {
   }
 }
 
+export interface FiltersProps {
+  guitars: Guitar[],
+  isError: boolean,
+  setPageNumber: (arg: number) => void,
+  needToReset: boolean,
+  setNeedToReset: (arg: boolean) => void,
+}
+
 

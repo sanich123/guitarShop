@@ -1,12 +1,10 @@
 import { useEffect } from 'react';
+import { FiltersProps } from '../../../types/types';
 import { searchParams, sortTypes } from '../../../utils/const';
 
-interface SortTypeProps {
+interface SortTypeProps extends Omit<FiltersProps, 'guitars' | 'setPageNumber'> {
   setSortPopular: (arg: string) => void;
   sortPopular: string;
-  isError: boolean;
-  needToReset: boolean;
-  setNeedToReset: (arg: boolean) => void;
 }
 
 export default function SortType({setSortPopular, sortPopular, isError, needToReset, setNeedToReset}: SortTypeProps) {

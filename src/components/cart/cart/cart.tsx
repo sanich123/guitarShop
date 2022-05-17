@@ -32,18 +32,14 @@ export default function Cart() {
                 guitars={guitarsInCart}
                 deleteId={guitarId}
                 setActionModal={setActionModal}
-              />
-            )}
+              />)}
 
             {inCart?.length > 0 ? (
               <>
                 {guitarsInCart
                   ?.filter((guitar: Guitar) => forRequest.includes(guitar.id))
                   .map(({ id, ...rest }: Guitar) => (
-                    <CartItem
-                      key={id}
-                      id={id}
-                      {...rest}
+                    <CartItem key={id} id={id} {...rest}
                       setActionModal={setActionModal}
                       setDeleteId={setGuitarId}
                       inCart={inCart}
@@ -52,19 +48,15 @@ export default function Cart() {
                   <Promocode />
                   <TotalInfo inCart={inCart} />
                 </div>
-              </>
-            ) : (
-              <>
-                <h1>Your cart has no items :(</h1>
-                <h2>
-                  <Link to={appRoutes.main}>Go ahead and buy something!</Link>
-                </h2>
-              </>
-            )}
+              </>)
+              : (
+                <>
+                  <h1>Your cart has no items :(</h1>
+                  <h2><Link to={appRoutes.main}>Go ahead and buy something!</Link></h2>
+                </>)}
           </div>
         </div>
       </main>
       <Footer />
-    </div>
-  );
+    </div>);
 }
