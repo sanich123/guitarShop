@@ -21,7 +21,7 @@ function AddComment({setComment}: AddCommentProps) {
         autoComplete="off"
         onChange={({ target }) => setComment(target.value)}
       />
-      <p className="form-review__warning" style={{ marginTop: -10 }}>
+      <p className="form-review__warning">
         Заполните поле
       </p>
     </>

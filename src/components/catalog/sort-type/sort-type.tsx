@@ -1,12 +1,22 @@
-import { sortTypes } from '../../../utils/const';
+import { useEffect } from 'react';
+import { searchParams, sortTypes } from '../../../utils/const';
 
 interface SortTypeProps {
-  setSortPopular: (arg: string) => void,
-  sortPopular: string,
-  isError: boolean
+  setSortPopular: (arg: string) => void;
+  sortPopular: string;
+  isError: boolean;
+  needToReset: boolean;
+  setNeedToReset: (arg: boolean) => void;
 }
 
-export default function SortType({setSortPopular, sortPopular, isError}: SortTypeProps) {
+export default function SortType({setSortPopular, sortPopular, isError, needToReset, setNeedToReset}: SortTypeProps) {
+
+  useEffect(() => {
+    if (needToReset) {
+      setSortPopular(searchParams.defaultSort);
+      setNeedToReset(false);
+    }
+  }, [needToReset, setSortPopular, setNeedToReset]);
 
   return (
     <div className="catalog-sort__type">

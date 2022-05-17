@@ -21,7 +21,7 @@ function AddAdvantage({setAdvantage}: AddAdvantageProps) {
         autoComplete="off"
         onChange={({ target }) => setAdvantage(target.value)}
       />
-      <p className="form-review__warning" style={{ marginTop: -10 }}>
+      <p className="form-review__warning">
         Заполните поле
       </p>
     </>

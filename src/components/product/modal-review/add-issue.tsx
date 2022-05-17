@@ -19,10 +19,7 @@ function AddIssue({setIssue}: AddIssueProps) {
         autoComplete="off"
         onChange={({ target }) => setIssue(target.value)}
       />
-      <p
-        className="form-review__warning"
-        style={{marginTop: -10}}
-      >Заполните поле
+      <p className="form-review__warning">Заполните поле
       </p>
     </>
   );

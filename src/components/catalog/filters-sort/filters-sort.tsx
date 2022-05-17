@@ -76,16 +76,22 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
         {guitarsList.length > 1 && (
           <>
             <SortType
+              setNeedToReset={setNeedToReset}
+              needToReset={needToReset}
               setSortPopular={setSortPopular}
               sortPopular={sortPopular}
               isError={isError}
             />
             <SortOrder
+              setNeedToReset={setNeedToReset}
+              needToReset={needToReset}
               setDirection={setDirection}
               direction={sortDirection}
               isError={isError}
             />
-          </>)}
+          </>
+        )}
       </div>
-    </>);
+    </>
+  );
 }

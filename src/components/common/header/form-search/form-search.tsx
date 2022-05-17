@@ -64,7 +64,7 @@ function FormSearch() {
             )}
           </ul>
           <button
-            className="button-cross form-search__reset"
+            className="form-search__reset"
             onClick={() => setSearch('')}
             tabIndex={0}
           >
