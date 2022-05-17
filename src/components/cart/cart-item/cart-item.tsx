@@ -1,5 +1,5 @@
 import {Cart} from '../../../types/types';
-import {typeChanger} from '../../../utils/utils';
+import {getTypeInRus} from '../../../utils/utils';
 import DecrementBtn from './decrement-btn';
 import DeleteBtn from './delete-btn';
 import IncrementBtn from './increment-btn';
@@ -29,7 +29,7 @@ export function CartItem({previewImg, name, price, stringCount, type, vendorCode
       <div className="product-info cart-item__info">
         <p className="product-info__title">{name}</p>
         <p className="product-info__info">Артикул: {vendorCode}</p>
-        <p className="product-info__info">{typeChanger(type)}, {stringCount} струнная</p>
+        <p className="product-info__info">{getTypeInRus(type)}, {stringCount} струнная</p>
       </div>
       <div className="cart-item__price">{price} ₽</div>
       <div className="quantity cart-item__quantity">

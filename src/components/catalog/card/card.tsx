@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useGetCommentsQuery } from '../../../redux/guitars-api';
 import { Guitar, State } from '../../../types/types';
 import { appRoutes } from '../../../utils/const';
-import { errorHandler, normalizeImg } from '../../../utils/utils';
+import { errorHandler, getNormalizedImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 
 export interface CardProps extends Guitar {
@@ -19,7 +19,7 @@ export default function Card({previewImg, type, name, rating, price, id, setActi
 
   return (
     <div className="product-card">
-      <img src={normalizeImg(previewImg)} width="75" height="190" alt={name} />
+      <img src={getNormalizedImg(previewImg)} width="75" height="190" alt={name} />
       <div className="product-card__info">
         <div className="rate product-card__rate" aria-hidden="true">
           <span className="visually-hidden">Рейтинг:</span>

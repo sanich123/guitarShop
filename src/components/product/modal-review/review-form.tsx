@@ -8,7 +8,7 @@ import AddName from './add-name';
 import AddRating from './add-rating';
 import SendReviewBtn from './send-review-btn';
 import { errors, warnings } from '../../../utils/const';
-import { normalizedError } from '../../../utils/utils';
+import { getNormalizedError } from '../../../utils/utils';
 import { toast } from 'react-toastify';
 
 interface ReviewFormProps {
@@ -29,9 +29,9 @@ function ReviewForm({setReview, setIsSended, id}: ReviewFormProps) {
     if (error) {
       setReview(true);
       setIsSended(false);
-      const status = normalizedError(error).status;
+      const status = getNormalizedError(error).status;
       if (status === 400) {
-        toast.warn(normalizedError(error).data.messages.join(''));
+        toast.warn(getNormalizedError(error).data.messages.join(''));
       }
       if (status === errors.fetchError) {
         toast.error(warnings.failedSending);

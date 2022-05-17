@@ -3,7 +3,7 @@ import { useGetGuitarQuery } from '../../../redux/guitars-api';
 import { useModal } from '../../../hooks/use-modal';
 import { Footer, Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Reviews } from '../../index';
 import { appRoutes, defaultGuitar, places, warnings } from '../../../utils/const';
-import { errorHandler, normalizeImg } from '../../../utils/utils';
+import { errorHandler, getNormalizedImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 import Properties from '../properties/properties';
 import UpBtn from '../up-btn/up-btn';
@@ -30,7 +30,7 @@ export default function Product() {
             <div className="product-container">
               <img
                 className="product-container__img"
-                src={normalizeImg(previewImg)}
+                src={getNormalizedImg(previewImg)}
                 width="90"
                 height="235"
                 alt=""

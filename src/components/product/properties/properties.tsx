@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Guitar } from '../../../types/types';
 import { rusEngTabs, tabs } from '../../../utils/const';
-import { typeChanger } from '../../../utils/utils';
+import { getTypeInRus } from '../../../utils/utils';
 
 interface PropertiesProps extends Pick<Guitar, 'vendorCode' | 'stringCount' | 'description' | 'type'> {
   id?: string
@@ -38,7 +38,7 @@ export default function Properties({vendorCode, stringCount, description, type, 
               </tr>
               <tr className="tabs__table-row">
                 <td className="tabs__title">Тип:</td>
-                <td className="tabs__value">{typeChanger(type)}</td>
+                <td className="tabs__value">{getTypeInRus(type)}</td>
               </tr>
               <tr className="tabs__table-row">
                 <td className="tabs__title">Количество струн:</td>

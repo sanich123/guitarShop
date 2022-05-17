@@ -5,7 +5,7 @@ import Page404 from '../components/common/page404/page404';
 import { Cart, Guitar } from '../types/types';
 import { couponValues, errors, guitarTypesEn, guitarTypesRus, warnings } from './const';
 
-export const typeChanger = (type: string) => {
+export const getTypeInRus = (type: string) => {
   switch (type) {
   case guitarTypesEn.acoustic:
     return guitarTypesRus.acoustic;
@@ -18,7 +18,7 @@ export const typeChanger = (type: string) => {
   }
 };
 
-export const percentToCouponChanger = (number: number) => {
+export const getCouponValueFromPercents = (number: number) => {
   switch (number) {
   case 0:
     return couponValues.noDiscount;
@@ -33,36 +33,29 @@ export const percentToCouponChanger = (number: number) => {
   }
 };
 
-export const dateChanger = (date: string) => `${new Date(date).toLocaleString('ru', {day: '2-digit', month: 'long'})}`;
-
-export const stringChanger = (direction: string) => direction === 'asc' ? 'up' : 'down';
-
-export const stringChangerBack = (direction: string) => direction === 'up' ? 'asc' : 'desc';
-
-export const priceChecker = (guitarsFromServer: Guitar[], amountFromCart: Cart[]) => {
+export const getFormattedDate = (date: string) => `${new Date(date).toLocaleString('ru', {day: '2-digit', month: 'long'})}`;
+export const getChangedString = (direction: string) => direction === 'asc' ? 'up' : 'down';
+export const getChangedStringBack = (direction: string) => direction === 'up' ? 'asc' : 'desc';
+export const getSynchronizedWithServerPrice = (guitarsFromServer: Guitar[], amountFromCart: Cart[]) => {
   if (!guitarsFromServer || !amountFromCart) { return 0;}
   if (guitarsFromServer.length !== amountFromCart.length) {return 0;}
-
   const sortedArr1 = guitarsFromServer?.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
   const sortedArr2 = amountFromCart?.slice().sort((guitarA, guitarB) => guitarA.id - guitarB.id);
-
   return sortedArr2.map((guitar, i) => ({
     quantity: guitar.quantity,
     price: sortedArr1[i].price,
   })).reduce((total, { quantity, price }) => total + Number(quantity) * price, 0);
 };
 
-export const normalizedError = (error: SerializedError | FetchBaseQueryError) => JSON.parse(JSON.stringify(error));
-
-export const localStorageChanger = (value: number, id: number) => {
+export const getNormalizedError = (error: SerializedError | FetchBaseQueryError) => JSON.parse(JSON.stringify(error));
+export const changeLocalStorageCart = (value: number, id: number) => {
   const cart = [...JSON.parse(localStorage.cart)];
-
   return localStorage.setItem('cart', JSON.stringify(cart.map((guitar) => guitar.id === id ? { ...guitar, quantity: value } : guitar)));
 };
 
 
 export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
-  const info = normalizedError(error);
+  const info = getNormalizedError(error);
   if (info.status === errors.wrongAddress) {
     toast.warn(warnings.server404);
     return <Page404 />;
@@ -79,15 +72,9 @@ export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
   }
 };
 
-export const normalizeImg = (img: string) => `../${img}`;
-
-export const wrongGuitarsFilter = (guitar: Guitar) =>
-  guitar.name && guitar.previewImg && guitar.id && guitar.price && guitar.rating
-    ? guitar
-    : '';
+export const getNormalizedImg = (img: string) => `../${img}`;
+export const getCorrectGuitars = (guitar: Guitar) => guitar.name && guitar.previewImg && guitar.id && guitar.price && guitar.rating ? guitar : '';
 
 export const getDefaultMinValue = (guitars: Guitar[]) => Math.min(...guitars.map(({price}) => price).filter(Boolean));
-
-export const getDefaultMaxValue = (guitars: Guitar[]) =>
-  Math.max(...guitars.map(({ price }) => price).filter(Boolean));
+export const getDefaultMaxValue = (guitars: Guitar[]) => Math.max(...guitars.map(({price}) => price).filter(Boolean));
 

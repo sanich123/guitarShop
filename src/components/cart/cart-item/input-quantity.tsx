@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { amountQuantity } from '../../../redux/cart-slice';
 import { State } from '../../../types/types';
-import { localStorageChanger } from '../../../utils/utils';
+import { changeLocalStorageCart } from '../../../utils/utils';
 
 export default function InputQuantity({id}: {id: number}) {
   const dispatch = useDispatch();
@@ -11,14 +11,14 @@ export default function InputQuantity({id}: {id: number}) {
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     if (Number(target.value) < 100) {
       const value = Math.abs(Number(target.value));
-      localStorageChanger(value, id);
+      changeLocalStorageCart(value, id);
       dispatch(amountQuantity({ id, value }));
     }
   };
 
   const handleBlur = () => {
     if (!quantity) {
-      localStorageChanger(1, id);
+      changeLocalStorageCart(1, id);
       dispatch(amountQuantity({ id, value: 1 }));
     }
   };

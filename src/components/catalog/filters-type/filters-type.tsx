@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FiltersProps, Guitar } from '../../../types/types';
 import { guitarTypesEn, searchParams } from '../../../utils/const';
-import { typeChanger } from '../../../utils/utils';
+import { getTypeInRus } from '../../../utils/utils';
 
 interface TypeFiltersProps extends FiltersProps {
   setFilterType: (arg: string) => void,
@@ -51,7 +51,7 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
             disabled={!existingTypes.includes(type) || isError}
             tabIndex={0}
           />
-          <label htmlFor={type}>{typeChanger(type)}</label>
+          <label htmlFor={type}>{getTypeInRus(type)}</label>
         </div>
       ))}
     </fieldset>);

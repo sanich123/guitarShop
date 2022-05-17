@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { amountQuantity } from '../../../redux/cart-slice';
 import { State } from '../../../types/types';
-import { localStorageChanger } from '../../../utils/utils';
+import { changeLocalStorageCart } from '../../../utils/utils';
 
 export default function IncrementBtn({id}: {id: number}) {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ export default function IncrementBtn({id}: {id: number}) {
       onClick={() => {
         if (Number(quantity) < 99) {
           const value = quantity + 1;
-          localStorageChanger(value, id);
+          changeLocalStorageCart(value, id);
           dispatch(amountQuantity({ id, value }));
         }
       }}

@@ -1,23 +1,22 @@
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useGetGuitarsQuery, useAddOrderMutation } from '../../../redux/guitars-api';
 import { toast } from 'react-toastify';
 import { Loader } from '../..';
-import { useGetGuitarsQuery, useAddOrderMutation } from '../../../redux/guitars-api';
-import { State, Guitar } from '../../../types/types';
-import { errorHandler, normalizedError, percentToCouponChanger, priceChecker } from '../../../utils/utils';
+import { State, Guitar, Cart } from '../../../types/types';
+import { errorHandler, getCouponValueFromPercents, getNormalizedError, getSynchronizedWithServerPrice } from '../../../utils/utils';
 import { warnings } from '../../../utils/const';
 
-export function TotalInfo({inCart}: {inCart: State['cart']}) {
+export function TotalInfo({inCart}: {inCart: Cart[]}) {
   const discountValue = useSelector(({discount}: State) => discount.discount);
   const forRequest = inCart.map(({ id }) => id);
-
   const request = forRequest?.map((number) => `id=${number}`).join('&');
   const { data: guitars, isLoading, error } = useGetGuitarsQuery(`?${request}`);
   const [postOrder, {error: orderError, data: response}] = useAddOrderMutation();
   const syncGuitarsWithCart = guitars?.filter((guitar: Guitar) =>
     forRequest.includes(guitar.id));
 
-  const price = priceChecker(syncGuitarsWithCart, inCart);
+  const price = getSynchronizedWithServerPrice(syncGuitarsWithCart, inCart);
   const discountPrice =  price * Number(`0.${discountValue}`);
   const totalPrice = price - discountPrice;
 
@@ -26,7 +25,7 @@ export function TotalInfo({inCart}: {inCart: State['cart']}) {
       toast.success(warnings.successOrder);
     }
     if (orderError) {
-      toast.error(normalizedError(orderError).error);
+      toast.error(getNormalizedError(orderError).error);
     }
   }, [response, orderError]);
 
@@ -64,7 +63,7 @@ export function TotalInfo({inCart}: {inCart: State['cart']}) {
                 e.preventDefault();
                 await postOrder({
                   guitarsIds: forRequest,
-                  coupon: percentToCouponChanger(discountValue),
+                  coupon: getCouponValueFromPercents(discountValue),
                 }).unwrap();
               }
             }

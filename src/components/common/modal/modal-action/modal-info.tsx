@@ -1,4 +1,4 @@
-import { normalizeImg } from '../../../../utils/utils';
+import { getNormalizedImg } from '../../../../utils/utils';
 
 interface ModalInfoProps {
   previewImg: string,
@@ -11,7 +11,7 @@ interface ModalInfoProps {
 export function ModalInfo({previewImg, name, vendorCode, stringCount, price}: ModalInfoProps) {
   return (
     <div className="modal__info">
-      <img className="modal__img" src={normalizeImg(previewImg)} width="67" height="137" alt={name} />
+      <img className="modal__img" src={getNormalizedImg(previewImg)} width="67" height="137" alt={name} />
       <div className="modal__info-wrapper">
         <h3 className="modal__product-name title title--little title--uppercase">{name}</h3>
         <p className="modal__product-params modal__product-params--margin-11">Артикул: {vendorCode}</p>

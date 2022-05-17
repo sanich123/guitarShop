@@ -4,7 +4,7 @@ import { usePagination } from '../../../hooks/use-pagination';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { Guitar } from '../../../types/types';
 import { places } from '../../../utils/const';
-import { errorHandler, wrongGuitarsFilter } from '../../../utils/utils';
+import { errorHandler, getCorrectGuitars } from '../../../utils/utils';
 import { Loader } from '../../common/loader/loader';
 import { ModalAction } from '../../common/modal/modal-action/modal-action';
 import { ModalSuccess } from '../../common/modal/modal-success/modal-success';
@@ -16,7 +16,7 @@ export function Main() {
   const { search } = useLocation();
   const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
   const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(search);
-  const filtredWrongGuitars = guitarsList?.filter(wrongGuitarsFilter);
+  const filtredWrongGuitars = guitarsList?.filter(getCorrectGuitars);
   const { guitars, setPageNumber, pageNumber, cardsOnPage } = usePagination(filtredWrongGuitars);
 
   error && errorHandler(error);

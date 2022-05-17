@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 import { useAddCouponMutation } from '../../../redux/guitars-api';
 import { addDiscount } from '../../../redux/discount-slice';
 import { errors, warnings } from '../../../utils/const';
-import { normalizedError } from '../../../utils/utils';
+import { getNormalizedError } from '../../../utils/utils';
 
 export function Promocode() {
   const [coupon, setCoupon] = useState('');
@@ -18,10 +18,10 @@ export function Promocode() {
       setShowInfo(true);
     }
     if (error) {
-      if (normalizedError(error).status === errors.fetchError) {
+      if (getNormalizedError(error).status === errors.fetchError) {
         toast.error(warnings.failedSendingPromocode);
       } else {
-        toast.warn(normalizedError(error).data.messages.join(''));
+        toast.warn(getNormalizedError(error).data.messages.join(''));
         dispatch(addDiscount(0));
         setShowInfo(true);
       }
