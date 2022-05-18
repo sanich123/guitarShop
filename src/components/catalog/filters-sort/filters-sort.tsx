@@ -56,6 +56,7 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
           className="catalog-filter__reset-btn button button--black-border button--medium"
           type="reset"
           tabIndex={0}
+          disabled={isError}
           onClick={() => {
             setNeedToReset(true);
             navigate(`/catalog:?${defaultParams}`);
