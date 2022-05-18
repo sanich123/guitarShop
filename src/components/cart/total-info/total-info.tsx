@@ -68,8 +68,6 @@ export function TotalInfo({inCart}: {inCart: Cart[]}) {
           >
             Оформить заказ
           </button>
-        </div>
-      )}
-    </>
-  );
+        </div>)}
+    </>);
 }
