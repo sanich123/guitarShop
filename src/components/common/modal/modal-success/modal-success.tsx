@@ -34,7 +34,7 @@ export function ModalSuccess({ setIsSended, setIsAdded, place }: Pick<ModalProps
               </svg>
               <p className="modal__message">{modalMessage}</p>
               <div className={activeClass}>
-                <CartContinueBtn place={place} setIsAdded={setIsAdded} />
+                <CartContinueBtn setIsAdded={setIsAdded} />
               </div>
               <CloseBtnCart setIsAdded={setIsAdded} />
             </div>

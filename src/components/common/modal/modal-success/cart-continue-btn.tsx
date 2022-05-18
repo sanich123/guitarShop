@@ -2,11 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import { appRoutes } from '../../../../utils/const';
 
 interface CartContinueBtnProps {
-  place?: string,
   setIsAdded: (arg: boolean) => void
 }
 
-export default function CartContinueBtn({place, setIsAdded}: CartContinueBtnProps) {
+export default function CartContinueBtn({setIsAdded}: CartContinueBtnProps) {
   const navigate = useNavigate();
 
   return (
@@ -18,11 +17,7 @@ export default function CartContinueBtn({place, setIsAdded}: CartContinueBtnProp
         Перейти в корзину
       </button>
       <button
-        onClick={
-          place === 'main'
-            ? () => setIsAdded(false)
-            : () => navigate(appRoutes.main)
-        }
+        onClick={() => setIsAdded(false)}
         className="button button--black-border button--small modal__button modal__button--right"
       >
         Продолжить покупки
