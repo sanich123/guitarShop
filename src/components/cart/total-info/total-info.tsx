@@ -49,14 +49,12 @@ export function TotalInfo({inCart}: {inCart: Cart[]}) {
             <span className="cart__total-value-name">Всего:</span>
             <span className="cart__total-value">{price} ₽</span>
           </p>
-          {discountValue !== 0 && (
-            <p className="cart__total-item">
-              <span className="cart__total-value-name">Скидка:</span>
-              <span className="cart__total-value cart__total-value--bonus">
-                - {discountPrice} ₽
-              </span>
-            </p>
-          )}
+          <p className="cart__total-item">
+            <span className="cart__total-value-name">Скидка:</span>
+            <span className={`cart__total-value ${discountPrice ? 'cart__total-value--bonus' : ''}`}>
+              {`${discountPrice > 0 ? '-' : ''} ${discountPrice}`} ₽
+            </span>
+          </p>
 
           <p className="cart__total-item">
             <span className="cart__total-value-name">К оплате:</span>
