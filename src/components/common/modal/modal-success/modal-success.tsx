@@ -56,7 +56,7 @@ export function ModalSuccess({ setIsSended, setIsAdded, place }: Pick<ModalProps
               </svg>
               <p className="modal__message">{modalMessage}</p>
               <div className={activeClass}>
-                <ContinueBtn />
+                <ContinueBtn setIsSended={setIsSended} />
               </div>
               <CloseBtnReview setIsSended={setIsSended} />
             </div>

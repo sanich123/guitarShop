@@ -23,7 +23,8 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
     }
   },[needToReset, setFilterType, setNeedToReset]);
 
-  const existingTypes = [...new Set(guitars?.map(({type}: Guitar) => type))];
+  const existingTypes = [...new Set(guitars?.map(({ type }: Guitar) => type))];
+
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) =>
       index === number ? !item : item);

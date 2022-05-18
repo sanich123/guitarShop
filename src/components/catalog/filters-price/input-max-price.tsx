@@ -14,6 +14,7 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, guitars
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMaxPrice = params.get(searchParams.maxPrice);
+  const filterMinPrice = params.get(searchParams.minPrice);
   const [priceValue, setPrice] = useState(filterMaxPrice ? filterMaxPrice : '');
   const { data: defaultGuitars } = useGetGuitarsQuery('');
   const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
@@ -39,7 +40,7 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, guitars
       setPrice('');
       return;
     }
-    if (price > smallestPrice && price < biggestPrice) {
+    if (price > smallestPrice && price > Number(filterMinPrice) && price < biggestPrice) {
       setFilterMaxPrice(`${searchParams.maxPrice}=${Math.abs(+value)}`);
     } else {
       toast.warn(priceWarnings.smallerAndBigger);
@@ -55,10 +56,10 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, guitars
       setPrice(`${biggestPrice}`);
       setFilterMaxPrice(`${searchParams.maxPrice}=${biggestPrice}`);
     }
-    if (price < smallestPrice) {
-      toast.warn(priceWarnings.smallerThanMin);
-      setPrice(`${smallestPrice}`);
-      setFilterMaxPrice(`${searchParams.maxPrice}=${smallestPrice}`);
+    if (price < Number(filterMinPrice) || price < smallestPrice) {
+      toast.warn(priceWarnings.smallerThanTypedMin);
+      setPrice(`${biggestPrice}`);
+      setFilterMaxPrice(`${searchParams.maxPrice}=${biggestPrice}`);
     }
   };
 

@@ -13,7 +13,7 @@ export default function FiltersStrings({setFilterString, setPageNumber, guitars,
   const stringsFromUrl = params.get(searchParams.stringCount);
   const stateFromUrl = stringsTypes.map((stringNumber) => `${stringNumber}` === stringsFromUrl);
   const [checkedState, setCheckedState] = useState(stateFromUrl);
-  const allExistingStrings = [...new Set(guitars?.map(({stringCount}) => stringCount))];
+
 
   useEffect(() => {
     if (needToReset) {
@@ -23,11 +23,13 @@ export default function FiltersStrings({setFilterString, setPageNumber, guitars,
     }
   }, [needToReset, setFilterString, setNeedToReset]);
 
+  const allExistingStrings = [...new Set(guitars?.map(({ stringCount }) => stringCount))];
+
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
     setCheckedState(updatedCheckedState);
     const currentResult = updatedCheckedState.map((isChecked, index) => isChecked === true && stringsTypes[index]).filter(Boolean).toString();
-    currentResult ? setFilterString(`${searchParams.stringCount}=${currentResult}`) : setFilterString('');
+    setFilterString(currentResult ? `${searchParams.stringCount}=${currentResult}` : '');
   };
 
   return (

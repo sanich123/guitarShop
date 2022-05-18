@@ -1,12 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { appRoutes } from '../../../../utils/const';
-
-export default function ContinueBtn() {
-  const navigate = useNavigate();
+export default function ContinueBtn({setIsSended}: {setIsSended: (arg: boolean) => void}) {
 
   return (
     <button
-      onClick={() => navigate(appRoutes.main)}
+      onClick={() => setIsSended(false)}
+      tabIndex={0}
       className="button button--small modal__button modal__button--review"
     >
       К покупкам!
