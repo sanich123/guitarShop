@@ -1,22 +1,7 @@
-Размещен по адресу https://guitar-shop-m4yrcupww-sanich123.vercel.app
+Размещен по адресу [https://guitar-shop-m4yrcupww-sanich123.vercel.app](https://guitar-shop-five.vercel.app/)
 # Руководство по работе с проектом
 
 Данный проект создан с помощью [Create React App](https://github.com/facebook/create-react-app).
-
-## Структура проекта
-
----
-
-_Не удаляйте и не изменяйте папки и файлы:_
-_`.editorconfig`, `.gitattributes`, `.gitignore`, `package.json`._
-
----
-
-### public
-
-Директория для размещения статичных ресурсов (шрифты, стили, изображения и так далее). Корневая директория проекта.
-
-**Обратите внимание**, файл `Readme.md`, в директории `public`, содержит описание подготовительного процесса, который вам необходимо выполнить перед тем, как приступать к работе над проектом.
 
 ### src
 
