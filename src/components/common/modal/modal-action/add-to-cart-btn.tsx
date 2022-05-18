@@ -1,15 +1,13 @@
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../../redux/cart-slice';
-import { Cart } from '../../../../types/types';
+import { Cart, ModalProps } from '../../../../types/types';
 
 interface AddToCartBtnProps {
   price: number;
-  id?: number;
-  setActionModal: (arg: boolean) => void,
   setIsAdded: (arg: boolean) => void
 }
 
-export default function AddToCartBtn({price, id, setActionModal, setIsAdded}: AddToCartBtnProps) {
+export default function AddToCartBtn({price, id, setActionModal, setIsAdded}: Pick<ModalProps, 'setActionModal' | 'id'> & AddToCartBtnProps) {
   const dispatch = useDispatch();
 
   const handleClick = () => {

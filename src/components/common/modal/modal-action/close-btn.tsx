@@ -1,8 +1,6 @@
-interface CloseBtnProps {
-  setActionModal: (arg: boolean) => void
-}
+import { ModalProps } from '../../../../types/types';
 
-export default function CloseBtn({setActionModal}: CloseBtnProps) {
+export default function CloseBtn({setActionModal}: Pick<ModalProps, 'setActionModal'>) {
 
   return (
     <button

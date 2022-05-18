@@ -2,7 +2,7 @@ import { memo } from 'react';
 import {Link} from 'react-router-dom';
 import { appRoutes } from '../../../utils/const';
 import NavLinks from './nav-links/nav-links';
-import Social from './social-links/social';
+import Social from './social/social';
 
 function Footer() {
 

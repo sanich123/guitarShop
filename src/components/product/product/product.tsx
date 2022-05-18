@@ -6,7 +6,6 @@ import { appRoutes, defaultGuitar, places, warnings } from '../../../utils/const
 import { errorHandler, getNormalizedImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 import Properties from '../properties/properties';
-import UpBtn from '../up-btn/up-btn';
 import Price from '../price/price';
 import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
 import AddReviewBtn from '../add-review-btn/add-review-btn';
@@ -74,7 +73,9 @@ export default function Product() {
                 />
               )}
 
-              {isAdded && <ModalSuccess place={places.product} setIsAdded={setIsAdded} />}
+              {isAdded && (
+                <ModalSuccess place={places.product} setIsAdded={setIsAdded} />
+              )}
             </div>
             <section className="reviews">
               <h3 className="reviews__title title title--bigger">Отзывы</h3>
@@ -88,14 +89,22 @@ export default function Product() {
                   setIsSended={setIsSended}
                   setReview={setReview}
                   name={name}
-                />)}
+                />
+              )}
               {isSended && <ModalSuccess setIsSended={setIsSended} />}
               <Reviews uniq={id} />
-              <UpBtn />
+              <a
+                style={{ zIndex: 999 }}
+                className="button button--red-border button--big reviews__up-button button--up"
+                href="#header"
+              >
+                Наверх
+              </a>
             </section>
           </div>
         </main>
         <Footer />
       </div>
-    </>);
+    </>
+  );
 }

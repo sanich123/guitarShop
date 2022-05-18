@@ -70,6 +70,8 @@ export const warnings = {
   failedSendingPromocode: 'Не удалось отправить данные о вашем промокоде на сервер. Проверьте, существует ли интернет в вашей стране',
   successOrder: 'Вы успешно сделали заказ! Большое Вам спасибо!',
   failedSending: 'Не удалось отправить ваш комментарий, неполадки с сетью',
+  successCart: 'Товар успешно добавлен в корзину',
+  thanksForReview: 'Спасибо за ваш отзыв!',
 } as const;
 
 export const places = {

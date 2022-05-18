@@ -43,4 +43,14 @@ export interface FiltersProps {
   setNeedToReset: (arg: boolean) => void,
 }
 
-
+export interface ModalProps {
+  guitars: Guitar[];
+  setActionModal: (arg: boolean) => void,
+  setIsAdded?: (arg: boolean) => void,
+  setIsSended?: (arg: boolean) => void,
+  setReview: (arg: boolean) => void,
+  deleteId?: string,
+  id?: number,
+  place?: string,
+  price: number,
+}

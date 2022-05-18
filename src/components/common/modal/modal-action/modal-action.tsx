@@ -1,4 +1,4 @@
-import { Guitar } from '../../../../types/types';
+import { ModalProps } from '../../../../types/types';
 import cn from 'classnames';
 import DeleteContinueBtns from './delete-continue-btns';
 import AddToCartBtn from './add-to-cart-btn';
@@ -6,20 +6,11 @@ import CloseBtn from './close-btn';
 import { FocusOn } from 'react-focus-on';
 import { ModalInfo } from './modal-info';
 
-interface ModalActionProps {
-  guitars: Guitar[];
-  setActionModal: (arg: boolean) => void;
-  setIsAdded?: (arg: boolean) => void;
-  deleteId?: string,
-  id?: number
-}
-
-export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}: ModalActionProps) {
+export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}: Omit<ModalProps, 'price' | 'setReview'>) {
   const activeClass = cn('title', 'title--medium', 'modal__header', {
     'title--red': deleteId,
   });
-  const [{ previewImg, name, stringCount, vendorCode, price }] =
-        guitars.filter((guitar) => deleteId ? guitar.id === +deleteId : guitar.id === id);
+  const [{ previewImg, name, stringCount, vendorCode, price }] = guitars.filter((guitar) => deleteId ? guitar.id === +deleteId : guitar.id === id);
 
   return (
     <div className="modal is-active modal-for-ui-kit">

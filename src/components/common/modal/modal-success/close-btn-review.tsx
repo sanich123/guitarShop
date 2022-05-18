@@ -1,8 +1,4 @@
-interface CloseBtnProps {
-  setIsSended: (arg: boolean) => void,
-}
-
-export default function CloseBtnReview({setIsSended}: CloseBtnProps) {
+export default function CloseBtnReview({setIsSended}: {setIsSended: (arg: boolean) => void}) {
 
   return (
     <button

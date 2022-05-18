@@ -1,15 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { deleteFromCart } from '../../../../redux/cart-slice';
-import { Cart } from '../../../../types/types';
+import { Cart, ModalProps } from '../../../../types/types';
 import { appRoutes } from '../../../../utils/const';
 
-interface DeleteContinueBtnsProps {
-  deleteId: string,
-  setActionModal: (arg: boolean) => void
-}
-
-export default function DeleteContinueBtns({deleteId, setActionModal}: DeleteContinueBtnsProps) {
+export default function DeleteContinueBtns({deleteId, setActionModal}: Pick<ModalProps, 'deleteId' | 'setActionModal'>) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -21,7 +16,6 @@ export default function DeleteContinueBtns({deleteId, setActionModal}: DeleteCon
           const uniq = deleteId;
           dispatch(deleteFromCart({ uniq }));
           setActionModal(false);
-
           localStorage.setItem('cart', JSON.stringify(JSON.parse(localStorage.cart)?.filter(({ id }: Cart) => `${id}` !== uniq)));
         }}
       >

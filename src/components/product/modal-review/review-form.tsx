@@ -6,7 +6,6 @@ import AddComment from './add-comment';
 import AddIssue from './add-issue';
 import AddName from './add-name';
 import AddRating from './add-rating';
-import SendReviewBtn from './send-review-btn';
 import { errors, warnings } from '../../../utils/const';
 import { getNormalizedError } from '../../../utils/utils';
 import { toast } from 'react-toastify';
@@ -54,14 +53,20 @@ function ReviewForm({setReview, setIsSended, id}: ReviewFormProps) {
   return (
     <form className="form-review" onSubmit={handleSubmit}>
       <div className="form-review__wrapper">
-        <AddName setSurName={setSurName}/>
-        <AddRating setRating={setRating}/>
+        <AddName setSurName={setSurName} />
+        <AddRating setRating={setRating} />
       </div>
-      <AddIssue setIssue={setIssue}/>
-      <AddAdvantage setAdvantage={setAdvantage}/>
-      <AddComment setComment={setComment}/>
-      <SendReviewBtn />
-    </form>);
+      <AddIssue setIssue={setIssue} />
+      <AddAdvantage setAdvantage={setAdvantage} />
+      <AddComment setComment={setComment} />
+      <button
+        className="button button--medium-20 form-review__button"
+        type="submit"
+      >
+        Отправить отзыв
+      </button>
+    </form>
+  );
 }
 
 export default memo(ReviewForm);

@@ -10,7 +10,7 @@ import { ModalAction } from '../../common/modal/modal-action/modal-action';
 import { ModalSuccess } from '../../common/modal/modal-success/modal-success';
 import Card from '../card/card';
 import { FiltersSort } from '../filters-sort/filters-sort';
-import { MainPagination } from '../pagination/pagination';
+import { MainPagination } from '../pagination/main-pagination';
 
 export function Main() {
   const { search } = useLocation();

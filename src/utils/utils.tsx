@@ -53,7 +53,6 @@ export const changeLocalStorageCart = (value: number, id: number) => {
   return localStorage.setItem('cart', JSON.stringify(cart.map((guitar) => guitar.id === id ? { ...guitar, quantity: value } : guitar)));
 };
 
-
 export const errorHandler = (error: SerializedError | FetchBaseQueryError) => {
   const info = getNormalizedError(error);
   if (info.status === errors.wrongAddress) {

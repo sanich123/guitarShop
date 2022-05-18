@@ -1,8 +1,5 @@
-interface CloseBtnCartProps {
-  setIsAdded: (arg: boolean) => void
-}
+export default function CloseBtnCart({setIsAdded}: {setIsAdded: (arg: boolean) => void}) {
 
-export default function CloseBtnCart({setIsAdded}: CloseBtnCartProps) {
   return (
     <button
       className="modal__close-btn button-cross"
