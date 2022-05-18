@@ -72,6 +72,8 @@ export const warnings = {
   failedSending: 'Не удалось отправить ваш комментарий, неполадки с сетью',
   successCart: 'Товар успешно добавлен в корзину',
   thanksForReview: 'Спасибо за ваш отзыв!',
+  deleteProduct: 'Удалить этот товар?',
+  addProduct: 'Добавить товар в корзину',
 } as const;
 
 export const places = {

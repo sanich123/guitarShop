@@ -5,6 +5,7 @@ import AddToCartBtn from './add-to-cart-btn';
 import CloseBtn from './close-btn';
 import { FocusOn } from 'react-focus-on';
 import { ModalInfo } from './modal-info';
+import { warnings } from '../../../../utils/const';
 
 export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}: Omit<ModalProps, 'price' | 'setReview'>) {
   const activeClass = cn('title', 'title--medium', 'modal__header', {
@@ -22,7 +23,7 @@ export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}:
         >
           <div className="modal__content">
             <h2 className={activeClass}>
-              {deleteId ? 'Удалить этот товар?' : 'Добавить товар в корзину'}
+              {deleteId ? warnings.deleteProduct : warnings.addProduct}
             </h2>
             <ModalInfo
               previewImg={previewImg}

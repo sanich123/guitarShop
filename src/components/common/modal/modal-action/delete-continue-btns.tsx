@@ -1,12 +1,9 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { deleteFromCart } from '../../../../redux/cart-slice';
 import { Cart, ModalProps } from '../../../../types/types';
-import { appRoutes } from '../../../../utils/const';
 
 export default function DeleteContinueBtns({deleteId, setActionModal}: Pick<ModalProps, 'deleteId' | 'setActionModal'>) {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   return (
     <>
@@ -23,7 +20,7 @@ export default function DeleteContinueBtns({deleteId, setActionModal}: Pick<Moda
       </button>
       <button
         className="button button--black-border button--small modal__button modal__button--right"
-        onClick={() => navigate(appRoutes.main)}
+        onClick={() => setActionModal(false)}
       >
         Продолжить покупки
       </button>
