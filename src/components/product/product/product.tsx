@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useGetGuitarQuery } from '../../../redux/guitars-api';
+import { useGetCommentsQuery, useGetGuitarQuery } from '../../../redux/guitars-api';
 import { useModal } from '../../../hooks/use-modal';
 import { Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Reviews } from '../../index';
 import { appRoutes, defaultGuitar, places, warnings } from '../../../utils/const';
@@ -17,6 +17,7 @@ export default function Product() {
   const { setIsAdded, setActionModal, showActionModal, isAdded, showReview, setReview, isSended, setIsSended} = useModal();
   error && errorHandler(error);
   const {previewImg, name, stringCount, type, vendorCode, description, price, rating} = guitar || defaultGuitar;
+  const { data: reviews } = useGetCommentsQuery(id);
 
   return (
     <>
@@ -46,7 +47,7 @@ export default function Product() {
                 >
                   <span className="visually-hidden">Рейтинг:</span>
                   <Rating width={14} height={14} rating={rating} />
-                  <span className="rate__count" />
+                  <span className="rate__count">{reviews && reviews.length}</span>
                   <span className="rate__message" />
                 </div>
                 <Properties

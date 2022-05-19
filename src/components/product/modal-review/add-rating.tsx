@@ -1,7 +1,11 @@
 import React, { memo } from 'react';
 import { marks } from '../../../utils/const';
-
-function AddRating({setRating}: {setRating: (arg: string) => void}) {
+interface AddRatingProps {
+  setRating: (arg: string) => void;
+  rating: string;
+  isError: boolean;
+}
+function AddRating({setRating, rating, isError}: AddRatingProps) {
 
   return (
     <div>
@@ -27,10 +31,9 @@ function AddRating({setRating}: {setRating: (arg: string) => void}) {
             />
           </React.Fragment>))}
         <span className="rate__count" />
-        <span className="rate__message">Поставьте оценку</span>
+        {!rating && <span className="rate__message">Поставьте оценку</span>}
       </div>
-    </div>
-  );
+    </div>);
 }
 
 export default memo(AddRating);

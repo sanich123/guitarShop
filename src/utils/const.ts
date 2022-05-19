@@ -6,6 +6,7 @@ export const appRoutes = {
 } as const;
 
 export const CARDS_ON_PAGE = 9;
+export const COMMENTS_ON_PAGE = 3;
 
 export const apiRoutes = {
   guitars: 'guitars',

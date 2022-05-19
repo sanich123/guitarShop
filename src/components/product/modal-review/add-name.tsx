@@ -1,6 +1,12 @@
 import { memo } from 'react';
 
-function AddName({setSurName}: {setSurName: (arg: string) => void}) {
+interface AddNameProps {
+  setSurName: (arg: string) => void;
+  surName: string;
+  isError: boolean;
+}
+
+function AddName({setSurName, surName, isError}: AddNameProps) {
 
   return (
     <div className="form-review__name-wrapper">
@@ -18,9 +24,8 @@ function AddName({setSurName}: {setSurName: (arg: string) => void}) {
         autoFocus
         onChange={({ target }) => setSurName(target.value)}
       />
-      <span className="form-review__warning">Заполните поле</span>
-    </div>
-  );
+      {!surName && <span className="form-review__warning">Заполните поле</span>}
+    </div>);
 }
 
 export default memo(AddName);

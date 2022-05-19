@@ -1,6 +1,10 @@
 import { memo } from 'react';
-
-function AddAdvantage({setAdvantage}: {setAdvantage: (arg: string) => void}) {
+interface AddAdvantageProps {
+  setAdvantage: (arg: string) => void;
+  advantage: string;
+  isError: boolean;
+}
+function AddAdvantage({setAdvantage, advantage, isError}: AddAdvantageProps) {
 
   return (
     <>
@@ -17,11 +21,8 @@ function AddAdvantage({setAdvantage}: {setAdvantage: (arg: string) => void}) {
         autoComplete="off"
         onChange={({ target }) => setAdvantage(target.value)}
       />
-      <p className="form-review__warning">
-        Заполните поле
-      </p>
-    </>
-  );
+      {!advantage && <p className="form-review__warning">Заполните поле</p>}
+    </>);
 }
 
 export default memo(AddAdvantage);

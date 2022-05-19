@@ -17,7 +17,7 @@ interface ReviewFormProps {
 }
 
 function ReviewForm({setReview, setIsSended, id}: ReviewFormProps) {
-  const [addComment, { isSuccess, error, data: response }] = useAddCommentMutation();
+  const [addComment, { isSuccess, isError, error, data: response }] = useAddCommentMutation();
   const { rating, surName, issue, advantage, comment, setRating, setSurName, setIssue, setAdvantage, setComment} = useForm();
 
   useEffect(() => {
@@ -53,12 +53,16 @@ function ReviewForm({setReview, setIsSended, id}: ReviewFormProps) {
   return (
     <form className="form-review" onSubmit={handleSubmit}>
       <div className="form-review__wrapper">
-        <AddName setSurName={setSurName} />
-        <AddRating setRating={setRating} />
+        <AddName setSurName={setSurName} surName={surName} isError={isError} />
+        <AddRating setRating={setRating} rating={rating} isError={isError} />
       </div>
-      <AddIssue setIssue={setIssue} />
-      <AddAdvantage setAdvantage={setAdvantage} />
-      <AddComment setComment={setComment} />
+      <AddIssue setIssue={setIssue} issue={issue} isError={isError} />
+      <AddAdvantage
+        setAdvantage={setAdvantage}
+        advantage={advantage}
+        isError={isError}
+      />
+      <AddComment setComment={setComment} comment={comment} isError={isError} />
       <button
         className="button button--medium-20 form-review__button"
         type="submit"

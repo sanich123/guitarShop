@@ -1,6 +1,11 @@
 import { memo } from 'react';
 
-function AddComment({ setComment }: { setComment: (arg: string) => void }) {
+interface AddCommentProps {
+  setComment: (arg: string) => void,
+  comment: string,
+  isError: boolean,
+}
+function AddComment({ setComment, comment, isError }: AddCommentProps) {
 
   return (
     <>
@@ -17,9 +22,8 @@ function AddComment({ setComment }: { setComment: (arg: string) => void }) {
         autoComplete="off"
         onChange={({ target }) => setComment(target.value)}
       />
-      <p className="form-review__warning">Заполните поле</p>
-    </>
-  );
+      {!comment && <p className="form-review__warning">Заполните поле</p>}
+    </>);
 }
 
 export default memo(AddComment);
