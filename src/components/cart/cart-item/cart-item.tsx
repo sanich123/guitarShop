@@ -23,21 +23,26 @@ export function CartItem({previewImg, name, price, stringCount, type, vendorCode
         id={id}
       />
       <div className="cart-item__image">
-        <img src={previewImg} width="55" height="130" alt={name}/>
+        <img src={previewImg} width="55" height="130" alt={name} />
       </div>
       <div className="product-info cart-item__info">
         <p className="product-info__title">{name}</p>
         <p className="product-info__info">Артикул: {vendorCode}</p>
-        <p className="product-info__info">{getTypeInRus(type)}, {stringCount} струнная</p>
+        <p className="product-info__info">
+          {getTypeInRus(type)}, {stringCount} струнная
+        </p>
       </div>
       <div className="cart-item__price">{price} ₽</div>
       <div className="quantity cart-item__quantity">
-        <DecrementBtn id={id} />
+        <DecrementBtn
+          id={id}
+          setActionModal={setActionModal}
+          setDeleteId={setDeleteId}
+        />
         <InputQuantity id={id} />
         <IncrementBtn id={id} />
       </div>
-      <div className="cart-item__price-total">
-        {totalPrice}
-      </div>
-    </div>);
+      <div className="cart-item__price-total">{totalPrice}</div>
+    </div>
+  );
 }

@@ -30,15 +30,15 @@ export const media = ['skype', 'vsco', 'pinterest'];
 export const navLinks = ['Где купить?', 'Блог', 'Вопрос - ответ', 'Возврат', 'Сервис-центры'];
 
 export const guitarTypesEn = {
+  acoustic: 'acoustic',
   electric: 'electric',
   ukulele: 'ukulele',
-  acoustic: 'acoustic',
 } as const;
 
 export const guitarTypesRus = {
-  electric: 'Электрическая',
-  acoustic: 'Акустическая',
+  electric: 'Электрогитары',
   ukulele: 'Укулеле',
+  acoustic: 'Акустические гитары',
 } as const;
 
 export const stringsTypes = [4, 6, 7, 12];

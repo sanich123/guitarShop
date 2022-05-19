@@ -24,8 +24,11 @@ function AddName({setSurName, surName, isError}: AddNameProps) {
         autoFocus
         onChange={({ target }) => setSurName(target.value)}
       />
-      {!surName && <span className="form-review__warning">Заполните поле</span>}
-    </div>);
+      {isError && !surName && (
+        <span className="form-review__warning">Заполните поле</span>
+      )}
+    </div>
+  );
 }
 
 export default memo(AddName);

@@ -21,7 +21,7 @@ function AddIssue({setIssue, issue, isError}: AddIssueProps) {
         autoComplete="off"
         onChange={({ target }) => setIssue(target.value)}
       />
-      {!issue && <p className="form-review__warning">Заполните поле</p>}
+      {isError && !issue && <p className="form-review__warning">Заполните поле</p>}
     </>);
 }
 

@@ -22,7 +22,7 @@ function AddComment({ setComment, comment, isError }: AddCommentProps) {
         autoComplete="off"
         onChange={({ target }) => setComment(target.value)}
       />
-      {!comment && <p className="form-review__warning">Заполните поле</p>}
+      {isError && !comment && <p className="form-review__warning">Заполните поле</p>}
     </>);
 }
 

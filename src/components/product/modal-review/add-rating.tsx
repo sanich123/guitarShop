@@ -1,10 +1,12 @@
 import React, { memo } from 'react';
 import { marks } from '../../../utils/const';
+
 interface AddRatingProps {
   setRating: (arg: string) => void;
   rating: string;
   isError: boolean;
 }
+
 function AddRating({setRating, rating, isError}: AddRatingProps) {
 
   return (
@@ -31,7 +33,7 @@ function AddRating({setRating, rating, isError}: AddRatingProps) {
             />
           </React.Fragment>))}
         <span className="rate__count" />
-        {!rating && <span className="rate__message">Поставьте оценку</span>}
+        {isError && !rating && <span className="rate__message">Поставьте оценку</span>}
       </div>
     </div>);
 }

@@ -21,7 +21,9 @@ export default function CartLogo() {
         <use xlinkHref="#icon-basket" />
       </svg>
       <span className="visually-hidden">Перейти в корзину</span>
-      <span className="header__cart-count">{inCart.length}</span>
+      {inCart.length > 0 && (
+        <span className="header__cart-count">{inCart.length}</span>
+      )}
     </Link>
   );
 }

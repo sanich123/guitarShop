@@ -7,7 +7,7 @@ import { getNormalizedError } from '../../../utils/utils';
 import { toast } from 'react-toastify';
 
 export function Promocode() {
-  const [coupon, setCoupon] = useState('');
+  const [promocode, setCoupon] = useState('');
   const [showInfo, setShowInfo] = useState(false);
   const [addCoupon, { error, data: response }] = useAddCouponMutation();
   const dispatch = useDispatch();
@@ -26,10 +26,10 @@ export function Promocode() {
         setShowInfo(true);
       }
     }
-    if (!coupon) {
+    if (!promocode) {
       setShowInfo(false);
     }
-  }, [error, response, coupon, dispatch]);
+  }, [error, response, promocode, dispatch]);
 
   return (
     <div className="cart__coupon coupon">
@@ -43,6 +43,7 @@ export function Promocode() {
         onSubmit={
           async (e) => {
             e.preventDefault();
+            const coupon = promocode.trim();
             await addCoupon({coupon}).unwrap();
           }
         }
@@ -54,7 +55,7 @@ export function Promocode() {
             placeholder="Введите промокод"
             id="coupon"
             name="coupon"
-            value={coupon}
+            value={promocode}
             onChange={({target}) => setCoupon(target.value)}
           />
 

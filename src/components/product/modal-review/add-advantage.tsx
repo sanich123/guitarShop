@@ -21,8 +21,11 @@ function AddAdvantage({setAdvantage, advantage, isError}: AddAdvantageProps) {
         autoComplete="off"
         onChange={({ target }) => setAdvantage(target.value)}
       />
-      {!advantage && <p className="form-review__warning">Заполните поле</p>}
-    </>);
+      {isError && !advantage && (
+        <p className="form-review__warning">Заполните поле</p>
+      )}
+    </>
+  );
 }
 
 export default memo(AddAdvantage);
