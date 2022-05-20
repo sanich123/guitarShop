@@ -4,7 +4,7 @@ import { State } from '../../../../types/types';
 import { appRoutes } from '../../../../utils/const';
 
 export default function CartLogo() {
-  const inCart = useSelector(({ cart }: State) => cart);
+  const amount = useSelector(({ cart }: State) => cart).reduce((total, {quantity}) => total += quantity, 0);
 
   return (
     <Link
@@ -21,9 +21,7 @@ export default function CartLogo() {
         <use xlinkHref="#icon-basket" />
       </svg>
       <span className="visually-hidden">Перейти в корзину</span>
-      {inCart.length > 0 && (
-        <span className="header__cart-count">{inCart.length}</span>
-      )}
+      {amount > 0 && <span className="header__cart-count">{amount}</span>}
     </Link>
   );
 }

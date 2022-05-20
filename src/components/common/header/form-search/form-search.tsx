@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useGetGuitarsQuery } from '../../../../redux/guitars-api';
+import { useNavigate } from 'react-router-dom';
 import { Guitar } from '../../../../types/types';
 import { searchParams, tabs } from '../../../../utils/const';
 import { errorHandler } from '../../../../utils/utils';
@@ -10,7 +10,6 @@ export default function FormSearch() {
   const [search, setSearch] = useState('');
   const {data: similarGuitars, isLoading, error} = useGetGuitarsQuery(`?${searchParams.similar}=${search}`);
   const navigate = useNavigate();
-
   if (isLoading) {return <Loader/>;}
   error && errorHandler(error);
 
@@ -50,8 +49,9 @@ export default function FormSearch() {
             {similarGuitars?.length > 0 ? (
               similarGuitars.map(({ name, id }: Guitar) => (
                 <li
+                  key={id}
                   onClick={() => navigate(`/guitar/${id}?${tabs.desc}=${tabs.char}`)}
-                  key={name}
+                  onKeyDown={({code}) => code === 'Enter' ? navigate(`/guitar/${id}?${tabs.desc}=${tabs.char}`) : ''}
                   className="form-search__select-item"
                   tabIndex={0}
                 >
@@ -77,6 +77,8 @@ export default function FormSearch() {
             </svg>
             <span className="visually-hidden">Сбросить поиск</span>
           </button>
-        </>)}
-    </div>);
+        </>
+      )}
+    </div>
+  );
 }

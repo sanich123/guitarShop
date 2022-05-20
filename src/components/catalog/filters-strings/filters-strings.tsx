@@ -11,16 +11,14 @@ interface StringFiltersProps extends FiltersProps {
 export default function FiltersStrings({setFilterString, setPageNumber, isError, needToReset, setNeedToReset}: StringFiltersProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const stringsFromUrl = params.get(searchParams.stringCount);
+  const stringsFromUrl = params.getAll(searchParams.stringCount);
   const typesFromUrl = params.getAll(searchParams.type);
-  console.log(typesFromUrl);
-
-  const stateFromUrl = stringsTypes.map((stringNumber) => `${stringNumber}` === stringsFromUrl);
+  const stateFromUrl = stringsTypes.map((stringNumber) => stringsFromUrl.includes(`${stringNumber}`));
   const [checkedState, setCheckedState] = useState(stateFromUrl);
 
   useEffect(() => {
     if (needToReset) {
-      setCheckedState([false, false, false]);
+      setCheckedState([false, false, false, false]);
       setFilterString('');
       setNeedToReset(false);
     }
