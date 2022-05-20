@@ -77,3 +77,24 @@ export const getCorrectGuitars = (guitar: Guitar) => guitar.name && guitar.previ
 export const getDefaultMinValue = (guitars: Guitar[]) => Math.min(...guitars.map(({price}) => price).filter(Boolean));
 export const getDefaultMaxValue = (guitars: Guitar[]) => Math.max(...guitars.map(({price}) => price).filter(Boolean));
 
+export const stringChanger = (array: string[]) => {
+  if (array.length === 0) {
+    return [4, 6, 7, 12];
+  }
+  const strings = array
+    .map((e) => {
+      if (e === 'acoustic') {
+        return [6, 7, 12];
+      }
+      if (e === 'electric') {
+        return [4, 6, 7];
+      }
+      if (e === 'ukulele') {
+        return [4];
+      }
+      return e;
+    })
+    .flat();
+  return [...new Set(strings)];
+};
+
