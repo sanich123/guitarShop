@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
-import { FiltersProps, Guitar } from '../../../types/types';
+import { FiltersProps } from '../../../types/types';
 import { priceWarnings, searchParams } from '../../../utils/const';
 import { getDefaultMaxValue, getDefaultMinValue } from '../../../utils/utils';
 
@@ -10,7 +10,7 @@ interface InputMaxPriceProps extends FiltersProps {
   setFilterMaxPrice: (arg: string) => void;
 }
 
-export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, guitars, isError, needToReset, setNeedToReset}: InputMaxPriceProps) {
+export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, isError, needToReset, setNeedToReset}: InputMaxPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMaxPrice = params.get(searchParams.maxPrice);
@@ -19,8 +19,6 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, guitars
   const { data: defaultGuitars } = useGetGuitarsQuery('');
   const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
   const smallestPrice = defaultGuitars ? getDefaultMinValue(defaultGuitars) : 0;
-  const filtredPrices = guitars?.map(({ price }: Guitar) => price);
-  const maxPrice = Math.max(...filtredPrices);
 
   useEffect(() => {
     if (needToReset) {
@@ -32,34 +30,46 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, guitars
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
-    const price = Math.abs(Number(target.value));
     const value = target.value;
+    const price = Math.abs(Number(value));
     setPrice(value);
     if (value[0] === '0' || value.slice(0, 2) === '-0') {
       toast.warn(priceWarnings.zeroNum);
       setPrice('');
       return;
     }
-    if (price > smallestPrice && price > Number(filterMinPrice) && price < biggestPrice) {
-      setFilterMaxPrice(`${searchParams.maxPrice}=${Math.abs(+value)}`);
-    } else {
-      toast.warn(priceWarnings.smallerAndBigger);
+    if (price >= smallestPrice && price <= biggestPrice) {
+      if (!filterMinPrice || (filterMinPrice &&
+      price >= Number(filterMinPrice))) {
+        setFilterMaxPrice(`${searchParams.maxPrice}=${price}`);
+        setPrice(`${price}`);
+      }
+      if (filterMinPrice && price < Number(filterMinPrice)) {
+        toast.warn(priceWarnings.currentSmallerThanMin);
+      }
     }
   };
 
   const handleBlur = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
     const price = Math.abs(Number(target.value));
-    if (!price) {return;}
-    if (price > biggestPrice) {
-      toast.warn(priceWarnings.biggerThanMax);
+    if (!price) {
+      setFilterMaxPrice('');
+      return;
+    }
+    if (
+      price < smallestPrice ||
+      price > biggestPrice ||
+      (filterMinPrice && price < Number(filterMinPrice))
+    ) {
+      toast.warn(priceWarnings.maxWarning);
       setPrice(`${biggestPrice}`);
       setFilterMaxPrice(`${searchParams.maxPrice}=${biggestPrice}`);
     }
-    if (price < Number(filterMinPrice) || price < smallestPrice) {
-      toast.warn(priceWarnings.smallerThanTypedMin);
-      setPrice(`${biggestPrice}`);
-      setFilterMaxPrice(`${searchParams.maxPrice}=${biggestPrice}`);
+    if (price < biggestPrice && price > smallestPrice) {
+      if (!filterMinPrice || (filterMinPrice && price > Number(filterMinPrice))) {
+        setFilterMaxPrice(`${searchParams.maxPrice}=${price}`);
+      }
     }
   };
 
@@ -75,7 +85,7 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, guitars
       <label className="visually-hidden">Максимальная цена</label>
       <input
         type="number"
-        placeholder={maxPrice.toLocaleString('ru-Ru')}
+        placeholder={biggestPrice.toLocaleString('ru-Ru')}
         id="priceMax"
         name="до"
         value={priceValue}
