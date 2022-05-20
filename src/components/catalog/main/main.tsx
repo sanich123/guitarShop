@@ -16,8 +16,6 @@ export function Main() {
   const { search } = useLocation();
   const { setGuitarId, setIsAdded, setActionModal, showActionModal, isAdded, guitarId } = useModal();
   const { data: guitarsList, isLoading, isError, error } = useGetGuitarsQuery(search);
-  const {data} = useGetGuitarsQuery('?type=electric&type=acoustic');
-  console.log(data);
   const filtredWrongGuitars = guitarsList?.filter(getCorrectGuitars);
   const { guitars, setPageNumber, pageNumber } = usePagination(filtredWrongGuitars);
 
