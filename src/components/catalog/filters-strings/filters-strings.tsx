@@ -14,7 +14,6 @@ export default function FiltersStrings({setFilterString, setPageNumber, guitars,
   const stateFromUrl = stringsTypes.map((stringNumber) => `${stringNumber}` === stringsFromUrl);
   const [checkedState, setCheckedState] = useState(stateFromUrl);
 
-
   useEffect(() => {
     if (needToReset) {
       setCheckedState([false, false, false]);
@@ -28,8 +27,8 @@ export default function FiltersStrings({setFilterString, setPageNumber, guitars,
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
     setCheckedState(updatedCheckedState);
-    const currentResult = updatedCheckedState.map((isChecked, index) => isChecked === true && stringsTypes[index]).filter(Boolean).toString();
-    setFilterString(currentResult ? `${searchParams.stringCount}=${currentResult}` : '');
+    const currentStrings = updatedCheckedState.map((isChecked, index) => isChecked === true && stringsTypes[index]).filter(Boolean);
+    setFilterString(currentStrings.length > 0 ? currentStrings.map((string) => `${searchParams.stringCount}=${string}`).join('&') : '');
   };
 
   return (

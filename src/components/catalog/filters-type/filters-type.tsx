@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { FiltersProps, Guitar } from '../../../types/types';
+import { FiltersProps } from '../../../types/types';
 import { guitarTypesEn, searchParams } from '../../../utils/const';
 import { getTypeInRus } from '../../../utils/utils';
 
@@ -23,14 +23,13 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
     }
   },[needToReset, setFilterType, setNeedToReset]);
 
-  const existingTypes = [...new Set(guitars?.map(({ type }: Guitar) => type))];
+  // const existingTypes = [...new Set(guitars?.map(({ type }: Guitar) => type))];
 
   const handleChange = (number: number) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === number ? !item : item);
+    const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
     setCheckedState(updatedCheckedState);
-    const currentStrings = updatedCheckedState.map((string, index) => string === true && Object.values(guitarTypesEn)[index]).filter(Boolean);
-    setFilterType(currentStrings.length > 0 ? `${searchParams.type}=${currentStrings}` : '');
+    const currentTypes = updatedCheckedState.map((string, index) => string === true && Object.values(guitarTypesEn)[index]).filter(Boolean);
+    setFilterType(currentTypes.length > 0 ? currentTypes.map((type) => `${searchParams.type}=${type}`).join('&') : '');
   };
 
 
@@ -49,7 +48,7 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
               setPageNumber(1);
               handleChange(index);
             }}
-            disabled={!existingTypes.includes(type) || isError}
+            // disabled={!existingTypes.includes(type) || isError}
             tabIndex={0}
           />
           <label htmlFor={type}>{getTypeInRus(type)}</label>
