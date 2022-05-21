@@ -8,9 +8,10 @@ interface InputMaxPriceProps extends FiltersProps {
   setFilterMaxPrice: (arg: string) => void;
   biggestPrice: number,
   smallestPrice: number,
+  placeholderMax: number,
 }
 
-export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, isError, needToReset, setNeedToReset, guitars, biggestPrice, smallestPrice}: InputMaxPriceProps) {
+export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, setNeedToReset, isError, needToReset, biggestPrice, smallestPrice, placeholderMax}: InputMaxPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const filterMaxPrice = params.get(searchParams.maxPrice);
@@ -83,7 +84,7 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, isError
       <input
         className="disabled_scroll"
         type="number"
-        placeholder={biggestPrice.toLocaleString('ru-Ru')}
+        placeholder={placeholderMax.toLocaleString('ru-Ru')}
         id="priceMax"
         name="до"
         value={priceValue}

@@ -9,29 +9,15 @@ interface InputMinPriceProps extends FiltersProps {
   setFilterMinPrice: (arg: string) => void;
   smallestPrice: number,
   biggestPrice: number,
+  placeholderMin: number,
 }
 
-export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber, needToReset, setNeedToReset, guitars, smallestPrice, biggestPrice}: InputMinPriceProps) {
+export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber, needToReset, setNeedToReset, smallestPrice, biggestPrice, placeholderMin }: InputMinPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  // const types = params.getAll(searchParams.type).map((type) => `${searchParams.type}=${type}`);
-
-  // const strings = params.getAll(searchParams.stringCount)
-  //   .map((stringCount) => `${searchParams.stringCount}=${stringCount}`);
-  // const request = [...types, ...strings].join('&');
-
   const filterMinPrice = params.get(searchParams.minPrice);
   const filterMaxPrice = params.get(searchParams.maxPrice);
   const [priceValue, setPrice] = useState(filterMinPrice ? filterMinPrice : '');
-
-  // const { data: withoutPrice } = useGetGuitarsQuery(`?${request}`) || 0;
-  // const minPriceWithoutPrice = withoutPrice
-  //   ? Math.min(...withoutPrice.map(({ price }: Guitar) => price))
-  //   : 0;
-
-  // const biggestPrice = withoutPrice ? getDefaultMaxValue(withoutPrice) : 0;
-  // const smallestPrice = withoutPrice ? getDefaultMinValue(withoutPrice) : 0;
-
 
   useEffect(() => {
     if (needToReset) {
@@ -98,7 +84,7 @@ export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber
       <input
         className="disabled_scroll"
         type="number"
-        placeholder={smallestPrice.toLocaleString('ru-Ru')}
+        placeholder={placeholderMin.toLocaleString('ru-Ru')}
         id="priceMin"
         name="от"
         value={priceValue}

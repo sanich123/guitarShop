@@ -19,8 +19,11 @@ export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guit
   const request = [...types, ...strings].join('&');
 
   const { data: withoutPrice } = useGetGuitarsQuery(`?${request}`) || 0;
-  const biggestPrice = withoutPrice ? getDefaultMaxValue(withoutPrice) : 0;
-  const smallestPrice = withoutPrice ? getDefaultMinValue(withoutPrice) : 0;
+  const { data: defaultGuitars } = useGetGuitarsQuery('');
+  const smallestPrice = defaultGuitars ? getDefaultMinValue(defaultGuitars) : 0;
+  const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
+  const placeholderMin = withoutPrice ? getDefaultMinValue(withoutPrice) : 0;
+  const placeholderMax = withoutPrice ? getDefaultMaxValue(withoutPrice) : 0;
 
   return (
     <fieldset className="catalog-filter__block">
@@ -28,6 +31,7 @@ export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guit
       <div className="catalog-filter__price-range">
         <div className="form-input">
           <InputMinPrice
+            placeholderMin={placeholderMin}
             biggestPrice={biggestPrice}
             smallestPrice={smallestPrice}
             setNeedToReset={setNeedToReset}
@@ -42,6 +46,7 @@ export default function FiltersPrice({setFilterMinPrice, setFilterMaxPrice, guit
           <InputMaxPrice
             biggestPrice={biggestPrice}
             smallestPrice={smallestPrice}
+            placeholderMax={placeholderMax}
             needToReset={needToReset}
             setNeedToReset={setNeedToReset}
             setFilterMaxPrice={setFilterMaxPrice}
