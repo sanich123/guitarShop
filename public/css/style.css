@@ -3340,6 +3340,14 @@ button,
     box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
   }
 }
+
+.disabled_scroll {
+   -moz-appearance: textfield;
+}
+.disabled_scroll::-webkit-inner-spin-button {
+  display: none;
+}
+
 @media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi), (min-resolution: 1.5dppx) {
   .modal--success .modal__content {
     background-image: url("../img/sprite/bg_modal@2x.png");

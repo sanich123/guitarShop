@@ -83,6 +83,7 @@ export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber
     <>
       <label className="visually-hidden">Минимальная цена</label>
       <input
+        className="disabled_scroll"
         type="number"
         placeholder={smallestPrice.toLocaleString('ru-Ru')}
         id="priceMin"
@@ -94,5 +95,6 @@ export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber
         disabled={isError}
         tabIndex={0}
       />
-    </>);
+    </>
+  );
 }

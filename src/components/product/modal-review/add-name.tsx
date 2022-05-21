@@ -25,7 +25,12 @@ function AddName({setSurName, surName, isError}: AddNameProps) {
         onChange={({ target }) => setSurName(target.value)}
       />
       {isError && !surName && (
-        <span className="form-review__warning">Заполните поле</span>
+        <span
+          className="form-review__warning"
+          style={!surName ? { marginBottom: -12 } : { marginBottom: 0 }}
+        >
+          Заполните поле
+        </span>
       )}
     </div>
   );

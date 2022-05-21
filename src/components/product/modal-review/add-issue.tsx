@@ -21,8 +21,16 @@ function AddIssue({setIssue, issue, isError}: AddIssueProps) {
         autoComplete="off"
         onChange={({ target }) => setIssue(target.value)}
       />
-      {isError && !issue && <p className="form-review__warning">Заполните поле</p>}
-    </>);
+      {isError && !issue && (
+        <p
+          className="form-review__warning"
+          style={!issue ? { marginBottom: -12 } : { marginBottom: 0 }}
+        >
+          Заполните поле
+        </p>
+      )}
+    </>
+  );
 }
 
 export default memo(AddIssue);

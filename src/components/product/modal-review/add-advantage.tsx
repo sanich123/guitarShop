@@ -4,11 +4,13 @@ interface AddAdvantageProps {
   advantage: string;
   isError: boolean;
 }
+
 function AddAdvantage({setAdvantage, advantage, isError}: AddAdvantageProps) {
 
   return (
     <>
       <label
+        style={{ marginTop: 5 }}
         className="form-review__label form-review__label--required"
         htmlFor="user-name"
       >
@@ -22,7 +24,12 @@ function AddAdvantage({setAdvantage, advantage, isError}: AddAdvantageProps) {
         onChange={({ target }) => setAdvantage(target.value)}
       />
       {isError && !advantage && (
-        <p className="form-review__warning">Заполните поле</p>
+        <p
+          className="form-review__warning"
+          style={!advantage ? { marginBottom: -12 } : { marginBottom: 0 }}
+        >
+          Заполните поле
+        </p>
       )}
     </>
   );

@@ -84,6 +84,7 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, isError
     <>
       <label className="visually-hidden">Максимальная цена</label>
       <input
+        className="disabled_scroll"
         type="number"
         placeholder={biggestPrice.toLocaleString('ru-Ru')}
         id="priceMax"
@@ -95,5 +96,6 @@ export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, isError
         disabled={isError}
         tabIndex={0}
       />
-    </>);
+    </>
+  );
 }

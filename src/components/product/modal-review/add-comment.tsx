@@ -10,6 +10,7 @@ function AddComment({ setComment, comment, isError }: AddCommentProps) {
   return (
     <>
       <label
+        style={{ marginTop: 5 }}
         className="form-review__label form-review__label--required"
         htmlFor="user-name"
       >
@@ -22,8 +23,11 @@ function AddComment({ setComment, comment, isError }: AddCommentProps) {
         autoComplete="off"
         onChange={({ target }) => setComment(target.value)}
       />
-      {isError && !comment && <p className="form-review__warning">Заполните поле</p>}
-    </>);
+      {isError && !comment && (
+        <p className="form-review__warning">Заполните поле</p>
+      )}
+    </>
+  );
 }
 
 export default memo(AddComment);
