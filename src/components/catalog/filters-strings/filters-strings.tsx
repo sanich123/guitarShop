@@ -15,18 +15,15 @@ export default function FiltersStrings({setFilterString, setPageNumber, isError,
   const params = new URLSearchParams(search);
   const stringsFromUrl = params.getAll(searchParams.stringCount);
   const typesFromUrl = params.getAll(searchParams.type);
-  // const stateFromUrl = stringsTypes.map((stringNumber) => stringsFromUrl.includes(`${stringNumber}`));
+  const stateFromUrl = stringsTypes.map((stringNumber) => stringsFromUrl.includes(`${stringNumber}`));
+  const [checkedState, setCheckedState] = useState(stateFromUrl);
 
-  const checkedCheckboxes = stringsTypes.map((stringNumber) => stringsFromUrl.includes(`${stringNumber}`));
-  const shouldDisabledCheckboxes = stringsTypes.map((stringNumber) => !stringChanger(typesFromUrl).map((e) => `${e}`).includes(`${stringNumber}`));
-  const updatedCheckboxesChecked = checkedCheckboxes.map((e, i) => e === true && shouldDisabledCheckboxes[i] === true ? false : e);
-  console.log(checkedCheckboxes, shouldDisabledCheckboxes);
-  console.log(updatedCheckboxesChecked);
-
-  const [checkedState, setCheckedState] = useState(updatedCheckboxesChecked);
-  console.log(checkedState);
   useEffect(() => {
     if (resetStrings) {
+      const checkedCheckboxes = stringsTypes.map((stringNumber) => stringsFromUrl.includes(`${stringNumber}`));
+      const shouldDisabledCheckboxes = stringsTypes.map((stringNumber) => !stringChanger(typesFromUrl).map((e) => `${e}`).includes(`${stringNumber}`));
+      const updatedCheckboxesChecked = checkedCheckboxes.map((e, i) => e === true && shouldDisabledCheckboxes[i] === true ? false : e);
+      console.log(updatedCheckboxesChecked);
       setCheckedState(updatedCheckboxesChecked);
       setFilterString('');
       setResetStrings(false);
@@ -36,7 +33,7 @@ export default function FiltersStrings({setFilterString, setPageNumber, isError,
       setFilterString('');
       setNeedToReset(false);
     }
-  }, [needToReset, setFilterString, setNeedToReset, resetStrings, updatedCheckboxesChecked, setResetStrings]);
+  }, [needToReset, setFilterString, setNeedToReset, resetStrings, setResetStrings, stringsFromUrl, typesFromUrl]);
 
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) =>

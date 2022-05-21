@@ -1,24 +1,37 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { FiltersProps } from '../../../types/types';
 import { priceWarnings, searchParams } from '../../../utils/const';
-import { getDefaultMaxValue, getDefaultMinValue } from '../../../utils/utils';
+
 
 interface InputMinPriceProps extends FiltersProps {
   setFilterMinPrice: (arg: string) => void;
+  smallestPrice: number,
+  biggestPrice: number,
 }
 
-export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber, needToReset, setNeedToReset}: InputMinPriceProps) {
+export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber, needToReset, setNeedToReset, guitars, smallestPrice, biggestPrice}: InputMinPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
+  // const types = params.getAll(searchParams.type).map((type) => `${searchParams.type}=${type}`);
+
+  // const strings = params.getAll(searchParams.stringCount)
+  //   .map((stringCount) => `${searchParams.stringCount}=${stringCount}`);
+  // const request = [...types, ...strings].join('&');
+
   const filterMinPrice = params.get(searchParams.minPrice);
   const filterMaxPrice = params.get(searchParams.maxPrice);
   const [priceValue, setPrice] = useState(filterMinPrice ? filterMinPrice : '');
-  const { data: defaultGuitars } = useGetGuitarsQuery('');
-  const smallestPrice = defaultGuitars ? getDefaultMinValue(defaultGuitars) : 0;
-  const biggestPrice = defaultGuitars ? getDefaultMaxValue(defaultGuitars) : 0;
+
+  // const { data: withoutPrice } = useGetGuitarsQuery(`?${request}`) || 0;
+  // const minPriceWithoutPrice = withoutPrice
+  //   ? Math.min(...withoutPrice.map(({ price }: Guitar) => price))
+  //   : 0;
+
+  // const biggestPrice = withoutPrice ? getDefaultMaxValue(withoutPrice) : 0;
+  // const smallestPrice = withoutPrice ? getDefaultMinValue(withoutPrice) : 0;
+
 
   useEffect(() => {
     if (needToReset) {
