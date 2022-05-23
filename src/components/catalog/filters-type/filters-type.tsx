@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { FiltersProps } from '../../../types/types';
 import { guitarTypesEn, searchParams } from '../../../utils/const';
-import { getTypeInRus } from '../../../utils/utils';
+import { getTypeInRus, typeChanger } from '../../../utils/utils';
 
 interface TypeFiltersProps extends FiltersProps {
   setFilterType: (arg: string) => void,
@@ -11,6 +11,7 @@ interface TypeFiltersProps extends FiltersProps {
 export default function FiltersType({setFilterType, setPageNumber, guitars, isError, needToReset, setNeedToReset}: TypeFiltersProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
+  const stringsFromUrl = params.getAll(searchParams.stringCount);
   const typesFromUrl = params.get(searchParams.type);
   const stateFromUrl = Object.values(guitarTypesEn).map((type) => type === typesFromUrl);
   const [checkedState, setCheckedState] = useState(stateFromUrl);
@@ -46,7 +47,7 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
               setPageNumber(1);
               handleChange(index);
             }}
-            disabled={isError}
+            disabled={!typeChanger(stringsFromUrl).includes(type) || isError}
             tabIndex={0}
           />
           <label htmlFor={type}>{getTypeInRus(type)}</label>

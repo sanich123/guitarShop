@@ -98,3 +98,20 @@ export const stringChanger = (array: string[]) => {
   return [...new Set(strings)];
 };
 
+export const typeChanger = (array: string[]) => {
+  if (array.length === 0) {return ['acoustic', 'ukulele', 'electric'];}
+  const types = array.map((e) => {
+    if (e === '4') {
+      return ['ukulele', 'electric'];
+    }
+    if (e === '6' || e === '7') {
+      return ['electric', 'acoustic'];
+    }
+    if (e === '12') {
+      return ['acoustic'];
+    }
+    return e;
+  }).flat();
+  return [...new Set(types)];
+};
+
