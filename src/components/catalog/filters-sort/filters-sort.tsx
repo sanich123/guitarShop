@@ -18,7 +18,6 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
   const navigate = useNavigate();
   const { setFilterString, setFilterType, setFilterMinPrice, setFilterMaxPrice, setSortPopular, setDirection, sortPopular, sortDirection, finalRequest} = useQueries();
   const [needToReset, setNeedToReset] = useState(false);
-  const [resetStrings, setResetStrings] = useState(false);
 
   useEffect(() => {
     navigate(`/catalog:?${searchParams.page}${pageNumber}&${finalRequest}`);
@@ -38,7 +37,6 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
           isError={isError}
         />
         <TypeFilters
-          setResetStrings={setResetStrings}
           guitars={guitarsList}
           setFilterType={setFilterType}
           setNeedToReset={setNeedToReset}
@@ -47,8 +45,6 @@ export function FiltersSort({guitarsList, isError, pageNumber, setPageNumber}: F
           isError={isError}
         />
         <StringFilters
-          resetStrings={resetStrings}
-          setResetStrings={setResetStrings}
           guitars={guitarsList}
           setFilterString={setFilterString}
           setNeedToReset={setNeedToReset}

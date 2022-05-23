@@ -6,11 +6,9 @@ import { stringChanger } from '../../../utils/utils';
 
 interface StringFiltersProps extends FiltersProps {
   setFilterString: (arg: string) => void;
-  resetStrings: boolean,
-  setResetStrings: (arg: boolean) => void,
 }
 
-export default function FiltersStrings({setFilterString, setPageNumber, isError, needToReset, setNeedToReset, resetStrings, setResetStrings}: StringFiltersProps) {
+export default function FiltersStrings({setFilterString, setPageNumber, isError, needToReset, setNeedToReset}: StringFiltersProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const stringsFromUrl = params.getAll(searchParams.stringCount);
@@ -19,21 +17,12 @@ export default function FiltersStrings({setFilterString, setPageNumber, isError,
   const [checkedState, setCheckedState] = useState(stateFromUrl);
 
   useEffect(() => {
-    if (resetStrings) {
-      const checkedCheckboxes = stringsTypes.map((stringNumber) => stringsFromUrl.includes(`${stringNumber}`));
-      const shouldDisabledCheckboxes = stringsTypes.map((stringNumber) => !stringChanger(typesFromUrl).map((e) => `${e}`).includes(`${stringNumber}`));
-      const updatedCheckboxesChecked = checkedCheckboxes.map((e, i) => e === true && shouldDisabledCheckboxes[i] === true ? false : e);
-      console.log(updatedCheckboxesChecked);
-      setCheckedState(updatedCheckboxesChecked);
-      setFilterString('');
-      setResetStrings(false);
-    }
     if (needToReset) {
       setCheckedState([false, false, false, false]);
       setFilterString('');
       setNeedToReset(false);
     }
-  }, [needToReset, setFilterString, setNeedToReset, resetStrings, setResetStrings, stringsFromUrl, typesFromUrl]);
+  }, [needToReset, setFilterString, setNeedToReset, stringsFromUrl, typesFromUrl]);
 
   const handleChange = (number: number) => {
     const updatedCheckedState = checkedState.map((item, index) =>
@@ -76,3 +65,9 @@ export default function FiltersStrings({setFilterString, setPageNumber, isError,
     </fieldset>
   );
 }
+
+
+//   const checkedCheckboxes = stringsTypes.map((stringNumber) => stringsFromUrl.includes(`${stringNumber}`));
+//   const shouldDisabledCheckboxes = stringsTypes.map((stringNumber) => !stringChanger(typesFromUrl).map((e) => `${e}`).includes(`${stringNumber}`));
+//   const updatedCheckboxesChecked = checkedCheckboxes.map((e, i) => e === true && shouldDisabledCheckboxes[i] === true ? false : e);
+//   setCheckedState(updatedCheckboxesChecked);

@@ -6,10 +6,9 @@ import { getTypeInRus } from '../../../utils/utils';
 
 interface TypeFiltersProps extends FiltersProps {
   setFilterType: (arg: string) => void,
-  setResetStrings: (arg: boolean) => void,
 }
 
-export default function FiltersType({setFilterType, setPageNumber, guitars, isError, needToReset, setNeedToReset, setResetStrings}: TypeFiltersProps) {
+export default function FiltersType({setFilterType, setPageNumber, guitars, isError, needToReset, setNeedToReset}: TypeFiltersProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const typesFromUrl = params.get(searchParams.type);
@@ -18,16 +17,13 @@ export default function FiltersType({setFilterType, setPageNumber, guitars, isEr
 
   useEffect(() => {
     if (needToReset) {
-      setCheckedState([false, false, false]);
+      setCheckedState([false, false, false, false]);
       setFilterType('');
       setNeedToReset(false);
     }
   },[needToReset, setFilterType, setNeedToReset]);
 
-  // const existingTypes = [...new Set(guitars?.map(({ type }: Guitar) => type))];
-
   const handleChange = (number: number) => {
-    setResetStrings(true);
     const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
     setCheckedState(updatedCheckedState);
     const currentTypes = updatedCheckedState.map((string, index) => string === true && Object.values(guitarTypesEn)[index]).filter(Boolean);
