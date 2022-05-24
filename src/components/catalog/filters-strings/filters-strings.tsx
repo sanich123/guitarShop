@@ -25,20 +25,10 @@ export default function FiltersStrings({setFilterString, setPageNumber, isError,
   }, [needToReset, setFilterString, setNeedToReset, stringsFromUrl, typesFromUrl]);
 
   const handleChange = (number: number) => {
-    const updatedCheckedState = checkedState.map((item, index) =>
-      index === number ? !item : item,
-    );
+    const updatedCheckedState = checkedState.map((item, index) => index === number ? !item : item);
     setCheckedState(updatedCheckedState);
-    const currentStrings = updatedCheckedState
-      .map((isChecked, index) => isChecked === true && stringsTypes[index])
-      .filter(Boolean);
-    setFilterString(
-      currentStrings.length > 0
-        ? currentStrings
-          .map((string) => `${searchParams.stringCount}=${string}`)
-          .join('&')
-        : '',
-    );
+    const currentStrings = updatedCheckedState.map((isChecked, index) => isChecked === true && stringsTypes[index]).filter(Boolean);
+    setFilterString(currentStrings.length > 0 ? currentStrings.map((string) => `${searchParams.stringCount}=${string}`).join('&') : '');
   };
 
   return (
@@ -62,6 +52,5 @@ export default function FiltersStrings({setFilterString, setPageNumber, isError,
           <label htmlFor={`${number}-strings`}>{number}</label>
         </div>
       ))}
-    </fieldset>
-  );
+    </fieldset>);
 }
