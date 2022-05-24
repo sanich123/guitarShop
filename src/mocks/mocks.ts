@@ -657,3 +657,10 @@ export const mockGuitars = [
     ],
   },
 ];
+
+
+export const mockCart = [
+  {id: 1, price: 17500, quantity: 3},
+  {id: 2, price: 29500, quantity: 2},
+  {id: 3, price: 6800, quantity: 1},
+];
