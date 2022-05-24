@@ -65,9 +65,3 @@ export default function FiltersStrings({setFilterString, setPageNumber, isError,
     </fieldset>
   );
 }
-
-
-//   const checkedCheckboxes = stringsTypes.map((stringNumber) => stringsFromUrl.includes(`${stringNumber}`));
-//   const shouldDisabledCheckboxes = stringsTypes.map((stringNumber) => !stringChanger(typesFromUrl).map((e) => `${e}`).includes(`${stringNumber}`));
-//   const updatedCheckboxesChecked = checkedCheckboxes.map((e, i) => e === true && shouldDisabledCheckboxes[i] === true ? false : e);
-//   setCheckedState(updatedCheckboxesChecked);

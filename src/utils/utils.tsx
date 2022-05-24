@@ -3,7 +3,7 @@ import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { toast } from 'react-toastify';
 import Page404 from '../components/common/page404/page404';
 import { Cart, Guitar } from '../types/types';
-import { couponValues, errors, guitarTypesEn, guitarTypesRus, warnings } from './const';
+import { couponValues, errors, guitarTypesEn, guitarTypesRus, stringsTypes, warnings } from './const';
 
 export const getTypeInRus = (type: string) => {
   switch (type) {
@@ -79,36 +79,42 @@ export const getDefaultMaxValue = (guitars: Guitar[]) => Math.max(...guitars.map
 
 export const stringChanger = (array: string[]) => {
   if (array.length === 0) {
-    return [4, 6, 7, 12];
+    return stringsTypes;
   }
-  const strings = array
-    .map((e) => {
-      if (e === 'acoustic') {
-        return [6, 7, 12];
+  const shouldAvailableStrings = array
+    .map((type) => {
+      if (type === guitarTypesEn.acoustic) {
+        return stringsTypes.slice(1);
       }
-      if (e === 'electric') {
-        return [4, 6, 7];
+      if (type === guitarTypesEn.electric) {
+        return stringsTypes.slice(0,3);
       }
-      if (e === 'ukulele') {
-        return [4];
+      if (type === guitarTypesEn.ukulele) {
+        return stringsTypes[0];
       }
-      return e;
+      return type;
     })
     .flat();
-  return [...new Set(strings)];
+  return [...new Set(shouldAvailableStrings)];
 };
 
 export const typeChanger = (array: string[]) => {
-  if (array.length === 0) {return ['acoustic', 'ukulele', 'electric'];}
+  if (array.length === 0) {
+    return [
+      guitarTypesEn.acoustic,
+      guitarTypesEn.ukulele,
+      guitarTypesEn.electric,
+    ];
+  }
   const types = array.map((e) => {
-    if (e === '4') {
-      return ['ukulele', 'electric'];
+    if (e === `${stringsTypes[0]}`) {
+      return [guitarTypesEn.ukulele, guitarTypesEn.electric];
     }
-    if (e === '6' || e === '7') {
-      return ['electric', 'acoustic'];
+    if (e === `${stringsTypes[1]}` || e === `${stringsTypes[2]}`) {
+      return [guitarTypesEn.electric, guitarTypesEn.acoustic];
     }
-    if (e === '12') {
-      return ['acoustic'];
+    if (e === `${stringsTypes[3]}`) {
+      return [guitarTypesEn.acoustic];
     }
     return e;
   }).flat();
