@@ -24,7 +24,12 @@ function AddComment({ setComment, comment, isError }: AddCommentProps) {
         onChange={({ target }) => setComment(target.value)}
       />
       {isError && !comment && (
-        <p className="form-review__warning">Заполните поле</p>
+        <p
+          className="form-review__warning"
+          style={comment ? { marginBottom: -15 } : { marginBottom: 0 }}
+        >
+          Заполните поле
+        </p>
       )}
     </>
   );

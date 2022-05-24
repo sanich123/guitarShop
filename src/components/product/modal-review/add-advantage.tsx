@@ -26,7 +26,7 @@ function AddAdvantage({setAdvantage, advantage, isError}: AddAdvantageProps) {
       {isError && !advantage && (
         <p
           className="form-review__warning"
-          style={!advantage ? { marginBottom: -12 } : { marginBottom: 0 }}
+          style={!advantage ? { marginBottom: -15 } : { marginBottom: 0 }}
         >
           Заполните поле
         </p>

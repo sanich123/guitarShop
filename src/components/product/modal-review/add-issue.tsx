@@ -24,7 +24,7 @@ function AddIssue({setIssue, issue, isError}: AddIssueProps) {
       {isError && !issue && (
         <p
           className="form-review__warning"
-          style={!issue ? { marginBottom: -12 } : { marginBottom: 0 }}
+          style={!issue ? { marginBottom: -15 } : { marginBottom: 0 }}
         >
           Заполните поле
         </p>

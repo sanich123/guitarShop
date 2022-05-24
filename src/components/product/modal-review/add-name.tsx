@@ -27,7 +27,7 @@ function AddName({setSurName, surName, isError}: AddNameProps) {
       {isError && !surName && (
         <span
           className="form-review__warning"
-          style={!surName ? { marginBottom: -12 } : { marginBottom: 0 }}
+          style={!surName ? { marginBottom: -15 } : { marginBottom: 0 }}
         >
           Заполните поле
         </span>

@@ -64,6 +64,7 @@ function ReviewForm({setReview, setIsSended, id}: ReviewFormProps) {
       />
       <AddComment setComment={setComment} comment={comment} isError={isError} />
       <button
+        style={comment ? {marginTop: 35} : {marginTop: 20}}
         className="button button--medium-20 form-review__button"
         type="submit"
       >
