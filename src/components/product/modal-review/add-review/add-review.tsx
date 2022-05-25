@@ -1,6 +1,6 @@
 import {FocusOn} from 'react-focus-on';
-import CloseReviewBtn from './close-review-btn/close-review-btn';
-import ReviewForm from './review-form';
+import CloseReviewBtn from '../close-review-btn/close-review-btn';
+import ReviewForm from '../review-form/review-form';
 
 interface AddReviewProps {
   setReview: (arg: boolean) => void,

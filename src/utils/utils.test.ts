@@ -1,21 +1,20 @@
 import { couponValues, guitarTypesEn, guitarTypesRus } from './const';
-import { getTypeInRus } from './utils';
+import { getChangedString, getChangedStringBack, getCouponValueFromPercents, getTypeInRus } from './utils';
 
 describe('All utils are working properly', () => {
   it('getTypeInRus works properly', () => {
     expect(getTypeInRus(guitarTypesEn.acoustic)).toBe(guitarTypesRus.acoustic);
   });
   it('getCouponValueFromPercents works properly', () => {
-    expect(15).toBe(couponValues.light);
+    expect(getCouponValueFromPercents(15)).toBe(couponValues.light);
   });
 
   it('getChangedString are working properly', () => {
-    expect('up').toBe('asc');
+    expect(getChangedString('up')).toBe('down');
   });
 
   it('getChangedStringBack', () => {
-    expect('up').toBe('asc');
+    expect(getChangedStringBack('up')).toBe('asc');
   });
 });
-
 
