@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import { marks } from '../../../utils/const';
+import { marks } from '../../../../utils/const';
 
 interface AddRatingProps {
   setRating: (arg: string) => void;

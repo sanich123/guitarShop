@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useQueries from '../../../hooks/use-queries';
 import { FiltersProps, Guitar } from '../../../types/types';
 import { defaultParams, searchParams } from '../../../utils/const';
-import PriceFilters from '../filters-price/filters-price';
+import PriceFilters from '../filters-price/filters-price/filters-price';
 import StringFilters from '../filters-strings/filters-strings';
 import TypeFilters from '../filters-type/filters-type';
 import SortOrder from '../sort-direction/sort-direction';

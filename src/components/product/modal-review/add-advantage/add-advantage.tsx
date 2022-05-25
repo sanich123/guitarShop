@@ -12,13 +12,13 @@ function AddAdvantage({setAdvantage, advantage, isError}: AddAdvantageProps) {
       <label
         style={{ marginTop: 5 }}
         className="form-review__label form-review__label--required"
-        htmlFor="user-name"
+        htmlFor="user-advantage"
       >
         Достоинства
       </label>
       <input
         className="form-review__input"
-        id="pros"
+        id="user-advantage"
         type="text"
         autoComplete="off"
         onChange={({ target }) => setAdvantage(target.value)}

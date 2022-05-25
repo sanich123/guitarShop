@@ -3,14 +3,14 @@ import { useModal } from '../../../hooks/use-modal';
 import { usePagination } from '../../../hooks/use-pagination';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { Guitar } from '../../../types/types';
-import { CARDS_ON_PAGE, places } from '../../../utils/const';
+import { CARDS_ON_PAGE } from '../../../utils/const';
 import { errorHandler, getCorrectGuitars } from '../../../utils/utils';
 import { Loader } from '../../common/loader/loader';
 import { ModalAction } from '../../common/modal/modal-action/modal-action/modal-action';
 import { ModalSuccess } from '../../common/modal/modal-success/modal-success/modal-success';
 import Card from '../card/card';
 import { FiltersSort } from '../filters-sort/filters-sort';
-import { MainPagination } from '../pagination/main-pagination';
+import { MainPagination } from '../main-pagination/main-pagination';
 
 export function Main() {
   const { search } = useLocation();
@@ -54,7 +54,7 @@ export function Main() {
         {guitars?.length === 0 && (
           <h2>Условиям фильтрации не соответствует не один товар</h2>)}
         {isAdded && (
-          <ModalSuccess place={places.main} setIsAdded={setIsAdded} />)}
+          <ModalSuccess setIsAdded={setIsAdded} />)}
       </div>
       {filtredWrongGuitars?.length > CARDS_ON_PAGE && (
         <MainPagination

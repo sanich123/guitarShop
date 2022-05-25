@@ -12,13 +12,13 @@ function AddName({setSurName, surName, isError}: AddNameProps) {
     <div className="form-review__name-wrapper">
       <label
         className="form-review__label form-review__label--required"
-        htmlFor="user-name"
+        htmlFor="user-surname"
       >
         Ваше Имя
       </label>
       <input
         className="form-review__input form-review__input--name"
-        id="user-name"
+        id="user-surname"
         type="text"
         autoComplete="off"
         autoFocus

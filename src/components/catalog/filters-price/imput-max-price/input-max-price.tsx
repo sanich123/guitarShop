@@ -1,31 +1,30 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { FiltersProps } from '../../../types/types';
-import { priceWarnings, searchParams } from '../../../utils/const';
+import { FiltersProps } from '../../../../types/types';
+import { priceWarnings, searchParams } from '../../../../utils/const';
 
-
-interface InputMinPriceProps extends FiltersProps {
-  setFilterMinPrice: (arg: string) => void;
-  smallestPrice: number,
+interface InputMaxPriceProps extends FiltersProps {
+  setFilterMaxPrice: (arg: string) => void;
   biggestPrice: number,
-  placeholderMin: number,
+  smallestPrice: number,
+  placeholderMax: number,
 }
 
-export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber, needToReset, setNeedToReset, smallestPrice, biggestPrice, placeholderMin }: InputMinPriceProps) {
+export default function InputMaxPrice({setFilterMaxPrice, setPageNumber, setNeedToReset, isError, needToReset, biggestPrice, smallestPrice, placeholderMax}: InputMaxPriceProps) {
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const filterMinPrice = params.get(searchParams.minPrice);
   const filterMaxPrice = params.get(searchParams.maxPrice);
-  const [priceValue, setPrice] = useState(filterMinPrice ? filterMinPrice : '');
+  const filterMinPrice = params.get(searchParams.minPrice);
+  const [priceValue, setPrice] = useState(filterMaxPrice ? filterMaxPrice : '');
 
   useEffect(() => {
     if (needToReset) {
       setPrice('');
-      setFilterMinPrice('');
+      setFilterMaxPrice('');
       setNeedToReset(false);
     }
-  }, [needToReset, setNeedToReset, setFilterMinPrice]);
+  }, [needToReset, setNeedToReset, setFilterMaxPrice]);
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setPageNumber(1);
@@ -38,12 +37,13 @@ export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber
       return;
     }
     if (price >= smallestPrice && price <= biggestPrice) {
-      if (!filterMaxPrice || (filterMaxPrice && price < Number(filterMaxPrice))) {
-        setFilterMinPrice(`${searchParams.minPrice}=${price}`);
+      if (!filterMinPrice || (filterMinPrice &&
+      price >= Number(filterMinPrice))) {
+        setFilterMaxPrice(`${searchParams.maxPrice}=${price}`);
         setPrice(`${price}`);
       }
-      if (filterMaxPrice && price > Number(filterMaxPrice)) {
-        toast.warn(priceWarnings.currentBiggerThanMax);
+      if (filterMinPrice && price < Number(filterMinPrice)) {
+        toast.warn(priceWarnings.currentSmallerThanMin);
       }
     }
   };
@@ -52,21 +52,21 @@ export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber
     setPageNumber(1);
     const price = Math.abs(Number(target.value));
     if (!price) {
-      setFilterMinPrice('');
+      setFilterMaxPrice('');
       return;
     }
     if (
       price < smallestPrice ||
       price > biggestPrice ||
-      (filterMaxPrice && price > Number(filterMaxPrice))
+      (filterMinPrice && price < Number(filterMinPrice))
     ) {
-      toast.warn(priceWarnings.minWarning);
-      setPrice(`${smallestPrice}`);
-      setFilterMinPrice(`${searchParams.minPrice}=${smallestPrice}`);
+      toast.warn(priceWarnings.maxWarning);
+      setPrice(`${biggestPrice}`);
+      setFilterMaxPrice(`${searchParams.maxPrice}=${biggestPrice}`);
     }
     if (price < biggestPrice && price > smallestPrice) {
-      if (!filterMaxPrice || (filterMaxPrice && price < Number(filterMaxPrice))) {
-        setFilterMinPrice(`${searchParams.minPrice}=${price}`);
+      if (!filterMinPrice || (filterMinPrice && price > Number(filterMinPrice))) {
+        setFilterMaxPrice(`${searchParams.maxPrice}=${price}`);
       }
     }
   };
@@ -74,19 +74,23 @@ export default function InputMinPrice({setFilterMinPrice, isError, setPageNumber
   const handleKeyDown = ({ code }: React.KeyboardEvent<HTMLInputElement>) => {
     if (code === 'KeyE') {
       toast.warn(priceWarnings.typeCharE);
-      setFilterMinPrice('');
+      setFilterMaxPrice('');
     }
   };
 
   return (
     <>
-      <label className="visually-hidden">Минимальная цена</label>
+      <label
+        className="visually-hidden"
+        htmlFor="priceMax"
+      >Максимальная цена
+      </label>
       <input
         className="disabled_scroll"
         type="number"
-        placeholder={placeholderMin.toLocaleString('ru-Ru')}
-        id="priceMin"
-        name="от"
+        placeholder={placeholderMax.toLocaleString('ru-Ru')}
+        id="priceMax"
+        name="до"
         value={priceValue}
         onChange={handleChange}
         onBlur={handleBlur}

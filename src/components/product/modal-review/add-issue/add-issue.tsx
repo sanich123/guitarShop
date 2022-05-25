@@ -10,13 +10,13 @@ function AddIssue({setIssue, issue, isError}: AddIssueProps) {
     <>
       <label
         className="form-review__label form-review__label--required"
-        htmlFor="user-name"
+        htmlFor="user-issue"
       >
         Недостатки
       </label>
       <input
         className="form-review__input"
-        id="pros"
+        id="user-issue"
         type="text"
         autoComplete="off"
         onChange={({ target }) => setIssue(target.value)}

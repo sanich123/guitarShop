@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useGetCommentsQuery, useGetGuitarQuery } from '../../../redux/guitars-api';
 import { useModal } from '../../../hooks/use-modal';
 import { Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Reviews } from '../../index';
-import { appRoutes, defaultGuitar, places, warnings } from '../../../utils/const';
+import { appRoutes, defaultGuitar, warnings } from '../../../utils/const';
 import { errorHandler, getNormalizedImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
 import Properties from '../properties/properties';
@@ -75,7 +75,7 @@ export default function Product() {
               )}
 
               {isAdded && (
-                <ModalSuccess place={places.product} setIsAdded={setIsAdded} />
+                <ModalSuccess setIsAdded={setIsAdded} />
               )}
             </div>
             <section className="reviews">

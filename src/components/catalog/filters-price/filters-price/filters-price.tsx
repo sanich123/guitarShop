@@ -1,10 +1,10 @@
 import { useLocation } from 'react-router-dom';
-import { useGetGuitarsQuery } from '../../../redux/guitars-api';
-import { FiltersProps } from '../../../types/types';
-import { searchParams } from '../../../utils/const';
-import { getDefaultMaxValue, getDefaultMinValue } from '../../../utils/utils';
-import InputMaxPrice from './input-max-price';
-import InputMinPrice from './input-min-price';
+import { useGetGuitarsQuery } from '../../../../redux/guitars-api';
+import { FiltersProps } from '../../../../types/types';
+import { searchParams } from '../../../../utils/const';
+import { getDefaultMaxValue, getDefaultMinValue } from '../../../../utils/utils';
+import InputMaxPrice from '../imput-max-price/input-max-price';
+import InputMinPrice from '../input-min-price/input-min-price';
 
 interface PriceFiltersProps extends FiltersProps {
   setFilterMinPrice: (arg: string) => void,
