@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
-import { deleteFromCart } from '../../../../redux/cart-slice';
-import { Cart, ModalProps } from '../../../../types/types';
+import { deleteFromCart } from '../../../../../redux/cart-slice';
+import { Cart, ModalProps } from '../../../../../types/types';
 
 export default function DeleteContinueBtns({deleteId, setActionModal}: Pick<ModalProps, 'deleteId' | 'setActionModal'>) {
   const dispatch = useDispatch();

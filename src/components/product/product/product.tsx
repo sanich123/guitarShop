@@ -9,7 +9,7 @@ import Properties from '../properties/properties';
 import Price from '../price/price';
 import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
 import AddReviewBtn from '../add-review-btn/add-review-btn';
-import Footer from '../../common/footer/footer';
+import Footer from '../../common/footer/footer/footer';
 
 export default function Product() {
   const {id} = useParams();

@@ -1,4 +1,4 @@
-import { ModalProps } from '../../../../types/types';
+import { ModalProps } from '../../../../../types/types';
 
 export default function CloseBtn({setActionModal}: Pick<ModalProps, 'setActionModal'>) {
 

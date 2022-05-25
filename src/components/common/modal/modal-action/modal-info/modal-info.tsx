@@ -1,5 +1,5 @@
-import { Guitar } from '../../../../types/types';
-import { getNormalizedImg } from '../../../../utils/utils';
+import { Guitar } from '../../../../../types/types';
+import { getNormalizedImg } from '../../../../../utils/utils';
 
 export function ModalInfo({previewImg, name, vendorCode, stringCount, price}: Omit<Guitar, 'id' | 'type' | 'description' | 'rating' | 'comments'>) {
 

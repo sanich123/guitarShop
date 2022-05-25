@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { Guitar } from '../../../../types/types';
 import { searchParams, tabs } from '../../../../utils/const';
 import { errorHandler } from '../../../../utils/utils';
-import { Loader } from '../../loader/loader';
+// import { Loader } from '../../loader/loader';
 
 export default function FormSearch() {
   const [search, setSearch] = useState('');
-  const {data: similarGuitars, isLoading, error} = useGetGuitarsQuery(`?${searchParams.similar}=${search}`);
+  const {data: similarGuitars, error} = useGetGuitarsQuery(`?${searchParams.similar}=${search}`);
   const navigate = useNavigate();
-  if (isLoading) {return <Loader/>;}
+  // if (isLoading) {return <Loader/>;}
   error && errorHandler(error);
 
   return (

@@ -7,7 +7,7 @@ import { appRoutes } from '../../../utils/const';
 import { errorHandler } from '../../../utils/utils';
 import { Link } from 'react-router-dom';
 import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
-import Footer from '../../common/footer/footer';
+import Footer from '../../common/footer/footer/footer';
 
 export default function Cart() {
   const { showActionModal, setActionModal, setGuitarId, guitarId } = useModal();

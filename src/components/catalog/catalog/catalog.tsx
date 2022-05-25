@@ -1,5 +1,5 @@
 import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
-import Footer from '../../common/footer/footer';
+import Footer from '../../common/footer/footer/footer';
 import { Header, Icons } from '../../index';
 import { Main } from '../main/main';
 

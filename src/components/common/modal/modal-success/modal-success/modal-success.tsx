@@ -1,13 +1,13 @@
-import CartContinueBtn from './cart-continue-btn';
-import CloseBtnReview from './close-btn-review';
-import CloseBtnCart from './close-btn-cart';
-import ContinueBtn from './continue-btn';
+import CartContinueBtn from '../cart-continue-btn/cart-continue-btn';
+import CloseBtnReview from '../close-btn-review/close-btn-review';
+import CloseBtnCart from '../clost-btn-cart/close-btn-cart';
+import ContinueBtn from '../continue-btn/continue-btn';
 import { FocusOn } from 'react-focus-on';
 import cn from 'classnames';
-import { ModalProps } from '../../../../types/types';
-import { warnings } from '../../../../utils/const';
+import { ModalProps } from '../../../../../types/types';
+import { warnings } from '../../../../../utils/const';
 
-export function ModalSuccess({ setIsSended, setIsAdded, place }: Pick<ModalProps, 'setIsAdded' | 'place' | 'setIsSended'>) {
+export function ModalSuccess({ setIsSended, setIsAdded }: Pick<ModalProps, 'setIsAdded' | 'setIsSended'>) {
   const modalMessage = setIsAdded ? warnings.successCart
     : warnings.thanksForReview;
 

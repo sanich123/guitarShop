@@ -1,11 +1,11 @@
-import { ModalProps } from '../../../../types/types';
+import { ModalProps } from '../../../../../types/types';
 import cn from 'classnames';
-import DeleteContinueBtns from './delete-continue-btns';
-import AddToCartBtn from './add-to-cart-btn';
-import CloseBtn from './close-btn';
+import DeleteContinueBtns from '../delete-continue-btn/delete-continue-btns';
+import AddToCartBtn from '../add-to-cart-btn/add-to-cart-btn';
+import CloseBtn from '../close-btn/close-btn';
 import { FocusOn } from 'react-focus-on';
-import { ModalInfo } from './modal-info';
-import { warnings } from '../../../../utils/const';
+import { ModalInfo } from '../modal-info/modal-info';
+import { warnings } from '../../../../../utils/const';
 
 export function ModalAction({guitars, setIsAdded, setActionModal, deleteId, id}: Omit<ModalProps, 'price' | 'setReview'>) {
   const activeClass = cn('title', 'title--medium', 'modal__header', {

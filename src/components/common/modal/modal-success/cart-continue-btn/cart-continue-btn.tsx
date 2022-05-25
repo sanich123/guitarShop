@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { appRoutes } from '../../../../utils/const';
+import { appRoutes } from '../../../../../utils/const';
 
 interface CartContinueBtnProps {
   setIsAdded: (arg: boolean) => void
