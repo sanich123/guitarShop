@@ -49,7 +49,7 @@ export function Promocode() {
         }
       >
         <div className="form-input coupon__input">
-          <label className="visually-hidden">Промокод</label>
+          <label htmlFor="coupon" className="visually-hidden">Промокод</label>
           <input
             type="text"
             placeholder="Введите промокод"

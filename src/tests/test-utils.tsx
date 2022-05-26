@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import type { AppStore, RootState } from '../redux/store';
 import type { PreloadedState } from '@reduxjs/toolkit';
 import { setupStore } from '../redux/store';
-import { Router } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
@@ -38,4 +38,11 @@ function renderWithProviders(
   return { store, ...render(ui, { wrapper: wrapper, ...renderOptions }) };
 }
 
-export { renderWithProviders };
+const renderWithRouter = (ui: React.ReactElement, { route = '/' } = {}) => {
+  window.history.pushState({}, 'Test page', route);
+
+  return {
+    ...render(ui, { wrapper: BrowserRouter }),
+  };
+};
+export { renderWithProviders, renderWithRouter };

@@ -7,7 +7,7 @@ export * from './common/modal/modal-success/modal-success/modal-success';
 export * from './product/modal-review/add-review/add-review';
 export * from '../components/common/breadcrumbs/breadcrumbs';
 export * from './catalog/main-pagination/main-pagination';
-export * from './cart/cart-item/cart-item';
+export * from './cart/cart-item/cart-item/cart-item';
 export * from '../components/cart/promocode/promocode';
 export * from '../components/cart/total-info/total-info';
 export * from '../components/product/price/price';

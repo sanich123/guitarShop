@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { amountQuantity } from '../../../redux/cart-slice';
-import { State } from '../../../types/types';
-import { changeLocalStorageCart } from '../../../utils/utils';
+import { amountQuantity } from '../../../../redux/cart-slice';
+import { State } from '../../../../types/types';
+import { changeLocalStorageCart } from '../../../../utils/utils';
 
 interface DecrementBtnProps {
   setActionModal: (arg: boolean) => void,

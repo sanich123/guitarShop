@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { useGetCommentsQuery, useGetGuitarQuery } from '../../../redux/guitars-api';
 import { useModal } from '../../../hooks/use-modal';
-import { Header, Loader, Icons, ModalAction, ModalSuccess, AddReview, Reviews } from '../../index';
+import { Header, Loader, Icons, ModalAction, ModalSuccess, Reviews } from '../../index';
 import { appRoutes, defaultGuitar, warnings } from '../../../utils/const';
 import { errorHandler, getNormalizedImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
@@ -10,6 +10,7 @@ import Price from '../price/price';
 import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
 import AddReviewBtn from '../add-review-btn/add-review-btn';
 import Footer from '../../common/footer/footer/footer';
+import { AddReview } from '../modal-review/add-review/add-review';
 
 export default function Product() {
   const {id} = useParams();
