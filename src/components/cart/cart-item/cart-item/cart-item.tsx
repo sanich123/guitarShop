@@ -1,8 +1,8 @@
 import { getTypeInRus } from '../../../../utils/utils';
 import DecrementBtn from '../decrement-btn/decrement-btn';
-import DeleteBtn from '../delete-btn';
-import IncrementBtn from '../increment-btn';
-import InputQuantity from '../input-quantity';
+import DeleteBtn from '../delete-btn/delete-btn';
+import IncrementBtn from '../increment-btn/increment-btn';
+import InputQuantity from '../input-quantity/input-quantity';
 import { Guitar, Cart } from '../../../../types/types';
 
 export interface CartItemProps extends Guitar {
