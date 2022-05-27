@@ -1,6 +1,6 @@
 import { memo, useEffect } from 'react';
 import { useAddCommentMutation } from '../../../../redux/guitars-api';
-import useForm from '../../../../hooks/use-form';
+import useForm from '../../../../hooks/use-form/use-form';
 import AddAdvantage from '../add-advantage/add-advantage';
 import AddComment from '../add-comment/add-comment';
 import AddIssue from '../add-issue/add-issue';

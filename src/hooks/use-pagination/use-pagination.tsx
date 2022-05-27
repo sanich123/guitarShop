@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { Guitar } from '../types/types';
-import { CARDS_ON_PAGE } from '../utils/const';
+import { Guitar } from '../../types/types';
+import { CARDS_ON_PAGE } from '../../utils/const';
 
 const DEFAULT_NUMBER = 1;
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import useQueries from '../../../hooks/use-queries';
+import useQueries from '../../../hooks/use-queries/use-queries';
 import { FiltersProps, Guitar } from '../../../types/types';
 import { defaultParams, searchParams } from '../../../utils/const';
 import PriceFilters from '../filters-price/filters-price/filters-price';

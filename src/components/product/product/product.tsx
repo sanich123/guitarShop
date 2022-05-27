@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useGetCommentsQuery, useGetGuitarQuery } from '../../../redux/guitars-api';
-import { useModal } from '../../../hooks/use-modal';
+import { useModal } from '../../../hooks/use-modal/use-modal';
 import { Header, Loader, Icons, ModalAction, ModalSuccess, Reviews } from '../../index';
 import { appRoutes, defaultGuitar, warnings } from '../../../utils/const';
 import { errorHandler, getNormalizedImg } from '../../../utils/utils';

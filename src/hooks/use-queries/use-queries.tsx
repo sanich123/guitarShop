@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { searchParams } from '../utils/const';
+import { searchParams } from '../../utils/const';
 
 export default function useQueries() {
   const {search} = useLocation();

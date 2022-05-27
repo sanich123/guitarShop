@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
-import { useModal } from '../../../hooks/use-modal';
+import { useModal } from '../../../hooks/use-modal/use-modal';
 import { Header, Loader, Icons, ModalAction, CartItem, Promocode, TotalInfo } from '../../index';
 import { State, Guitar } from '../../../types/types';
 import { appRoutes } from '../../../utils/const';

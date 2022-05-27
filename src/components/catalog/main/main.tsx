@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import { useModal } from '../../../hooks/use-modal';
-import { usePagination } from '../../../hooks/use-pagination';
+import { useModal } from '../../../hooks/use-modal/use-modal';
+import { usePagination } from '../../../hooks/use-pagination/use-pagination';
 import { useGetGuitarsQuery } from '../../../redux/guitars-api';
 import { Guitar } from '../../../types/types';
 import { CARDS_ON_PAGE } from '../../../utils/const';
