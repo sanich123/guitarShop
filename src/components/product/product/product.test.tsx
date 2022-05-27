@@ -21,5 +21,8 @@ describe('Product', () => {
     expect(await screen.findAllByRole('button')).toHaveLength(4);
     expect(await screen.findByText(/добавить в корзину/i)).toBeInTheDocument();
     expect(await screen.findByText(/оставить отзыв/i)).toBeInTheDocument();
+    expect(await screen.findAllByText(/отзывы/i)).toHaveLength(2);
+    expect(await screen.findByText(/6800/i)).toBeInTheDocument();
+    expect(await screen.findByText(/Это моя первая гитара. Все понравилось. Сделано качественно./i)).toBeInTheDocument();
   });
 });
