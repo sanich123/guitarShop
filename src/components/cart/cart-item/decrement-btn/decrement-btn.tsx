@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { amountQuantity } from '../../../../redux/cart-slice';
+import { amountQuantity } from '../../../../redux/cart-slice/cart-slice';
 import { State } from '../../../../types/types';
 import { changeLocalStorageCart } from '../../../../utils/utils';
 

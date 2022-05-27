@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../../../../redux/cart-slice';
+import { addToCart } from '../../../../../redux/cart-slice/cart-slice';
 import { Cart, ModalProps } from '../../../../../types/types';
 
 interface AddToCartBtnProps {

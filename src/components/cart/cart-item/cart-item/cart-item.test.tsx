@@ -10,7 +10,7 @@ const setDeleteId = jest.fn();
 const store = configureStore();
 const mockStore = { cart: mockCart };
 describe('CartItem', () => {
-  it('CartItem should render correctly', async () => {
+  it('CartItem should render correctly', () => {
     render(
       <Provider store={store(mockStore)}>
         <CartItem
@@ -28,8 +28,7 @@ describe('CartItem', () => {
           price={2345}
           comments={mockComments}
         />
-      </Provider>,
-    );
+      </Provider>);
     expect(screen.getByText(/fuckingGuitar/i)).toBeInTheDocument();
     expect(screen.getByText(/артикул/i)).toBeInTheDocument();
     expect(screen.getByText(/8 струнная/i)).toBeInTheDocument();
