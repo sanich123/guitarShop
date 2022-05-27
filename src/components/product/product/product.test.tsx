@@ -1,14 +1,25 @@
-import { renderWithProviders } from '../../../tests/test-utils';
-import { screen } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
 import Product from './product';
 import { createMemoryHistory } from 'history';
-
-const history = createMemoryHistory();
+import { setupStore } from '../../../redux/store';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
 
 describe('Product', () => {
-  history.push('/guitar/3?description=characteristics');
   it('Product should render correctly', async () => {
-    renderWithProviders(<Product />);
+    const history = createMemoryHistory();
+    history.push('/guitar/3');
+    render(
+      <Provider store={setupStore()}>
+        <Router location={history.location} navigator={history}>
+          <Product/>
+        </Router>
+      </Provider>,
+    );
     expect(screen.getAllByText(/loading/i)).toHaveLength(2);
+    expect(await screen.findAllByText(/roman/i)).toHaveLength(3);
+    expect(await screen.findAllByRole('button')).toHaveLength(4);
+    expect(await screen.findByText(/добавить в корзину/i)).toBeInTheDocument();
+    expect(await screen.findByText(/оставить отзыв/i)).toBeInTheDocument();
   });
 });

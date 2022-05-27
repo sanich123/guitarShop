@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useGetCommentsQuery, useGetGuitarQuery } from '../../../redux/guitars-api';
 import { useModal } from '../../../hooks/use-modal/use-modal';
 import { Header, Loader, Icons, ModalAction, ModalSuccess, Reviews } from '../../index';
@@ -13,7 +13,8 @@ import Footer from '../../common/footer/footer/footer';
 import { AddReview } from '../modal-review/add-review/add-review';
 
 export default function Product() {
-  const {id} = useParams();
+  const {pathname} = useLocation();
+  const id = pathname.slice(pathname.length - 1, pathname.length);
   const {data: guitar, isLoading, isError, error} = useGetGuitarQuery(id);
   const { setIsAdded, setActionModal, showActionModal, isAdded, showReview, setReview, isSended, setIsSended} = useModal();
   error && errorHandler(error);
