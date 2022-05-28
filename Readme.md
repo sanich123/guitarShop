@@ -1,6 +1,6 @@
 Deployed at: https://guitar-shop-five.vercel.app/
 Created with [Create React App](https://github.com/facebook/create-react-app).
-Used technologies: **React, Redux (RTK Queries), React Router(v6), Jest
+Used libraries: **React, Redux (RTK Queries), React Router(v6), Jest (React Testing Library)
 
 ### Pagination
 Pagination displays guitar cards in the catalog (9 previews per page).
