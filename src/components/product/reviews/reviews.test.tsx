@@ -1,6 +1,6 @@
 import { renderWithProviders } from '../../../tests/test-utils';
 import { screen } from '@testing-library/react';
-import { Reviews } from './reviews';
+import Reviews from './reviews';
 
 describe('Reviews', () => {
   it('Reviews should render correctly', async () => {

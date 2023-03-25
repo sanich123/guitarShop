@@ -1,7 +1,7 @@
 import { useLocation } from 'react-router-dom';
 import { useGetCommentsQuery, useGetGuitarQuery } from '../../../redux/guitars-api';
 import { useModal } from '../../../hooks/use-modal/use-modal';
-import { Header, Loader, Icons, ModalAction, ModalSuccess, Reviews } from '../../index';
+import { Header, Loader, Icons, ModalAction, ModalSuccess} from '../../index';
 import { appRoutes, defaultGuitar, warnings } from '../../../utils/const';
 import { errorHandler, getNormalizedImg } from '../../../utils/utils';
 import Rating from '../../common/rating/rating';
@@ -11,6 +11,7 @@ import Breadcrumbs from '../../common/breadcrumbs/breadcrumbs';
 import AddReviewBtn from '../add-review-btn/add-review-btn';
 import Footer from '../../common/footer/footer/footer';
 import { AddReview } from '../modal-review/add-review/add-review';
+import Reviews from '../reviews/reviews';
 
 export default function Product() {
   const {pathname} = useLocation();
