@@ -1,4 +1,4 @@
-import { useState, memo } from 'react';
+import { useState } from 'react';
 import { useGetCommentsQuery } from '../../../redux/guitars-api';
 import { Comments } from '../../../types/types';
 import { COMMENTS_ON_PAGE } from '../../../utils/const';
@@ -6,7 +6,7 @@ import { errorHandler } from '../../../utils/utils';
 import { Loader } from '../../common/loader/loader';
 import Review from '../review/review';
 
-export function Reviews({uniq}: { uniq?: string }) {
+export default function Reviews({uniq}: { uniq?: string }) {
   const {data: reviews, isLoading, error} = useGetCommentsQuery(uniq);
   const [sliceNumber, setSliceNumber] = useState(3);
   const slicedReviews: Comments[] = reviews
@@ -32,6 +32,4 @@ export function Reviews({uniq}: { uniq?: string }) {
         </>)}
     </>);
 }
-
-export default memo(Reviews, (prev, next) => prev.uniq === next.uniq);
 
