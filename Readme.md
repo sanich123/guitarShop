@@ -2,8 +2,11 @@
 
 1. How to launch: 
 
-`git clone [ssh reference] project`
+copy ssh link to the project
+
 ![image](https://user-images.githubusercontent.com/70276651/227761070-cdffc8ed-19a7-4b40-801f-b591e21e2e87.png)
+
+`git clone [ssh link] project`
 
 `cd project`
 
