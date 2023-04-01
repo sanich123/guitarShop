@@ -2,7 +2,9 @@
 
 1. How to launch: 
 
-copy and paste into your code-editor command-line: `git clone git@github.com:sanich123/guitarShop.git project&&cd project&&npm i&&npm start`
+copy and paste into your code-editor command-line: 
+
+`git clone git@github.com:sanich123/guitarShop.git project&&cd project&&npm i&&npm start`
 
 *or you can use deployed version:* [CLICK ME](https://guitar-shop-five.vercel.app/)
 
