@@ -2,17 +2,7 @@
 
 1. How to launch: 
 
-copy ssh link to the project
-
-![image](https://user-images.githubusercontent.com/70276651/227761070-cdffc8ed-19a7-4b40-801f-b591e21e2e87.png)
-
-`git clone [ssh link] project`
-
-`cd project`
-
-`npm i`
-
-`npm start`
+copy and paste into your code-editor command-line: `git clone git@github.com:sanich123/guitarShop.git project&&cd project&&npm i&&npm start`
 
 *or you can use deployed version:* [CLICK ME](https://guitar-shop-five.vercel.app/)
 
